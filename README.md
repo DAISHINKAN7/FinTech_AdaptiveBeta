@@ -64,43 +64,6 @@ No lookahead. 6 out-of-sample years. 0.08% round-trip transaction costs.
 
 ---
 
-## Architecture
-
-```
-Raw Data (Google Drive)
-    │
-    ▼
-01_feature_engineering.ipynb
-    ├── Align all data to NIFTY50 trading calendar
-    ├── Compute log returns
-    ├── Rolling OLS beta (30d, 60d, 120d)
-    ├── Beta volatility panels
-    └── Market + per-stock feature matrices
-    │
-    ▼
-02_beta_prediction_models.ipynb
-    ├── XGBoost baseline + SHAP explainability
-    ├── Kalman filter beta estimation
-    ├── LSTM training (HuberLoss, AdamW, early stopping)
-    └── HMM regime classification (3 states)
-    │
-    ▼
-03_portfolio_optimisation.ipynb
-    ├── Threshold calibration (75th pct of training betavol)
-    ├── Rebalance signal logic (VIX override + beta threshold)
-    └── Portfolio optimisers (max-Sharpe MVO, min-var, risk parity)
-    │
-    ▼
-04_backtesting.ipynb
-    ├── Walk-forward engine (train 3y, test 1y, roll 1y)
-    ├── 5-strategy comparison with transaction costs
-    ├── Performance metrics (Sharpe, Sortino, Calmar, max DD)
-    ├── Stress event analysis (COVID, ADANI, IL&FS, 2018 hike)
-    └── QuantStats HTML tearsheet
-```
-
----
-
 ## Setup
 
 ### 1. Clone the repository
@@ -114,72 +77,155 @@ cd ai_fintech
 
 ```bash
 pip install -r requirements.txt
-# For GPU support (recommended for LSTM):
+
+# For GPU support (faster LSTM training — recommended):
 pip install torch --index-url https://download.pytorch.org/whl/cu118
 ```
 
-### 3. Set up Google Drive
+### 3. Put your data files locally
 
-Your raw data is already at `/content/drive/MyDrive/AI_Finance_Project/raw_data/`.
+Create the following directory structure under the project root:
 
-Expected structure:
 ```
-AI_Finance_Project/
-├── raw_data/
-│   ├── stocks/
-│   │   ├── all_stocks_prices.csv
-│   │   └── all_stocks_volume.csv
-│   ├── market/
-│   │   ├── nifty50.csv
-│   │   └── india_vix.csv
-│   ├── macro/
-│   │   ├── usdinr.csv
-│   │   ├── crude_oil.csv
-│   │   ├── risk_free_rate_91d_daily.csv
-│   │   └── repo_rate_daily.csv
-│   ├── flows/
-│   │   ├── fii_flows.csv
-│   │   └── dii_flows.csv
-│   └── sector/
-│       ├── nifty_bank.csv
-│       ├── nifty_it.csv
-│       └── nifty_fmcg.csv
-├── features/   ← created by notebooks
-├── models/     ← created by notebooks
-└── results/    ← created by notebooks
+ai_fintech/
+└── data/
+    ├── stocks/
+    │   ├── all_stocks_prices.csv          ← daily close prices (date, RELIANCE.NS, TCS.NS, ...)
+    │   └── all_stocks_volume.csv          ← daily volume (same format)
+    ├── market/
+    │   ├── nifty50.csv                    ← daily (date, Open, High, Low, Close, Volume)
+    │   └── india_vix.csv                  ← daily (date, Open, High, Low, Close)
+    ├── macro/
+    │   ├── usdinr.csv                     ← daily (date, Open, High, Low, Close)
+    │   ├── crude_oil.csv                  ← daily WTI crude (date, Open, High, Low, Close)
+    │   ├── risk_free_rate_91d_daily.csv   ← daily (date, risk_free_rate)
+    │   └── repo_rate_daily.csv            ← daily (date, repo_rate)
+    ├── flows/
+    │   ├── fii_flows.csv                  ← monthly (date, fii_net_investment)
+    │   └── dii_flows.csv                  ← monthly (date, dii_net_investment)
+    └── sector/
+        ├── nifty_bank.csv                 ← daily (date, Open, High, Low, Close)
+        ├── nifty_it.csv                   ← daily (date, Open, High, Low, Close)
+        └── nifty_fmcg.csv                 ← daily (date, Open, High, Low, Close)
 ```
 
-### 4. Run the notebooks in order
+**All CSV files must have a `date` column** (parsed as the index). The minimum required files to start are:
+- `data/stocks/all_stocks_prices.csv`
+- `data/market/nifty50.csv`
 
-Open in **Google Colab** (GPU runtime recommended):
+The pipeline degrades gracefully if optional files (macro, flows, sectors) are missing.
 
-1. `notebooks/01_feature_engineering.ipynb` — ~5 min
-2. `notebooks/02_beta_prediction_models.ipynb` — ~30–60 min (LSTM training)
-3. `notebooks/03_portfolio_optimisation.ipynb` — ~5 min
-4. `notebooks/04_backtesting.ipynb` — ~30–60 min
+---
 
-### 5. Launch the Streamlit dashboard
+## Running the Pipeline
+
+### Option A — Run all 4 scripts at once (recommended)
 
 ```bash
-# Locally
-streamlit run dashboard.py
+# Full pipeline (GPU auto-detected):
+python run_pipeline.py
 
-# In Colab
-!pip install pyngrok
-from pyngrok import ngrok
-import subprocess
-subprocess.Popen(['streamlit', 'run', 'dashboard.py'])
-public_url = ngrok.connect(8501)
-print(public_url)
+# Full pipeline on CPU only:
+python run_pipeline.py --device cpu
+
+# Fast mode — skips Kalman betas (saves ~20 min):
+python run_pipeline.py --fast
+
+# Resume from script 3 if script 1 & 2 already ran:
+python run_pipeline.py --start 3
 ```
 
-### 6. Run the portfolio website
+### Option B — Run scripts individually (step by step)
+
+```bash
+# Step 1: Feature engineering (~5 min)
+python scripts/01_feature_engineering.py
+
+# Step 2: Train models (~30–60 min with GPU, ~2–4 hrs CPU)
+python scripts/02_train_models.py --device auto
+python scripts/02_train_models.py --device auto --fast          # skip Kalman
+python scripts/02_train_models.py --device cuda --epochs 30     # GPU, 30 epochs
+
+# Step 3: Portfolio optimisation validation (~2 min)
+python scripts/03_portfolio_optimisation.py
+
+# Step 4: Walk-forward backtest (~30 min)
+python scripts/04_backtest.py
+python scripts/04_backtest.py --fast                            # skip Kalman strategy
+```
+
+### Script 02 CLI flags
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--device` | `auto` | `auto` probes CUDA → MPS (Apple) → CPU |
+| `--epochs N` | 50 | Override LSTM training epochs |
+| `--fast` | off | Skip Kalman filter betas (slow step) |
+| `--no-xgb` | off | Skip XGBoost training (and SHAP) |
+
+---
+
+## Output Files
+
+After running the full pipeline, these directories will be populated:
+
+```
+features/
+  beta30d.csv, beta60d.csv, beta120d.csv       ← rolling OLS betas
+  betavol_30d.csv, betavol_60d.csv, ...        ← beta volatility panels
+  target_betavol_20d_ahead.csv                 ← LSTM prediction target
+  market_features.csv                          ← macro + VIX + sector features
+  stacked_features.csv                         ← per-stock features (LSTM input)
+  kalman_betas.csv                             ← Kalman-filtered betas
+  hmm_regimes.csv                              ← bull/bear/transition labels
+  optimiser_weights_*.csv                      ← validated portfolio weights
+
+models/
+  lstm_best.pt                                 ← best LSTM checkpoint
+  scaler.pkl                                   ← StandardScaler for features
+  feature_cols.txt                             ← ordered feature column list
+  signal_config.json                           ← betavol threshold + VIX level
+
+results/
+  feature_overview.png                         ← beta / betavol time series
+  shap_importance.csv / .png                   ← XGBoost SHAP feature ranks
+  lstm_training_curves.png                     ← loss / val_loss over epochs
+  hmm_regimes.png                              ← market regime timeline
+  model_comparison.csv                         ← XGB vs LSTM vs Kalman
+  signal_threshold_demo.png                    ← betavol vs threshold over time
+  optimiser_weights_chart.png                  ← top-20 holdings per mode
+  optimiser_comparison.csv                     ← expected return / vol / Sharpe
+  strategy_returns.csv                         ← daily returns (all strategies)
+  performance_metrics.csv                      ← Sharpe, Sortino, CAGR, etc.
+  stress_analysis.csv                          ← COVID / ADANI / IL&FS metrics
+  equity_curves.png                            ← cumulative wealth chart
+  drawdown_curves.png                          ← drawdown time series
+  rolling_sharpe.png                           ← 1-year rolling Sharpe
+  stress_heatmap.png                           ← heatmap of stress performance
+  monthly_returns_heatmap.png                  ← AdaptiveBeta monthly calendar
+  pipeline_run.log                             ← full pipeline log
+```
+
+---
+
+## Launch the Streamlit Dashboard
+
+After running the backtest (script 04):
+
+```bash
+streamlit run dashboard.py
+# Opens at http://localhost:8501
+```
+
+---
+
+## Launch the Portfolio Website
 
 ```bash
 cd website
 npm install
 npm run dev
-# Open http://localhost:3000
+# Opens at http://localhost:3000
 ```
 
 ---
@@ -188,28 +234,39 @@ npm run dev
 
 ```
 adaptivebeta/
-├── notebooks/                          ← 4 sequential Colab notebooks
+├── data/                               ← PUT YOUR CSV FILES HERE
+│   ├── stocks/
+│   ├── market/
+│   ├── macro/
+│   ├── flows/
+│   └── sector/
+├── scripts/
+│   ├── 01_feature_engineering.py      ← data loading, beta computation
+│   ├── 02_train_models.py             ← XGBoost, Kalman, LSTM, HMM
+│   ├── 03_portfolio_optimisation.py   ← optimiser validation
+│   └── 04_backtest.py                 ← walk-forward backtest engine
 ├── src/
-│   ├── config.py                       ← All constants + tickers
-│   ├── data/loader.py                  ← Data loading + alignment
-│   ├── data/validator.py               ← Data quality checks
-│   ├── features/returns.py             ← Log return utilities
-│   ├── features/beta.py                ← Rolling OLS beta + betavol
-│   ├── features/macro.py               ← Market + macro feature builder
-│   ├── models/lstm.py                  ← BetaLSTM + training loop
-│   ├── models/xgboost_model.py         ← XGBoost + SHAP
-│   ├── models/kalman.py                ← Kalman filter beta
-│   ├── models/hmm_regime.py            ← HMM regime classifier
-│   ├── portfolio/signal.py             ← Threshold trigger + routing
-│   ├── portfolio/optimiser.py          ← MVO, min-var, risk parity
-│   ├── portfolio/constraints.py        ← Weight utilities
-│   ├── backtest/engine.py              ← WalkForwardBacktester
-│   ├── backtest/metrics.py             ← Performance metrics + stress
-│   ├── backtest/transaction_costs.py   ← Cost model
-│   └── utils/                          ← Logging + plotting
-├── dashboard.py                        ← Streamlit results dashboard
-├── requirements.txt                    ← Python dependencies
-└── website/                            ← Next.js portfolio site
+│   ├── config.py                      ← all constants + tickers
+│   ├── data/loader.py                 ← data loading + alignment
+│   ├── data/validator.py              ← data quality checks
+│   ├── features/returns.py            ← log return utilities
+│   ├── features/beta.py               ← rolling OLS beta + betavol
+│   ├── features/macro.py              ← market + macro feature builder
+│   ├── models/lstm.py                 ← BetaLSTM + training loop
+│   ├── models/xgboost_model.py        ← XGBoost + SHAP
+│   ├── models/kalman.py               ← Kalman filter beta
+│   ├── models/hmm_regime.py           ← HMM regime classifier
+│   ├── portfolio/signal.py            ← threshold trigger + routing
+│   ├── portfolio/optimiser.py         ← MVO, min-var, risk parity
+│   ├── portfolio/constraints.py       ← weight utilities
+│   ├── backtest/engine.py             ← WalkForwardBacktester
+│   ├── backtest/metrics.py            ← performance metrics + stress
+│   ├── backtest/transaction_costs.py  ← cost model
+│   └── utils/                         ← logging + plotting
+├── run_pipeline.py                    ← master runner (start here)
+├── dashboard.py                       ← Streamlit results dashboard
+├── requirements.txt                   ← Python dependencies
+└── website/                           ← Next.js portfolio site
 ```
 
 ---

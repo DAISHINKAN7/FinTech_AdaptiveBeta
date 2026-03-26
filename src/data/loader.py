@@ -19,7 +19,7 @@ from typing import Optional
 import numpy as np
 import pandas as pd
 
-from src.config import RAW_FILES, TICKERS
+from src.config import RAW_FILES, TICKERS, DATA_DIR
 
 logger = logging.getLogger(__name__)
 
@@ -28,18 +28,21 @@ class DataLoader:
     """Load and align all raw data files for the AdaptiveBeta pipeline.
 
     Args:
-        root: Root directory of the project (contains raw_data/, features/, etc.)
+        data_dir: Directory containing the raw CSV files (stocks/, market/, etc.)
+                  Defaults to src.config.DATA_DIR (project_root/data/).
 
     Raises:
-        FileNotFoundError: If the root directory does not exist.
+        FileNotFoundError: If the data directory does not exist.
     """
 
-    def __init__(self, root: str) -> None:
-        self.root = Path(root)
-        raw = self.root / "raw_data"
-        if not raw.exists():
-            raise FileNotFoundError(f"raw_data directory not found at {raw}")
-        self._raw = raw
+    def __init__(self, data_dir: Optional[str | Path] = None) -> None:
+        self._raw = Path(data_dir) if data_dir else DATA_DIR
+        if not self._raw.exists():
+            raise FileNotFoundError(
+                f"Data directory not found: {self._raw}\n"
+                f"Put your CSV files under: {self._raw}/stocks/, {self._raw}/market/, etc."
+            )
+        self.root = self._raw.parent
 
         # Lazily cached attributes
         self._trading_days: Optional[pd.DatetimeIndex] = None
