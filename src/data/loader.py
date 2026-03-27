@@ -87,6 +87,31 @@ class DataLoader:
         logger.debug("Loaded %s — shape %s", rel_path, df.shape)
         return df
 
+    @staticmethod
+    def _close_col(df: pd.DataFrame) -> pd.Series:
+        """Extract the close price column regardless of suffix.
+ 
+        Handles plain 'Close' as well as yfinance-style 'Close_^NSEI',
+        'Close_^INDIAVIX', etc.
+ 
+        Args:
+            df: DataFrame with at least one Close-like column.
+ 
+        Returns:
+            The close price Series.
+ 
+        Raises:
+            KeyError: If no close column is found.
+        """
+        if "Close" in df.columns:
+            return df["Close"]
+        close_cols = [c for c in df.columns if c.startswith("Close")]
+        if close_cols:
+            return df[close_cols[0]]
+        raise KeyError(
+            f"No 'Close' column found in DataFrame. Available columns: {list(df.columns)}"
+        )
+    
     def _align(
         self,
         series_or_df: pd.DataFrame | pd.Series,
@@ -123,7 +148,7 @@ class DataLoader:
         """NIFTY50 daily close prices, aligned to trading calendar."""
         if self._nifty is None:
             df = self._read(RAW_FILES["nifty50"])
-            s = df["Close"].reindex(self.trading_days).ffill()
+            s = self._close_col(df).reindex(self.trading_days).ffill()
             s.name = "NIFTY50"
             self._nifty = s
         return self._nifty
@@ -165,7 +190,7 @@ class DataLoader:
         """India VIX close, aligned to trading calendar."""
         if self._vix is None:
             df = self._read(RAW_FILES["india_vix"])
-            self._vix = self._align(df["Close"]).rename("india_vix")
+            self._vix = self._align(self._close_col(df)).rename("india_vix")
         return self._vix
 
     @property
@@ -173,7 +198,7 @@ class DataLoader:
         """USD/INR exchange rate close, aligned to trading calendar."""
         if self._usdinr is None:
             df = self._read(RAW_FILES["usdinr"])
-            self._usdinr = self._align(df["Close"]).rename("usdinr")
+            self._usdinr = self._align(self._close_col(df)).rename("usdinr")
         return self._usdinr
 
     @property
@@ -186,7 +211,7 @@ class DataLoader:
         """
         if self._crude is None:
             df = self._read(RAW_FILES["crude_oil"])
-            s = self._align(df["Close"]).rename("crude_oil")
+            s = self._align(self._close_col(df)).rename("crude_oil")
             s = s.clip(lower=0)
             self._crude = s
         return self._crude
@@ -237,7 +262,7 @@ class DataLoader:
         """NIFTY Bank index close, aligned to trading calendar."""
         if self._bank is None:
             df = self._read(RAW_FILES["nifty_bank"])
-            self._bank = self._align(df["Close"]).rename("nifty_bank")
+            self._bank = self._align(self._close_col(df)).rename("nifty_bank")
         return self._bank
 
     @property
@@ -245,7 +270,7 @@ class DataLoader:
         """NIFTY IT index close, aligned to trading calendar."""
         if self._nifty_it is None:
             df = self._read(RAW_FILES["nifty_it"])
-            self._nifty_it = self._align(df["Close"]).rename("nifty_it")
+            self._nifty_it = self._align(self._close_col(df)).rename("nifty_it")
         return self._nifty_it
 
     @property
@@ -253,7 +278,7 @@ class DataLoader:
         """NIFTY FMCG index close, aligned to trading calendar."""
         if self._fmcg is None:
             df = self._read(RAW_FILES["nifty_fmcg"])
-            self._fmcg = self._align(df["Close"]).rename("nifty_fmcg")
+            self._fmcg = self._align(self._close_col(df)).rename("nifty_fmcg")
         return self._fmcg
 
     # ------------------------------------------------------------------

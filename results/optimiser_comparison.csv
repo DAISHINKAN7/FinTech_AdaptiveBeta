@@ -1,0 +1,4 @@
+,Expected Annual Return (%),Annual Volatility (%),Sharpe Ratio,Portfolio Beta,N Stocks,Max Weight (%)
+max_sharpe_beta_constrained,60.83,17.34,3.133,0.85,11.0,15.0
+min_variance,12.37,10.84,0.541,0.602,21.0,15.0
+risk_parity,12.37,10.84,0.541,0.602,21.0,15.0

@@ -1,0 +1,8 @@
+{
+  "betavol_threshold": 0.15147389471530914,
+  "vix_threshold": 25.0,
+  "threshold_quantile": 0.55,
+  "best_model": "xgboost",
+  "train_end": "2021-12-31",
+  "test_start": "2022-01-01"
+}

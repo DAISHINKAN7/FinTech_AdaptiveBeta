@@ -1,0 +1,393 @@
+2026-03-26 09:57:47 | INFO     | root                           | Logging configured — level=INFO, file=/Users/kunalajgaonkar/Desktop/AI_FinTech/results/01_feature_engineering.log, started=2026-03-26T09:57:47
+2026-03-26 09:57:47 | INFO     | root                           | =================================================================
+2026-03-26 09:57:47 | INFO     | root                           | STEP 1 — Feature Engineering
+2026-03-26 09:57:47 | INFO     | root                           | Data dir  : /Users/kunalajgaonkar/Desktop/AI_FinTech/data
+2026-03-26 09:57:47 | INFO     | root                           | Output dir: /Users/kunalajgaonkar/Desktop/AI_FinTech/features
+2026-03-26 09:57:47 | INFO     | root                           | =================================================================
+2026-03-26 09:57:47 | INFO     | root                           | 
+[1/7] Loading master trading calendar (NIFTY50)...
+2026-03-26 09:57:47 | INFO     | root                           | Loaded market/nifty50.csv                             shape=(2744, 5)
+2026-03-26 09:57:47 | INFO     | root                           | Trading calendar: 2015-01-02 → 2026-02-23  (2744 days)
+2026-03-26 09:57:47 | INFO     | root                           | 
+[2/7] Loading & aligning all data sources...
+2026-03-26 09:57:47 | INFO     | root                           | Loaded stocks/all_stocks_prices.csv                   shape=(2753, 50)
+2026-03-26 10:02:34 | INFO     | root                           | Logging configured — level=INFO, file=/Users/kunalajgaonkar/Desktop/AI_FinTech/results/01_feature_engineering.log, started=2026-03-26T10:02:34
+2026-03-26 10:02:34 | INFO     | root                           | =================================================================
+2026-03-26 10:02:34 | INFO     | root                           | STEP 1 — Feature Engineering
+2026-03-26 10:02:34 | INFO     | root                           | Data dir  : /Users/kunalajgaonkar/Desktop/AI_FinTech/data
+2026-03-26 10:02:34 | INFO     | root                           | Output dir: /Users/kunalajgaonkar/Desktop/AI_FinTech/features
+2026-03-26 10:02:34 | INFO     | root                           | =================================================================
+2026-03-26 10:02:34 | INFO     | root                           | 
+[1/7] Loading master trading calendar (NIFTY50)...
+2026-03-26 10:02:34 | INFO     | root                           | Loaded market/nifty50.csv                             shape=(2744, 5)
+2026-03-26 10:02:34 | INFO     | root                           | Trading calendar: 2015-01-02 → 2026-02-23  (2744 days)
+2026-03-26 10:02:34 | INFO     | root                           | 
+[2/7] Loading & aligning all data sources...
+2026-03-26 10:02:34 | INFO     | root                           | Loaded stocks/all_stocks_prices.csv                   shape=(2753, 50)
+2026-03-26 10:02:34 | INFO     | root                           | Loaded market/india_vix.csv                           shape=(2733, 5)
+2026-03-26 10:10:32 | INFO     | root                           | Logging configured — level=INFO, file=/Users/kunalajgaonkar/Desktop/AI_FinTech/results/01_feature_engineering.log, started=2026-03-26T10:10:32
+2026-03-26 10:10:32 | INFO     | root                           | =================================================================
+2026-03-26 10:10:32 | INFO     | root                           | STEP 1 — Feature Engineering
+2026-03-26 10:10:32 | INFO     | root                           | Data dir  : /Users/kunalajgaonkar/Desktop/AI_FinTech/data
+2026-03-26 10:10:32 | INFO     | root                           | Output dir: /Users/kunalajgaonkar/Desktop/AI_FinTech/features
+2026-03-26 10:10:32 | INFO     | root                           | =================================================================
+2026-03-26 10:10:32 | INFO     | root                           | 
+[1/7] Loading master trading calendar (NIFTY50)...
+2026-03-26 10:10:32 | INFO     | root                           | Loaded market/nifty50.csv                             shape=(2744, 5)
+2026-03-26 10:10:32 | INFO     | root                           | Trading calendar: 2015-01-02 → 2026-02-23  (2744 days)
+2026-03-26 10:10:32 | INFO     | root                           | 
+[2/7] Loading & aligning all data sources...
+2026-03-26 10:10:32 | INFO     | root                           | Loaded stocks/all_stocks_prices.csv                   shape=(2753, 50)
+2026-03-26 10:10:32 | INFO     | root                           | Loaded market/india_vix.csv                           shape=(2733, 5)
+2026-03-26 10:10:32 | INFO     | root                           | Loaded macro/usdinr.csv                               shape=(2900, 5)
+2026-03-26 10:11:28 | INFO     | root                           | Logging configured — level=INFO, file=/Users/kunalajgaonkar/Desktop/AI_FinTech/results/01_feature_engineering.log, started=2026-03-26T10:11:28
+2026-03-26 10:11:28 | INFO     | root                           | =================================================================
+2026-03-26 10:11:28 | INFO     | root                           | STEP 1 — Feature Engineering
+2026-03-26 10:11:28 | INFO     | root                           | Data dir  : /Users/kunalajgaonkar/Desktop/AI_FinTech/data
+2026-03-26 10:11:28 | INFO     | root                           | Output dir: /Users/kunalajgaonkar/Desktop/AI_FinTech/features
+2026-03-26 10:11:28 | INFO     | root                           | =================================================================
+2026-03-26 10:11:28 | INFO     | root                           | 
+[1/7] Loading master trading calendar (NIFTY50)...
+2026-03-26 10:11:28 | INFO     | root                           | Loaded market/nifty50.csv                             shape=(2744, 5)
+2026-03-26 10:11:28 | INFO     | root                           | Trading calendar: 2015-01-02 → 2026-02-23  (2744 days)
+2026-03-26 10:11:28 | INFO     | root                           | 
+[2/7] Loading & aligning all data sources...
+2026-03-26 10:11:28 | INFO     | root                           | Loaded stocks/all_stocks_prices.csv                   shape=(2753, 50)
+2026-03-26 10:11:29 | INFO     | root                           | Loaded market/india_vix.csv                           shape=(2733, 5)
+2026-03-26 10:11:29 | INFO     | root                           | Loaded macro/usdinr.csv                               shape=(2900, 5)
+2026-03-26 10:11:29 | INFO     | root                           | Loaded macro/crude_oil.csv                            shape=(2801, 5)
+2026-03-26 10:14:34 | INFO     | root                           | Logging configured — level=INFO, file=/Users/kunalajgaonkar/Desktop/AI_FinTech/results/01_feature_engineering.log, started=2026-03-26T10:14:34
+2026-03-26 10:14:34 | INFO     | root                           | =================================================================
+2026-03-26 10:14:34 | INFO     | root                           | STEP 1 — Feature Engineering
+2026-03-26 10:14:34 | INFO     | root                           | Data dir  : /Users/kunalajgaonkar/Desktop/AI_FinTech/data
+2026-03-26 10:14:34 | INFO     | root                           | Output dir: /Users/kunalajgaonkar/Desktop/AI_FinTech/features
+2026-03-26 10:14:34 | INFO     | root                           | =================================================================
+2026-03-26 10:14:34 | INFO     | root                           | 
+[1/7] Loading master trading calendar (NIFTY50)...
+2026-03-26 10:14:34 | INFO     | root                           | Loaded market/nifty50.csv                             shape=(2744, 5)
+2026-03-26 10:14:34 | INFO     | root                           | Trading calendar: 2015-01-02 → 2026-02-23  (2744 days)
+2026-03-26 10:14:34 | INFO     | root                           | 
+[2/7] Loading & aligning all data sources...
+2026-03-26 10:14:34 | INFO     | root                           | Loaded stocks/all_stocks_prices.csv                   shape=(2753, 50)
+2026-03-26 10:14:34 | INFO     | root                           | Loaded market/india_vix.csv                           shape=(2733, 5)
+2026-03-26 10:14:34 | INFO     | root                           | Loaded macro/usdinr.csv                               shape=(2900, 5)
+2026-03-26 10:14:34 | INFO     | root                           | Loaded macro/crude_oil.csv                            shape=(2801, 5)
+2026-03-26 10:14:34 | INFO     | root                           | Loaded macro/risk_free_rate_91d_daily.csv             shape=(2929, 1)
+2026-03-26 10:14:34 | INFO     | root                           | Loaded macro/repo_rate_daily.csv                      shape=(2929, 1)
+2026-03-26 10:14:34 | INFO     | root                           | Loaded flows/fii_flows.csv                            shape=(147, 1)
+2026-03-26 10:14:34 | INFO     | root                           | Loaded flows/dii_flows.csv                            shape=(147, 1)
+2026-03-26 10:14:34 | INFO     | root                           | Loaded sector/nifty_bank.csv                          shape=(2749, 5)
+2026-03-26 10:14:34 | INFO     | root                           | Loaded sector/nifty_it.csv                            shape=(2749, 5)
+2026-03-26 10:14:34 | INFO     | root                           | Loaded sector/nifty_fmcg.csv                          shape=(2733, 5)
+2026-03-26 10:14:34 | INFO     | root                           | All data loaded and aligned.
+2026-03-26 10:14:34 | INFO     | root                           | 
+[3/7] Computing log returns...
+2026-03-26 10:14:34 | INFO     | root                           |   HDFCLIFE.NS: filled 706 pre-IPO NaN returns with 0
+2026-03-26 10:14:34 | INFO     | root                           |   SBILIFE.NS: filled 674 pre-IPO NaN returns with 0
+2026-03-26 10:14:34 | INFO     | root                           | Returns — stocks: (2743, 49), market: 2743 rows (2015-01-05 → 2026-02-23)
+2026-03-26 10:14:34 | INFO     | root                           | 
+[4/7] Computing rolling betas (3 windows × 49 stocks)...
+2026-03-26 10:14:34 | INFO     | root                           |   Beta window = 30d
+2026-03-26 10:14:34 | INFO     | root                           |   Beta window = 60d
+2026-03-26 10:14:34 | INFO     | root                           |   Beta window = 120d
+2026-03-26 10:14:34 | INFO     | root                           | Target (20d fwd betavol_60d) — non-NaN rows: 2625
+2026-03-26 10:14:34 | INFO     | root                           | 
+[5/7] Building market feature matrix...
+2026-03-26 10:14:34 | INFO     | root                           | Market features: 24 columns
+2026-03-26 10:14:34 | INFO     | root                           | 
+[6/7] Building per-stock feature matrices...
+2026-03-26 10:14:34 | INFO     | root                           |   [10/49] KOTAKBANK.NS          valid rows: 2472  (dropped 271 NaN rows)
+2026-03-26 10:14:34 | INFO     | root                           |   [20/49] NESTLEIND.NS          valid rows: 2472  (dropped 271 NaN rows)
+2026-03-26 10:14:34 | INFO     | root                           |   [30/49] ADANIPORTS.NS         valid rows: 2472  (dropped 271 NaN rows)
+2026-03-26 10:14:34 | INFO     | root                           |   [40/49] APOLLOHOSP.NS         valid rows: 2472  (dropped 271 NaN rows)
+2026-03-26 10:14:34 | INFO     | root                           |   [49/49] HINDALCO.NS           valid rows: 2472  (dropped 271 NaN rows)
+2026-03-26 10:14:34 | INFO     | root                           | Feature matrices built for 49 / 49 stocks
+2026-03-26 10:14:34 | INFO     | root                           | Stacked matrix: (121128, 37)
+2026-03-26 10:14:34 | INFO     | root                           | 
+[7/7] Saving features to /Users/kunalajgaonkar/Desktop/AI_FinTech/features ...
+2026-03-26 10:14:39 | INFO     | root                           |   ✓  stacked_features.csv  (121128 rows × 37 cols)
+2026-03-26 10:14:40 | INFO     | root                           |   ✓  beta{30,60,120}d.csv and betavol_{30,60,120}d.csv
+2026-03-26 10:14:40 | INFO     | root                           |   ✓  target_betavol_20d_ahead.csv
+2026-03-26 10:14:40 | INFO     | root                           |   ✓  market_features.csv
+2026-03-26 10:14:42 | INFO     | root                           |   ✓  Diagnostic chart saved: /Users/kunalajgaonkar/Desktop/AI_FinTech/results/feature_overview.png
+2026-03-26 10:14:42 | INFO     | root                           | 
+✅  Feature engineering complete in 7.9 seconds.
+2026-03-26 10:14:42 | INFO     | root                           |     Next step: python scripts/02_train_models.py
+2026-03-26 11:06:23 | INFO     | root                           | Logging configured — level=INFO, file=/Users/kunalajgaonkar/Desktop/AI_FinTech/results/01_feature_engineering.log, started=2026-03-26T11:06:23
+2026-03-26 11:06:23 | INFO     | root                           | =================================================================
+2026-03-26 11:06:23 | INFO     | root                           | STEP 1 — Feature Engineering
+2026-03-26 11:06:23 | INFO     | root                           | Data dir  : /Users/kunalajgaonkar/Desktop/AI_FinTech/data
+2026-03-26 11:06:23 | INFO     | root                           | Output dir: /Users/kunalajgaonkar/Desktop/AI_FinTech/features
+2026-03-26 11:06:23 | INFO     | root                           | =================================================================
+2026-03-26 11:06:23 | INFO     | root                           | 
+[1/7] Loading master trading calendar (NIFTY50)...
+2026-03-26 11:06:23 | INFO     | root                           | Loaded market/nifty50.csv                             shape=(2744, 5)
+2026-03-26 11:06:23 | INFO     | root                           | Trading calendar: 2015-01-02 → 2026-02-23  (2744 days)
+2026-03-26 11:06:23 | INFO     | root                           | 
+[2/7] Loading & aligning all data sources...
+2026-03-26 11:06:23 | INFO     | root                           | Loaded stocks/all_stocks_prices.csv                   shape=(2753, 50)
+2026-03-26 11:06:23 | INFO     | root                           | Loaded market/india_vix.csv                           shape=(2733, 5)
+2026-03-26 11:06:23 | INFO     | root                           | Loaded macro/usdinr.csv                               shape=(2900, 5)
+2026-03-26 11:06:23 | INFO     | root                           | Loaded macro/crude_oil.csv                            shape=(2801, 5)
+2026-03-26 11:06:23 | INFO     | root                           | Loaded macro/risk_free_rate_91d_daily.csv             shape=(2929, 1)
+2026-03-26 11:06:23 | INFO     | root                           | Loaded macro/repo_rate_daily.csv                      shape=(2929, 1)
+2026-03-26 11:06:23 | INFO     | root                           | Loaded flows/fii_flows.csv                            shape=(147, 1)
+2026-03-26 11:06:23 | INFO     | root                           | Loaded flows/dii_flows.csv                            shape=(147, 1)
+2026-03-26 11:06:23 | INFO     | root                           | Loaded sector/nifty_bank.csv                          shape=(2749, 5)
+2026-03-26 11:06:23 | INFO     | root                           | Loaded sector/nifty_it.csv                            shape=(2749, 5)
+2026-03-26 11:06:23 | INFO     | root                           | Loaded sector/nifty_fmcg.csv                          shape=(2733, 5)
+2026-03-26 11:06:23 | INFO     | root                           | All data loaded and aligned.
+2026-03-26 11:06:23 | INFO     | root                           | 
+[3/7] Computing log returns...
+2026-03-26 11:06:23 | INFO     | root                           |   HDFCLIFE.NS: filled 706 pre-IPO NaN returns with 0
+2026-03-26 11:06:23 | INFO     | root                           |   SBILIFE.NS: filled 674 pre-IPO NaN returns with 0
+2026-03-26 11:06:23 | INFO     | root                           | Returns — stocks: (2743, 49), market: 2743 rows (2015-01-05 → 2026-02-23)
+2026-03-26 11:06:23 | INFO     | root                           | 
+[4/7] Computing rolling betas (3 windows × 49 stocks)...
+2026-03-26 11:06:23 | INFO     | root                           |   Beta window = 30d
+2026-03-26 11:06:23 | INFO     | root                           |   Beta window = 60d
+2026-03-26 11:06:23 | INFO     | root                           |   Beta window = 120d
+2026-03-26 11:06:23 | INFO     | root                           | Target (20d fwd betavol_60d) — non-NaN rows: 2625
+2026-03-26 11:06:23 | INFO     | root                           | 
+[5/7] Building market feature matrix...
+2026-03-26 11:06:23 | INFO     | root                           | Market features: 24 columns
+2026-03-26 11:06:23 | INFO     | root                           | 
+[6/7] Building per-stock feature matrices...
+2026-03-26 11:06:23 | INFO     | root                           |   [10/49] KOTAKBANK.NS          valid rows: 2472  (dropped 271 NaN rows)
+2026-03-26 11:06:23 | INFO     | root                           |   [20/49] NESTLEIND.NS          valid rows: 2472  (dropped 271 NaN rows)
+2026-03-26 11:06:23 | INFO     | root                           |   [30/49] ADANIPORTS.NS         valid rows: 2472  (dropped 271 NaN rows)
+2026-03-26 11:06:23 | INFO     | root                           |   [40/49] APOLLOHOSP.NS         valid rows: 2472  (dropped 271 NaN rows)
+2026-03-26 11:06:23 | INFO     | root                           |   [49/49] HINDALCO.NS           valid rows: 2472  (dropped 271 NaN rows)
+2026-03-26 11:06:23 | INFO     | root                           | Feature matrices built for 49 / 49 stocks
+2026-03-26 11:06:23 | INFO     | root                           | Stacked matrix: (121128, 37)
+2026-03-26 11:06:23 | INFO     | root                           | 
+[7/7] Saving features to /Users/kunalajgaonkar/Desktop/AI_FinTech/features ...
+2026-03-26 11:06:30 | INFO     | root                           |   ✓  stacked_features.csv  (121128 rows × 37 cols)
+2026-03-26 11:06:31 | INFO     | root                           |   ✓  beta{30,60,120}d.csv and betavol_{30,60,120}d.csv
+2026-03-26 11:06:31 | INFO     | root                           |   ✓  target_betavol_20d_ahead.csv
+2026-03-26 11:06:31 | INFO     | root                           |   ✓  market_features.csv
+2026-03-26 11:06:32 | INFO     | root                           |   ✓  Diagnostic chart saved: /Users/kunalajgaonkar/Desktop/AI_FinTech/results/feature_overview.png
+2026-03-26 11:06:32 | INFO     | root                           | 
+✅  Feature engineering complete in 9.5 seconds.
+2026-03-26 11:06:32 | INFO     | root                           |     Next step: python scripts/02_train_models.py
+2026-03-26 13:22:35 | INFO     | root                           | Logging configured — level=INFO, file=/Users/kunalajgaonkar/Desktop/AI_FinTech/results/01_feature_engineering.log, started=2026-03-26T13:22:35
+2026-03-26 13:22:35 | INFO     | root                           | =================================================================
+2026-03-26 13:22:35 | INFO     | root                           | STEP 1 — Feature Engineering
+2026-03-26 13:22:35 | INFO     | root                           | Data dir  : /Users/kunalajgaonkar/Desktop/AI_FinTech/data
+2026-03-26 13:22:35 | INFO     | root                           | Output dir: /Users/kunalajgaonkar/Desktop/AI_FinTech/features
+2026-03-26 13:22:35 | INFO     | root                           | =================================================================
+2026-03-26 13:22:35 | INFO     | root                           | 
+[1/7] Loading master trading calendar (NIFTY50)...
+2026-03-26 13:22:35 | INFO     | root                           | Loaded market/nifty50.csv                             shape=(2744, 5)
+2026-03-26 13:22:35 | INFO     | root                           | Trading calendar: 2015-01-02 → 2026-02-23  (2744 days)
+2026-03-26 13:22:35 | INFO     | root                           | 
+[2/7] Loading & aligning all data sources...
+2026-03-26 13:22:35 | INFO     | root                           | Loaded stocks/all_stocks_prices.csv                   shape=(2753, 50)
+2026-03-26 13:22:35 | INFO     | root                           | Loaded market/india_vix.csv                           shape=(2733, 5)
+2026-03-26 13:22:35 | INFO     | root                           | Loaded macro/usdinr.csv                               shape=(2900, 5)
+2026-03-26 13:22:35 | INFO     | root                           | Loaded macro/crude_oil.csv                            shape=(2801, 5)
+2026-03-26 13:22:35 | INFO     | root                           | Loaded macro/risk_free_rate_91d_daily.csv             shape=(2929, 1)
+2026-03-26 13:22:35 | INFO     | root                           | Loaded macro/repo_rate_daily.csv                      shape=(2929, 1)
+2026-03-26 13:22:35 | INFO     | root                           | Loaded flows/fii_flows.csv                            shape=(147, 1)
+2026-03-26 13:22:35 | INFO     | root                           | Loaded flows/dii_flows.csv                            shape=(147, 1)
+2026-03-26 13:22:35 | INFO     | root                           | Loaded sector/nifty_bank.csv                          shape=(2749, 5)
+2026-03-26 13:22:35 | INFO     | root                           | Loaded sector/nifty_it.csv                            shape=(2749, 5)
+2026-03-26 13:22:35 | INFO     | root                           | Loaded sector/nifty_fmcg.csv                          shape=(2733, 5)
+2026-03-26 13:22:35 | INFO     | root                           | All data loaded and aligned.
+2026-03-26 13:22:35 | INFO     | root                           | 
+[3/7] Computing log returns...
+2026-03-26 13:22:35 | INFO     | root                           |   HDFCLIFE.NS: filled 706 pre-IPO NaN returns with 0
+2026-03-26 13:22:35 | INFO     | root                           |   SBILIFE.NS: filled 674 pre-IPO NaN returns with 0
+2026-03-26 13:22:35 | INFO     | root                           | Returns — stocks: (2743, 49), market: 2743 rows (2015-01-05 → 2026-02-23)
+2026-03-26 13:22:35 | INFO     | root                           | 
+[4/7] Computing rolling betas (3 windows × 49 stocks)...
+2026-03-26 13:22:35 | INFO     | root                           |   Beta window = 30d
+2026-03-26 13:22:35 | INFO     | root                           |   Beta window = 60d
+2026-03-26 13:22:35 | INFO     | root                           |   Beta window = 120d
+2026-03-26 13:22:35 | INFO     | root                           | Target (20d fwd betavol_60d) — non-NaN rows: 2625
+2026-03-26 13:22:35 | INFO     | root                           | 
+[5/7] Building market feature matrix...
+2026-03-26 13:22:35 | INFO     | root                           | Market features: 24 columns
+2026-03-26 13:22:35 | INFO     | root                           | 
+[6/7] Building per-stock feature matrices...
+2026-03-26 13:22:35 | INFO     | root                           |   [10/49] KOTAKBANK.NS          valid rows: 2472  (dropped 271 NaN rows)
+2026-03-26 13:22:35 | INFO     | root                           |   [20/49] NESTLEIND.NS          valid rows: 2472  (dropped 271 NaN rows)
+2026-03-26 13:22:35 | INFO     | root                           |   [30/49] ADANIPORTS.NS         valid rows: 2472  (dropped 271 NaN rows)
+2026-03-26 13:22:35 | INFO     | root                           |   [40/49] APOLLOHOSP.NS         valid rows: 2472  (dropped 271 NaN rows)
+2026-03-26 13:22:35 | INFO     | root                           |   [49/49] HINDALCO.NS           valid rows: 2472  (dropped 271 NaN rows)
+2026-03-26 13:22:35 | INFO     | root                           | Feature matrices built for 49 / 49 stocks
+2026-03-26 13:22:35 | INFO     | root                           | Stacked matrix: (121128, 37)
+2026-03-26 13:22:35 | INFO     | root                           | 
+[7/7] Saving features to /Users/kunalajgaonkar/Desktop/AI_FinTech/features ...
+2026-03-26 13:22:40 | INFO     | root                           |   ✓  stacked_features.csv  (121128 rows × 37 cols)
+2026-03-26 13:22:41 | INFO     | root                           |   ✓  beta{30,60,120}d.csv and betavol_{30,60,120}d.csv
+2026-03-26 13:22:41 | INFO     | root                           |   ✓  target_betavol_20d_ahead.csv
+2026-03-26 13:22:41 | INFO     | root                           |   ✓  market_features.csv
+2026-03-26 13:22:42 | INFO     | root                           |   ✓  Diagnostic chart saved: /Users/kunalajgaonkar/Desktop/AI_FinTech/results/feature_overview.png
+2026-03-26 13:22:42 | INFO     | root                           | 
+✅  Feature engineering complete in 7.2 seconds.
+2026-03-26 13:22:42 | INFO     | root                           |     Next step: python scripts/02_train_models.py
+2026-03-26 21:20:32 | INFO     | root                           | Logging configured — level=INFO, file=/Users/kunalajgaonkar/Desktop/AI_FinTech/results/01_feature_engineering.log, started=2026-03-26T21:20:32
+2026-03-26 21:20:32 | INFO     | root                           | =================================================================
+2026-03-26 21:20:32 | INFO     | root                           | STEP 1 — Feature Engineering
+2026-03-26 21:20:32 | INFO     | root                           | Data dir  : /Users/kunalajgaonkar/Desktop/AI_FinTech/data
+2026-03-26 21:20:32 | INFO     | root                           | Output dir: /Users/kunalajgaonkar/Desktop/AI_FinTech/features
+2026-03-26 21:20:32 | INFO     | root                           | =================================================================
+2026-03-26 21:20:32 | INFO     | root                           | 
+[1/7] Loading master trading calendar (NIFTY50)...
+2026-03-26 21:20:32 | INFO     | root                           | Loaded market/nifty50.csv                             shape=(2744, 5)
+2026-03-26 21:20:32 | INFO     | root                           | Trading calendar: 2015-01-02 → 2026-02-23  (2744 days)
+2026-03-26 21:20:32 | INFO     | root                           | 
+[2/7] Loading & aligning all data sources...
+2026-03-26 21:20:32 | INFO     | root                           | Loaded stocks/all_stocks_prices.csv                   shape=(2753, 50)
+2026-03-26 21:20:32 | INFO     | root                           | Loaded market/india_vix.csv                           shape=(2733, 5)
+2026-03-26 21:20:32 | INFO     | root                           | Loaded macro/usdinr.csv                               shape=(2900, 5)
+2026-03-26 21:20:32 | INFO     | root                           | Loaded macro/crude_oil.csv                            shape=(2801, 5)
+2026-03-26 21:20:32 | INFO     | root                           | Loaded macro/risk_free_rate_91d_daily.csv             shape=(2929, 1)
+2026-03-26 21:20:32 | INFO     | root                           | Loaded macro/repo_rate_daily.csv                      shape=(2929, 1)
+2026-03-26 21:20:32 | INFO     | root                           | Loaded flows/fii_flows.csv                            shape=(147, 1)
+2026-03-26 21:20:32 | INFO     | root                           | Loaded flows/dii_flows.csv                            shape=(147, 1)
+2026-03-26 21:20:32 | INFO     | root                           | Loaded sector/nifty_bank.csv                          shape=(2749, 5)
+2026-03-26 21:20:32 | INFO     | root                           | Loaded sector/nifty_it.csv                            shape=(2749, 5)
+2026-03-26 21:20:32 | INFO     | root                           | Loaded sector/nifty_fmcg.csv                          shape=(2733, 5)
+2026-03-26 21:20:32 | INFO     | root                           | All data loaded and aligned.
+2026-03-26 21:20:32 | INFO     | root                           | 
+[3/7] Computing log returns...
+2026-03-26 21:20:32 | INFO     | root                           |   HDFCLIFE.NS: filled 706 pre-IPO NaN returns with 0
+2026-03-26 21:20:32 | INFO     | root                           |   SBILIFE.NS: filled 674 pre-IPO NaN returns with 0
+2026-03-26 21:20:32 | INFO     | root                           | Returns — stocks: (2743, 49), market: 2743 rows (2015-01-05 → 2026-02-23)
+2026-03-26 21:20:32 | INFO     | root                           | 
+[4/7] Computing rolling betas (3 windows × 49 stocks)...
+2026-03-26 21:20:32 | INFO     | root                           |   Beta window = 30d
+2026-03-26 21:20:32 | INFO     | root                           |   Beta window = 60d
+2026-03-26 21:20:32 | INFO     | root                           |   Beta window = 120d
+2026-03-26 21:20:32 | INFO     | root                           | Target (20d fwd betavol_60d) — non-NaN rows: 2625
+2026-03-26 21:20:32 | INFO     | root                           | 
+[5/7] Building market feature matrix...
+2026-03-26 21:20:32 | INFO     | root                           | Market features: 24 columns
+2026-03-26 21:20:32 | INFO     | root                           | 
+[6/7] Building per-stock feature matrices...
+2026-03-26 21:20:33 | INFO     | root                           |   [10/49] KOTAKBANK.NS          valid rows: 2472  (dropped 271 NaN rows)
+2026-03-26 21:20:33 | INFO     | root                           |   [20/49] NESTLEIND.NS          valid rows: 2472  (dropped 271 NaN rows)
+2026-03-26 21:20:33 | INFO     | root                           |   [30/49] ADANIPORTS.NS         valid rows: 2472  (dropped 271 NaN rows)
+2026-03-26 21:20:33 | INFO     | root                           |   [40/49] APOLLOHOSP.NS         valid rows: 2472  (dropped 271 NaN rows)
+2026-03-26 21:20:33 | INFO     | root                           |   [49/49] HINDALCO.NS           valid rows: 2472  (dropped 271 NaN rows)
+2026-03-26 21:20:33 | INFO     | root                           | Feature matrices built for 49 / 49 stocks
+2026-03-26 21:20:33 | INFO     | root                           | Stacked matrix: (121128, 37)
+2026-03-26 21:20:33 | INFO     | root                           | Adding momentum & quality features to stacked matrix...
+2026-03-26 21:25:04 | INFO     | root                           | Logging configured — level=INFO, file=/Users/kunalajgaonkar/Desktop/AI_FinTech/results/01_feature_engineering.log, started=2026-03-26T21:25:04
+2026-03-26 21:25:04 | INFO     | root                           | =================================================================
+2026-03-26 21:25:04 | INFO     | root                           | STEP 1 — Feature Engineering
+2026-03-26 21:25:04 | INFO     | root                           | Data dir  : /Users/kunalajgaonkar/Desktop/AI_FinTech/data
+2026-03-26 21:25:04 | INFO     | root                           | Output dir: /Users/kunalajgaonkar/Desktop/AI_FinTech/features
+2026-03-26 21:25:04 | INFO     | root                           | =================================================================
+2026-03-26 21:25:04 | INFO     | root                           | 
+[1/7] Loading master trading calendar (NIFTY50)...
+2026-03-26 21:25:04 | INFO     | root                           | Loaded market/nifty50.csv                             shape=(2744, 5)
+2026-03-26 21:25:04 | INFO     | root                           | Trading calendar: 2015-01-02 -> 2026-02-23  (2744 days)
+2026-03-26 21:25:04 | INFO     | root                           | 
+[2/7] Loading & aligning all data sources...
+2026-03-26 21:25:04 | INFO     | root                           | Loaded stocks/all_stocks_prices.csv                   shape=(2753, 50)
+2026-03-26 21:25:04 | INFO     | root                           | Loaded market/india_vix.csv                           shape=(2733, 5)
+2026-03-26 21:25:04 | INFO     | root                           | Loaded macro/usdinr.csv                               shape=(2900, 5)
+2026-03-26 21:25:04 | INFO     | root                           | Loaded macro/crude_oil.csv                            shape=(2801, 5)
+2026-03-26 21:25:04 | INFO     | root                           | Loaded macro/risk_free_rate_91d_daily.csv             shape=(2929, 1)
+2026-03-26 21:25:04 | INFO     | root                           | Loaded macro/repo_rate_daily.csv                      shape=(2929, 1)
+2026-03-26 21:25:04 | INFO     | root                           | Loaded flows/fii_flows.csv                            shape=(147, 1)
+2026-03-26 21:25:04 | INFO     | root                           | Loaded flows/dii_flows.csv                            shape=(147, 1)
+2026-03-26 21:25:04 | INFO     | root                           | Loaded sector/nifty_bank.csv                          shape=(2749, 5)
+2026-03-26 21:25:04 | INFO     | root                           | Loaded sector/nifty_it.csv                            shape=(2749, 5)
+2026-03-26 21:25:04 | INFO     | root                           | Loaded sector/nifty_fmcg.csv                          shape=(2733, 5)
+2026-03-26 21:25:04 | INFO     | root                           | All data loaded and aligned.
+2026-03-26 21:25:04 | INFO     | root                           | 
+[3/7] Computing log returns...
+2026-03-26 21:25:04 | INFO     | root                           |   HDFCLIFE.NS: filled 706 pre-IPO NaN returns with 0
+2026-03-26 21:25:04 | INFO     | root                           |   SBILIFE.NS: filled 674 pre-IPO NaN returns with 0
+2026-03-26 21:25:04 | INFO     | root                           | Returns — stocks: (2743, 49), market: 2743 rows (2015-01-05 -> 2026-02-23)
+2026-03-26 21:25:04 | INFO     | root                           | 
+[4/7] Computing rolling betas (3 windows x 49 stocks)...
+2026-03-26 21:25:04 | INFO     | root                           |   Beta window = 30d
+2026-03-26 21:25:04 | INFO     | root                           |   Beta window = 60d
+2026-03-26 21:25:04 | INFO     | root                           |   Beta window = 120d
+2026-03-26 21:25:04 | INFO     | root                           | Target (20d fwd betavol_60d) — non-NaN rows: 2625
+2026-03-26 21:25:04 | INFO     | root                           | 
+[5/7] Building market feature matrix...
+2026-03-26 21:25:04 | INFO     | root                           | Market features: 24 columns
+2026-03-26 21:25:04 | INFO     | root                           | 
+[6/7] Building per-stock feature matrices...
+2026-03-26 21:25:04 | INFO     | root                           |   [10/49] KOTAKBANK.NS          valid rows: 2451  (dropped 292 NaN rows)
+2026-03-26 21:25:05 | INFO     | root                           |   [20/49] NESTLEIND.NS          valid rows: 2451  (dropped 292 NaN rows)
+2026-03-26 21:25:05 | INFO     | root                           |   [30/49] ADANIPORTS.NS         valid rows: 2451  (dropped 292 NaN rows)
+2026-03-26 21:25:05 | INFO     | root                           |   [40/49] APOLLOHOSP.NS         valid rows: 2451  (dropped 292 NaN rows)
+2026-03-26 21:25:05 | INFO     | root                           |   [49/49] HINDALCO.NS           valid rows: 2451  (dropped 292 NaN rows)
+2026-03-26 21:25:05 | INFO     | root                           | Feature matrices built for 49 / 49 stocks
+2026-03-26 21:25:05 | INFO     | root                           | Stacked matrix: (118719, 44)
+2026-03-26 21:25:05 | INFO     | root                           | Momentum/quality features added: ['mom_21d', 'mom_63d', 'mom_126d', 'mom_252d', 'rsi_14', 'ma200_dist', 'rvol_20d']
+2026-03-26 21:25:05 | INFO     | root                           | 
+[7/7] Saving features to /Users/kunalajgaonkar/Desktop/AI_FinTech/features ...
+2026-03-26 21:25:10 | INFO     | root                           |   stacked_features.csv  (118719 rows x 44 cols)
+2026-03-26 21:25:11 | INFO     | root                           |   beta{30,60,120}d.csv and betavol_{30,60,120}d.csv
+2026-03-26 21:25:12 | INFO     | root                           |   target_betavol_20d_ahead.csv
+2026-03-26 21:25:12 | INFO     | root                           |   market_features.csv
+2026-03-26 21:25:12 | INFO     | root                           |   Diagnostic chart saved: /Users/kunalajgaonkar/Desktop/AI_FinTech/results/feature_overview.png
+2026-03-26 21:25:12 | INFO     | root                           | 
+Feature engineering complete in 8.1 seconds.
+2026-03-26 21:25:12 | INFO     | root                           |     Next step: python scripts/02_train_models.py
+2026-03-26 21:25:18 | INFO     | root                           | Logging configured — level=INFO, file=/Users/kunalajgaonkar/Desktop/AI_FinTech/results/01_feature_engineering.log, started=2026-03-26T21:25:18
+2026-03-26 21:25:18 | INFO     | root                           | =================================================================
+2026-03-26 21:25:18 | INFO     | root                           | STEP 1 — Feature Engineering
+2026-03-26 21:25:18 | INFO     | root                           | Data dir  : /Users/kunalajgaonkar/Desktop/AI_FinTech/data
+2026-03-26 21:25:18 | INFO     | root                           | Output dir: /Users/kunalajgaonkar/Desktop/AI_FinTech/features
+2026-03-26 21:25:18 | INFO     | root                           | =================================================================
+2026-03-26 21:25:18 | INFO     | root                           | 
+[1/7] Loading master trading calendar (NIFTY50)...
+2026-03-26 21:25:18 | INFO     | root                           | Loaded market/nifty50.csv                             shape=(2744, 5)
+2026-03-26 21:25:18 | INFO     | root                           | Trading calendar: 2015-01-02 -> 2026-02-23  (2744 days)
+2026-03-26 21:25:18 | INFO     | root                           | 
+[2/7] Loading & aligning all data sources...
+2026-03-26 21:25:18 | INFO     | root                           | Loaded stocks/all_stocks_prices.csv                   shape=(2753, 50)
+2026-03-26 21:25:18 | INFO     | root                           | Loaded market/india_vix.csv                           shape=(2733, 5)
+2026-03-26 21:25:18 | INFO     | root                           | Loaded macro/usdinr.csv                               shape=(2900, 5)
+2026-03-26 21:25:18 | INFO     | root                           | Loaded macro/crude_oil.csv                            shape=(2801, 5)
+2026-03-26 21:25:18 | INFO     | root                           | Loaded macro/risk_free_rate_91d_daily.csv             shape=(2929, 1)
+2026-03-26 21:25:18 | INFO     | root                           | Loaded macro/repo_rate_daily.csv                      shape=(2929, 1)
+2026-03-26 21:25:18 | INFO     | root                           | Loaded flows/fii_flows.csv                            shape=(147, 1)
+2026-03-26 21:25:18 | INFO     | root                           | Loaded flows/dii_flows.csv                            shape=(147, 1)
+2026-03-26 21:25:18 | INFO     | root                           | Loaded sector/nifty_bank.csv                          shape=(2749, 5)
+2026-03-26 21:25:18 | INFO     | root                           | Loaded sector/nifty_it.csv                            shape=(2749, 5)
+2026-03-26 21:25:18 | INFO     | root                           | Loaded sector/nifty_fmcg.csv                          shape=(2733, 5)
+2026-03-26 21:25:18 | INFO     | root                           | All data loaded and aligned.
+2026-03-26 21:25:18 | INFO     | root                           | 
+[3/7] Computing log returns...
+2026-03-26 21:25:18 | INFO     | root                           |   HDFCLIFE.NS: filled 706 pre-IPO NaN returns with 0
+2026-03-26 21:25:18 | INFO     | root                           |   SBILIFE.NS: filled 674 pre-IPO NaN returns with 0
+2026-03-26 21:25:18 | INFO     | root                           | Returns — stocks: (2743, 49), market: 2743 rows (2015-01-05 -> 2026-02-23)
+2026-03-26 21:25:18 | INFO     | root                           | 
+[4/7] Computing rolling betas (3 windows x 49 stocks)...
+2026-03-26 21:25:18 | INFO     | root                           |   Beta window = 30d
+2026-03-26 21:25:18 | INFO     | root                           |   Beta window = 60d
+2026-03-26 21:25:19 | INFO     | root                           |   Beta window = 120d
+2026-03-26 21:25:19 | INFO     | root                           | Target (20d fwd betavol_60d) — non-NaN rows: 2625
+2026-03-26 21:25:19 | INFO     | root                           | 
+[5/7] Building market feature matrix...
+2026-03-26 21:25:19 | INFO     | root                           | Market features: 24 columns
+2026-03-26 21:25:19 | INFO     | root                           | 
+[6/7] Building per-stock feature matrices...
+2026-03-26 21:25:19 | INFO     | root                           |   [10/49] KOTAKBANK.NS          valid rows: 2451  (dropped 292 NaN rows)
+2026-03-26 21:25:19 | INFO     | root                           |   [20/49] NESTLEIND.NS          valid rows: 2451  (dropped 292 NaN rows)
+2026-03-26 21:25:19 | INFO     | root                           |   [30/49] ADANIPORTS.NS         valid rows: 2451  (dropped 292 NaN rows)
+2026-03-26 21:25:19 | INFO     | root                           |   [40/49] APOLLOHOSP.NS         valid rows: 2451  (dropped 292 NaN rows)
+2026-03-26 21:25:20 | INFO     | root                           |   [49/49] HINDALCO.NS           valid rows: 2451  (dropped 292 NaN rows)
+2026-03-26 21:25:20 | INFO     | root                           | Feature matrices built for 49 / 49 stocks
+2026-03-26 21:25:20 | INFO     | root                           | Stacked matrix: (118719, 44)
+2026-03-26 21:25:20 | INFO     | root                           | Momentum/quality features added: ['mom_21d', 'mom_63d', 'mom_126d', 'mom_252d', 'rsi_14', 'ma200_dist', 'rvol_20d']
+2026-03-26 21:25:20 | INFO     | root                           | 
+[7/7] Saving features to /Users/kunalajgaonkar/Desktop/AI_FinTech/features ...
+2026-03-26 21:25:31 | INFO     | root                           |   stacked_features.csv  (118719 rows x 44 cols)
+2026-03-26 21:25:32 | INFO     | root                           |   beta{30,60,120}d.csv and betavol_{30,60,120}d.csv
+2026-03-26 21:25:32 | INFO     | root                           |   target_betavol_20d_ahead.csv
+2026-03-26 21:25:33 | INFO     | root                           |   market_features.csv
+2026-03-26 21:25:33 | INFO     | root                           |   Diagnostic chart saved: /Users/kunalajgaonkar/Desktop/AI_FinTech/results/feature_overview.png
+2026-03-26 21:25:33 | INFO     | root                           | 
+Feature engineering complete in 15.6 seconds.
+2026-03-26 21:25:33 | INFO     | root                           |     Next step: python scripts/02_train_models.py

@@ -96,7 +96,7 @@ BETAVOL_BASE_WINDOW: int  = 60      # 60d betavol as prediction target
 # ---------------------------------------------------------------------------
 # Threshold & regime constants
 # ---------------------------------------------------------------------------
-THRESHOLD_QUANTILE: float = 0.75    # 75th pct of training betavol
+THRESHOLD_QUANTILE: float = 0.55    # 75th pct of training betavol
 VIX_STRESS_LEVEL:   float = 25.0    # VIX override level
 
 # ---------------------------------------------------------------------------
@@ -105,7 +105,7 @@ VIX_STRESS_LEVEL:   float = 25.0    # VIX override level
 TRAIN_END:            str = "2021-12-31"
 TEST_START:           str = "2022-01-01"
 BACKTEST_START_YEAR:  int = 2015
-BACKTEST_END_YEAR:    int = 2024
+BACKTEST_END_YEAR:    int = 2025
 TRAIN_YEARS:          int = 3
 TEST_YEARS:           int = 1
 
@@ -115,6 +115,10 @@ TEST_YEARS:           int = 1
 BROKERAGE: float = 0.0005   # 0.05% per trade
 SLIPPAGE:  float = 0.0003   # 0.03% market impact
 
+# ---------------------------------------------------------------------------
+# Momentum strategy
+# ---------------------------------------------------------------------------
+MOMENTUM_TOP_N: int = 15
 # ---------------------------------------------------------------------------
 # Portfolio construction
 # ---------------------------------------------------------------------------
@@ -126,7 +130,7 @@ DEFAULT_BETA_TARGET: float = 0.85
 # LSTM hyperparameters
 # ---------------------------------------------------------------------------
 LSTM_SEQ_LEN: int   = 30
-LSTM_HIDDEN:  int   = 64
+LSTM_HIDDEN:  int   = 128
 LSTM_LAYERS:  int   = 2
 LSTM_DROPOUT: float = 0.2
 LSTM_BATCH:   int   = 256

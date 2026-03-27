@@ -1,0 +1,637 @@
+2026-03-26 10:24:23 | INFO     | root                           | Logging configured — level=INFO, file=/Users/kunalajgaonkar/Desktop/AI_FinTech/results/02_train_models.log, started=2026-03-26T10:24:23
+2026-03-26 10:24:23 | INFO     | root                           | =================================================================
+2026-03-26 10:24:23 | INFO     | root                           | STEP 2 — Model Training
+2026-03-26 10:24:23 | INFO     | root                           | Device   : auto
+2026-03-26 10:24:23 | INFO     | root                           | Epochs   : 50
+2026-03-26 10:24:23 | INFO     | root                           | Fast mode: False
+2026-03-26 10:24:23 | INFO     | root                           | =================================================================
+2026-03-26 10:24:46 | INFO     | root                           | Loading stacked_features.csv ...
+2026-03-26 10:24:46 | INFO     | root                           | Train: (71932, 35)  (2016-01-14 → 2021-12-31)
+2026-03-26 10:24:46 | INFO     | root                           | Test : (49196, 35)  (2022-01-03 → 2026-01-23)
+2026-03-26 10:24:46 | INFO     | root                           | Saved scaler.pkl and feature_cols.txt
+2026-03-26 10:24:46 | INFO     | root                           | 
+--- Model A: XGBoost Baseline ---
+2026-03-26 10:25:07 | INFO     | root                           | XGBoost — MAE: 0.0390 | Direction Acc: 0.764
+2026-03-26 10:25:07 | INFO     | root                           | Computing SHAP values (this may take a minute)...
+2026-03-26 10:25:17 | INFO     | root                           | Top 10 SHAP features:
+          feature  mean_abs_shap
+       betavol_60       0.031471
+    betavol_trend       0.018790
+       betavol_30       0.013359
+   market_vol_60d       0.007083
+      betavol_120       0.003124
+beta_60_30_spread       0.002950
+    combined_flow       0.002851
+         beta_120       0.001904
+       vix_zscore       0.001821
+              rfr       0.001622
+2026-03-26 10:25:18 | INFO     | root                           |   ✓  Saved shap_importance.png
+2026-03-26 10:25:18 | INFO     | root                           | 
+--- Model B: Kalman Filter Betas ---
+2026-03-26 10:34:21 | INFO     | root                           | Logging configured — level=INFO, file=/Users/kunalajgaonkar/Desktop/AI_FinTech/results/02_train_models.log, started=2026-03-26T10:34:21
+2026-03-26 10:34:21 | INFO     | root                           | =================================================================
+2026-03-26 10:34:21 | INFO     | root                           | STEP 2 — Model Training
+2026-03-26 10:34:21 | INFO     | root                           | Device   : auto
+2026-03-26 10:34:21 | INFO     | root                           | Epochs   : 50
+2026-03-26 10:34:21 | INFO     | root                           | Fast mode: False
+2026-03-26 10:34:21 | INFO     | root                           | =================================================================
+2026-03-26 10:34:23 | INFO     | root                           | Loading stacked_features.csv ...
+2026-03-26 10:34:24 | INFO     | root                           | Train: (71932, 35)  (2016-01-14 → 2021-12-31)
+2026-03-26 10:34:24 | INFO     | root                           | Test : (49196, 35)  (2022-01-03 → 2026-01-23)
+2026-03-26 10:34:24 | INFO     | root                           | Saved scaler.pkl and feature_cols.txt
+2026-03-26 10:34:24 | INFO     | root                           | 
+--- Model A: XGBoost Baseline ---
+2026-03-26 10:34:28 | INFO     | root                           | XGBoost — MAE: 0.0390 | Direction Acc: 0.764
+2026-03-26 10:34:28 | INFO     | root                           | Computing SHAP values (this may take a minute)...
+2026-03-26 10:34:39 | INFO     | root                           | Top 10 SHAP features:
+          feature  mean_abs_shap
+       betavol_60       0.031471
+    betavol_trend       0.018790
+       betavol_30       0.013359
+   market_vol_60d       0.007083
+      betavol_120       0.003124
+beta_60_30_spread       0.002950
+    combined_flow       0.002851
+         beta_120       0.001904
+       vix_zscore       0.001821
+              rfr       0.001622
+2026-03-26 10:34:40 | INFO     | root                           |   ✓  Saved shap_importance.png
+2026-03-26 10:34:40 | INFO     | root                           | 
+--- Model B: Kalman Filter Betas ---
+2026-03-26 10:34:40 | INFO     | root                           | Computing Kalman betas for 49 stocks...
+2026-03-26 10:34:40 | INFO     | src.models.kalman              | Kalman filter — 1/49 RELIANCE.NS
+2026-03-26 10:34:46 | INFO     | src.models.kalman              | Kalman filter — 2/49 TCS.NS
+2026-03-26 10:34:51 | INFO     | src.models.kalman              | Kalman filter — 3/49 HDFCBANK.NS
+2026-03-26 10:34:56 | INFO     | src.models.kalman              | Kalman filter — 4/49 INFY.NS
+2026-03-26 10:35:01 | INFO     | src.models.kalman              | Kalman filter — 5/49 ICICIBANK.NS
+2026-03-26 10:35:07 | INFO     | src.models.kalman              | Kalman filter — 6/49 HINDUNILVR.NS
+2026-03-26 10:35:12 | INFO     | src.models.kalman              | Kalman filter — 7/49 ITC.NS
+2026-03-26 10:35:17 | INFO     | src.models.kalman              | Kalman filter — 8/49 SBIN.NS
+2026-03-26 10:35:22 | INFO     | src.models.kalman              | Kalman filter — 9/49 BHARTIARTL.NS
+2026-03-26 10:35:28 | INFO     | src.models.kalman              | Kalman filter — 10/49 KOTAKBANK.NS
+2026-03-26 10:35:33 | INFO     | src.models.kalman              | Kalman filter — 11/49 LT.NS
+2026-03-26 10:35:38 | INFO     | src.models.kalman              | Kalman filter — 12/49 AXISBANK.NS
+2026-03-26 10:35:44 | INFO     | src.models.kalman              | Kalman filter — 13/49 ASIANPAINT.NS
+2026-03-26 10:35:49 | INFO     | src.models.kalman              | Kalman filter — 14/49 MARUTI.NS
+2026-03-26 10:35:54 | INFO     | src.models.kalman              | Kalman filter — 15/49 BAJFINANCE.NS
+2026-03-26 10:36:00 | INFO     | src.models.kalman              | Kalman filter — 16/49 HCLTECH.NS
+2026-03-26 10:36:05 | INFO     | src.models.kalman              | Kalman filter — 17/49 SUNPHARMA.NS
+2026-03-26 10:36:10 | INFO     | src.models.kalman              | Kalman filter — 18/49 TITAN.NS
+2026-03-26 10:36:15 | INFO     | src.models.kalman              | Kalman filter — 19/49 ULTRACEMCO.NS
+2026-03-26 10:36:21 | INFO     | src.models.kalman              | Kalman filter — 20/49 NESTLEIND.NS
+2026-03-26 10:36:26 | INFO     | src.models.kalman              | Kalman filter — 21/49 WIPRO.NS
+2026-03-26 10:36:31 | INFO     | src.models.kalman              | Kalman filter — 22/49 POWERGRID.NS
+2026-03-26 10:36:37 | INFO     | src.models.kalman              | Kalman filter — 23/49 NTPC.NS
+2026-03-26 10:36:42 | INFO     | src.models.kalman              | Kalman filter — 24/49 ONGC.NS
+2026-03-26 10:36:47 | INFO     | src.models.kalman              | Kalman filter — 25/49 TECHM.NS
+2026-03-26 10:36:53 | INFO     | src.models.kalman              | Kalman filter — 26/49 JSWSTEEL.NS
+2026-03-26 10:36:58 | INFO     | src.models.kalman              | Kalman filter — 27/49 TATASTEEL.NS
+2026-03-26 10:37:03 | INFO     | src.models.kalman              | Kalman filter — 28/49 M&M.NS
+2026-03-26 10:37:09 | INFO     | src.models.kalman              | Kalman filter — 29/49 ADANIENT.NS
+2026-03-26 10:37:14 | INFO     | src.models.kalman              | Kalman filter — 30/49 ADANIPORTS.NS
+2026-03-26 10:37:19 | INFO     | src.models.kalman              | Kalman filter — 31/49 COALINDIA.NS
+2026-03-26 10:37:25 | INFO     | src.models.kalman              | Kalman filter — 32/49 BAJAJFINSV.NS
+2026-03-26 10:37:30 | INFO     | src.models.kalman              | Kalman filter — 33/49 HDFCLIFE.NS
+2026-03-26 10:37:35 | INFO     | src.models.kalman              | Kalman filter — 34/49 SBILIFE.NS
+2026-03-26 10:37:41 | INFO     | src.models.kalman              | Kalman filter — 35/49 DRREDDY.NS
+2026-03-26 10:37:46 | INFO     | src.models.kalman              | Kalman filter — 36/49 DIVISLAB.NS
+2026-03-26 10:37:51 | INFO     | src.models.kalman              | Kalman filter — 37/49 CIPLA.NS
+2026-03-26 10:37:57 | INFO     | src.models.kalman              | Kalman filter — 38/49 EICHERMOT.NS
+2026-03-26 10:38:02 | INFO     | src.models.kalman              | Kalman filter — 39/49 HEROMOTOCO.NS
+2026-03-26 10:38:08 | INFO     | src.models.kalman              | Kalman filter — 40/49 APOLLOHOSP.NS
+2026-03-26 10:38:13 | INFO     | src.models.kalman              | Kalman filter — 41/49 BAJAJ-AUTO.NS
+2026-03-26 10:38:18 | INFO     | src.models.kalman              | Kalman filter — 42/49 BRITANNIA.NS
+2026-03-26 10:38:24 | INFO     | src.models.kalman              | Kalman filter — 43/49 GRASIM.NS
+2026-03-26 10:38:29 | INFO     | src.models.kalman              | Kalman filter — 44/49 INDUSINDBK.NS
+2026-03-26 10:38:34 | INFO     | src.models.kalman              | Kalman filter — 45/49 TATACONSUM.NS
+2026-03-26 10:38:40 | INFO     | src.models.kalman              | Kalman filter — 46/49 UPL.NS
+2026-03-26 10:38:45 | INFO     | src.models.kalman              | Kalman filter — 47/49 BPCL.NS
+2026-03-26 10:38:50 | INFO     | src.models.kalman              | Kalman filter — 48/49 IOC.NS
+2026-03-26 10:38:56 | INFO     | src.models.kalman              | Kalman filter — 49/49 HINDALCO.NS
+2026-03-26 10:39:01 | INFO     | src.models.kalman              | Kalman beta panel built — shape (2743, 49)
+2026-03-26 10:39:01 | INFO     | root                           |   ✓  Saved kalman_betas.csv  (2743, 49)
+2026-03-26 10:39:01 | INFO     | root                           | Kalman — MAE: 0.0749
+2026-03-26 10:39:01 | INFO     | root                           | 
+--- Model C: LSTM (Primary Deep Model) ---
+2026-03-26 10:39:08 | INFO     | root                           | Device: mps
+2026-03-26 10:39:09 | INFO     | root                           | LSTM parameters: 61377
+2026-03-26 10:41:48 | INFO     | root                           | Logging configured — level=INFO, file=/Users/kunalajgaonkar/Desktop/AI_FinTech/results/02_train_models.log, started=2026-03-26T10:41:48
+2026-03-26 10:41:48 | INFO     | root                           | =================================================================
+2026-03-26 10:41:48 | INFO     | root                           | STEP 2 — Model Training
+2026-03-26 10:41:48 | INFO     | root                           | Device   : auto
+2026-03-26 10:41:48 | INFO     | root                           | Epochs   : 50
+2026-03-26 10:41:48 | INFO     | root                           | Fast mode: False
+2026-03-26 10:41:48 | INFO     | root                           | =================================================================
+2026-03-26 10:41:50 | INFO     | root                           | Loading stacked_features.csv ...
+2026-03-26 10:41:51 | INFO     | root                           | Train: (71932, 35)  (2016-01-14 → 2021-12-31)
+2026-03-26 10:41:51 | INFO     | root                           | Test : (49196, 35)  (2022-01-03 → 2026-01-23)
+2026-03-26 10:41:51 | INFO     | root                           | Saved scaler.pkl and feature_cols.txt
+2026-03-26 10:41:51 | INFO     | root                           | 
+--- Model A: XGBoost Baseline ---
+2026-03-26 10:41:54 | INFO     | root                           | XGBoost — MAE: 0.0390 | Direction Acc: 0.764
+2026-03-26 10:41:54 | INFO     | root                           | Computing SHAP values (this may take a minute)...
+2026-03-26 10:42:05 | INFO     | root                           | Top 10 SHAP features:
+          feature  mean_abs_shap
+       betavol_60       0.031471
+    betavol_trend       0.018790
+       betavol_30       0.013359
+   market_vol_60d       0.007083
+      betavol_120       0.003124
+beta_60_30_spread       0.002950
+    combined_flow       0.002851
+         beta_120       0.001904
+       vix_zscore       0.001821
+              rfr       0.001622
+2026-03-26 10:42:05 | INFO     | root                           |   ✓  Saved shap_importance.png
+2026-03-26 10:42:05 | INFO     | root                           | 
+--- Model B: Kalman Filter Betas ---
+2026-03-26 10:42:05 | INFO     | root                           | Computing Kalman betas for 49 stocks...
+2026-03-26 10:42:05 | INFO     | src.models.kalman              | Kalman filter — 1/49 RELIANCE.NS
+2026-03-26 10:42:11 | INFO     | src.models.kalman              | Kalman filter — 2/49 TCS.NS
+2026-03-26 10:42:16 | INFO     | src.models.kalman              | Kalman filter — 3/49 HDFCBANK.NS
+2026-03-26 10:42:22 | INFO     | src.models.kalman              | Kalman filter — 4/49 INFY.NS
+2026-03-26 10:42:27 | INFO     | src.models.kalman              | Kalman filter — 5/49 ICICIBANK.NS
+2026-03-26 10:42:32 | INFO     | src.models.kalman              | Kalman filter — 6/49 HINDUNILVR.NS
+2026-03-26 10:42:38 | INFO     | src.models.kalman              | Kalman filter — 7/49 ITC.NS
+2026-03-26 10:42:43 | INFO     | src.models.kalman              | Kalman filter — 8/49 SBIN.NS
+2026-03-26 10:42:48 | INFO     | src.models.kalman              | Kalman filter — 9/49 BHARTIARTL.NS
+2026-03-26 10:42:53 | INFO     | src.models.kalman              | Kalman filter — 10/49 KOTAKBANK.NS
+2026-03-26 10:42:59 | INFO     | src.models.kalman              | Kalman filter — 11/49 LT.NS
+2026-03-26 10:43:04 | INFO     | src.models.kalman              | Kalman filter — 12/49 AXISBANK.NS
+2026-03-26 10:43:10 | INFO     | src.models.kalman              | Kalman filter — 13/49 ASIANPAINT.NS
+2026-03-26 10:43:15 | INFO     | src.models.kalman              | Kalman filter — 14/49 MARUTI.NS
+2026-03-26 10:43:20 | INFO     | src.models.kalman              | Kalman filter — 15/49 BAJFINANCE.NS
+2026-03-26 10:43:25 | INFO     | src.models.kalman              | Kalman filter — 16/49 HCLTECH.NS
+2026-03-26 10:43:31 | INFO     | src.models.kalman              | Kalman filter — 17/49 SUNPHARMA.NS
+2026-03-26 10:43:36 | INFO     | src.models.kalman              | Kalman filter — 18/49 TITAN.NS
+2026-03-26 10:43:42 | INFO     | src.models.kalman              | Kalman filter — 19/49 ULTRACEMCO.NS
+2026-03-26 10:43:47 | INFO     | src.models.kalman              | Kalman filter — 20/49 NESTLEIND.NS
+2026-03-26 10:43:52 | INFO     | src.models.kalman              | Kalman filter — 21/49 WIPRO.NS
+2026-03-26 10:43:58 | INFO     | src.models.kalman              | Kalman filter — 22/49 POWERGRID.NS
+2026-03-26 10:44:03 | INFO     | src.models.kalman              | Kalman filter — 23/49 NTPC.NS
+2026-03-26 10:44:08 | INFO     | src.models.kalman              | Kalman filter — 24/49 ONGC.NS
+2026-03-26 10:44:14 | INFO     | src.models.kalman              | Kalman filter — 25/49 TECHM.NS
+2026-03-26 10:44:19 | INFO     | src.models.kalman              | Kalman filter — 26/49 JSWSTEEL.NS
+2026-03-26 10:44:25 | INFO     | src.models.kalman              | Kalman filter — 27/49 TATASTEEL.NS
+2026-03-26 10:44:30 | INFO     | src.models.kalman              | Kalman filter — 28/49 M&M.NS
+2026-03-26 10:44:35 | INFO     | src.models.kalman              | Kalman filter — 29/49 ADANIENT.NS
+2026-03-26 10:44:41 | INFO     | src.models.kalman              | Kalman filter — 30/49 ADANIPORTS.NS
+2026-03-26 10:44:46 | INFO     | src.models.kalman              | Kalman filter — 31/49 COALINDIA.NS
+2026-03-26 10:44:51 | INFO     | src.models.kalman              | Kalman filter — 32/49 BAJAJFINSV.NS
+2026-03-26 10:44:57 | INFO     | src.models.kalman              | Kalman filter — 33/49 HDFCLIFE.NS
+2026-03-26 10:45:02 | INFO     | src.models.kalman              | Kalman filter — 34/49 SBILIFE.NS
+2026-03-26 10:45:07 | INFO     | src.models.kalman              | Kalman filter — 35/49 DRREDDY.NS
+2026-03-26 10:45:13 | INFO     | src.models.kalman              | Kalman filter — 36/49 DIVISLAB.NS
+2026-03-26 10:45:18 | INFO     | src.models.kalman              | Kalman filter — 37/49 CIPLA.NS
+2026-03-26 10:45:23 | INFO     | src.models.kalman              | Kalman filter — 38/49 EICHERMOT.NS
+2026-03-26 10:45:29 | INFO     | src.models.kalman              | Kalman filter — 39/49 HEROMOTOCO.NS
+2026-03-26 10:45:34 | INFO     | src.models.kalman              | Kalman filter — 40/49 APOLLOHOSP.NS
+2026-03-26 10:45:39 | INFO     | src.models.kalman              | Kalman filter — 41/49 BAJAJ-AUTO.NS
+2026-03-26 10:45:45 | INFO     | src.models.kalman              | Kalman filter — 42/49 BRITANNIA.NS
+2026-03-26 10:45:50 | INFO     | src.models.kalman              | Kalman filter — 43/49 GRASIM.NS
+2026-03-26 10:45:55 | INFO     | src.models.kalman              | Kalman filter — 44/49 INDUSINDBK.NS
+2026-03-26 10:46:00 | INFO     | src.models.kalman              | Kalman filter — 45/49 TATACONSUM.NS
+2026-03-26 10:46:06 | INFO     | src.models.kalman              | Kalman filter — 46/49 UPL.NS
+2026-03-26 10:46:12 | INFO     | src.models.kalman              | Kalman filter — 47/49 BPCL.NS
+2026-03-26 10:46:18 | INFO     | src.models.kalman              | Kalman filter — 48/49 IOC.NS
+2026-03-26 10:46:25 | INFO     | src.models.kalman              | Kalman filter — 49/49 HINDALCO.NS
+2026-03-26 10:46:31 | INFO     | src.models.kalman              | Kalman beta panel built — shape (2743, 49)
+2026-03-26 10:46:31 | INFO     | root                           |   ✓  Saved kalman_betas.csv  (2743, 49)
+2026-03-26 10:46:31 | INFO     | root                           | Kalman — MAE: 0.0749
+2026-03-26 10:46:31 | INFO     | root                           | 
+--- Model C: LSTM (Primary Deep Model) ---
+2026-03-26 10:46:34 | INFO     | root                           | Device: mps
+2026-03-26 10:46:34 | INFO     | root                           | LSTM parameters: 61377
+2026-03-26 10:46:35 | INFO     | root                           | Training for up to 50 epochs (patience=10)...
+2026-03-26 10:46:49 | INFO     | root                           | Epoch   0 | Train: 0.0080 | Val: 0.0030 | LR: 1.00e-03
+2026-03-26 10:47:17 | INFO     | root                           | Epoch   5 | Train: 0.0047 | Val: 0.0032 | LR: 1.00e-03
+2026-03-26 10:47:47 | INFO     | root                           | Epoch  10 | Train: 0.0045 | Val: 0.0044 | LR: 1.00e-03
+2026-03-26 10:48:14 | INFO     | root                           | Epoch  15 | Train: 0.0047 | Val: 0.0042 | LR: 5.00e-04
+2026-03-26 10:48:33 | INFO     | root                           | Early stopping at epoch 18  (best val_loss=0.0026)
+2026-03-26 10:48:33 | INFO     | root                           | Training complete. Best val_loss=0.0026
+2026-03-26 10:48:36 | INFO     | root                           | LSTM — MAE: 0.0676 | Direction Acc: 0.469
+2026-03-26 10:48:36 | INFO     | root                           |   ✓  Saved lstm_training_curves.png
+2026-03-26 10:48:36 | INFO     | root                           | 
+--- Model D: HMM Regime Classifier ---
+2026-03-26 10:48:38 | INFO     | root                           | Regime distribution:
+regime
+bear          1317
+transition    1162
+bull           260
+2026-03-26 10:48:38 | INFO     | root                           |   ✓  Saved hmm_regimes.csv
+2026-03-26 10:48:38 | INFO     | root                           |   ✓  Saved hmm_regimes.png
+2026-03-26 10:48:38 | INFO     | root                           | 
+--- Calibrating Rebalance Threshold ---
+2026-03-26 10:48:38 | INFO     | root                           | Betavol threshold (Q75 of train): 0.1872
+2026-03-26 10:48:38 | INFO     | root                           | VIX override threshold: 25.0
+2026-03-26 10:48:38 | INFO     | root                           | 
+=== MODEL COMPARISON ===
+2026-03-26 10:48:38 | INFO     | root                           | 
+          Model    MAE  Direction_Acc                    Notes
+Static OLS Beta 0.0477            NaN          60d rolling OLS
+  Kalman Filter 0.0749            NaN           State-space EM
+        XGBoost 0.0390          0.764 Gradient boosting + SHAP
+LSTM (proposed) 0.0676          0.469 Seq2One LSTM + LayerNorm
+2026-03-26 10:48:38 | INFO     | root                           | Saved signal_config.json: threshold=0.1872
+2026-03-26 10:48:38 | INFO     | root                           | 
+✅  Model training complete in 409.8 seconds.
+2026-03-26 10:48:38 | INFO     | root                           |     Next step: python scripts/03_portfolio_optimisation.py
+2026-03-26 21:25:50 | INFO     | root                           | Logging configured — level=INFO, file=/Users/kunalajgaonkar/Desktop/AI_FinTech/results/02_train_models.log, started=2026-03-26T21:25:50
+2026-03-26 21:25:50 | INFO     | root                           | =================================================================
+2026-03-26 21:25:50 | INFO     | root                           | STEP 2 — Model Training
+2026-03-26 21:25:50 | INFO     | root                           | Device   : auto
+2026-03-26 21:25:50 | INFO     | root                           | Epochs   : 50
+2026-03-26 21:25:50 | INFO     | root                           | Fast mode: False
+2026-03-26 21:25:50 | INFO     | root                           | =================================================================
+2026-03-26 21:25:54 | INFO     | root                           | Loading stacked_features.csv ...
+2026-03-26 21:25:55 | INFO     | root                           | Train: (69523, 42)  (2016-02-15 -> 2021-12-31)
+2026-03-26 21:25:55 | INFO     | root                           | Test : (49196, 42)  (2022-01-03 -> 2026-01-23)
+2026-03-26 21:25:55 | INFO     | root                           | Saved scaler.pkl and feature_cols.txt
+2026-03-26 21:25:55 | INFO     | root                           | 
+--- Model A: XGBoost Baseline ---
+2026-03-26 21:26:01 | INFO     | root                           | XGBoost — MAE: 0.0391 | Direction Acc: 0.765
+2026-03-26 21:26:02 | INFO     | root                           |   Saved xgb_model.pkl
+2026-03-26 21:26:02 | INFO     | root                           | Computing SHAP values (this may take a minute)...
+2026-03-26 21:26:18 | INFO     | root                           | Top 10 SHAP features:
+          feature  mean_abs_shap
+       betavol_60       0.028047
+    betavol_trend       0.020527
+       betavol_30       0.013210
+   market_vol_60d       0.007421
+      betavol_120       0.003676
+    combined_flow       0.003577
+beta_60_30_spread       0.002753
+         beta_120       0.002332
+       vix_zscore       0.002161
+              rfr       0.001355
+2026-03-26 21:26:18 | INFO     | root                           |   Saved shap_importance.png
+2026-03-26 21:26:18 | INFO     | root                           | 
+--- Model A2: LightGBM ---
+2026-03-26 21:26:22 | INFO     | root                           | LightGBM — MAE: 0.0411 | Direction Acc: 0.762
+2026-03-26 21:26:22 | INFO     | root                           |   Saved lgbm_model.pkl
+2026-03-26 21:26:22 | INFO     | root                           | 
+Best tree model for signal threshold: xgboost (MAE=0.0391)
+2026-03-26 21:26:22 | INFO     | root                           | 
+--- Model B: Kalman Filter Betas ---
+2026-03-26 21:28:46 | INFO     | root                           | Logging configured — level=INFO, file=/Users/kunalajgaonkar/Desktop/AI_FinTech/results/02_train_models.log, started=2026-03-26T21:28:46
+2026-03-26 21:28:46 | INFO     | root                           | =================================================================
+2026-03-26 21:28:46 | INFO     | root                           | STEP 2 — Model Training
+2026-03-26 21:28:46 | INFO     | root                           | Device   : auto
+2026-03-26 21:28:46 | INFO     | root                           | Epochs   : 50
+2026-03-26 21:28:46 | INFO     | root                           | Fast mode: False
+2026-03-26 21:28:46 | INFO     | root                           | =================================================================
+2026-03-26 21:28:48 | INFO     | root                           | Loading stacked_features.csv ...
+2026-03-26 21:28:49 | INFO     | root                           | Train: (69523, 42)  (2016-02-15 -> 2021-12-31)
+2026-03-26 21:28:49 | INFO     | root                           | Test : (49196, 42)  (2022-01-03 -> 2026-01-23)
+2026-03-26 21:28:49 | INFO     | root                           | Saved scaler.pkl and feature_cols.txt
+2026-03-26 21:28:49 | INFO     | root                           | 
+--- Model A: XGBoost Baseline ---
+2026-03-26 21:28:54 | INFO     | root                           | XGBoost — MAE: 0.0391 | Direction Acc: 0.765
+2026-03-26 21:28:54 | INFO     | root                           |   Saved xgb_model.pkl
+2026-03-26 21:28:54 | INFO     | root                           | Computing SHAP values (this may take a minute)...
+2026-03-26 21:29:10 | INFO     | root                           | Top 10 SHAP features:
+          feature  mean_abs_shap
+       betavol_60       0.028047
+    betavol_trend       0.020527
+       betavol_30       0.013210
+   market_vol_60d       0.007421
+      betavol_120       0.003676
+    combined_flow       0.003577
+beta_60_30_spread       0.002753
+         beta_120       0.002332
+       vix_zscore       0.002161
+              rfr       0.001355
+2026-03-26 21:29:10 | INFO     | root                           |   Saved shap_importance.png
+2026-03-26 21:29:10 | INFO     | root                           | 
+--- Model A2: LightGBM ---
+2026-03-26 21:29:14 | INFO     | root                           | LightGBM — MAE: 0.0411 | Direction Acc: 0.762
+2026-03-26 21:29:14 | INFO     | root                           |   Saved lgbm_model.pkl
+2026-03-26 21:29:14 | INFO     | root                           | 
+Best tree model for signal threshold: xgboost (MAE=0.0391)
+2026-03-26 21:29:14 | INFO     | root                           | 
+--- Model B: Kalman Filter Betas ---
+2026-03-26 21:33:30 | INFO     | root                           | Logging configured — level=INFO, file=/Users/kunalajgaonkar/Desktop/AI_FinTech/results/02_train_models.log, started=2026-03-26T21:33:30
+2026-03-26 21:33:30 | INFO     | root                           | =================================================================
+2026-03-26 21:33:30 | INFO     | root                           | STEP 2 — Model Training
+2026-03-26 21:33:30 | INFO     | root                           | Device   : auto
+2026-03-26 21:33:30 | INFO     | root                           | Epochs   : 50
+2026-03-26 21:33:30 | INFO     | root                           | Fast mode: False
+2026-03-26 21:33:30 | INFO     | root                           | =================================================================
+2026-03-26 21:33:33 | INFO     | root                           | Loading stacked_features.csv ...
+2026-03-26 21:33:36 | INFO     | root                           | Train: (69523, 42)  (2016-02-15 -> 2021-12-31)
+2026-03-26 21:33:36 | INFO     | root                           | Test : (49196, 42)  (2022-01-03 -> 2026-01-23)
+2026-03-26 21:33:36 | INFO     | root                           | Saved scaler.pkl and feature_cols.txt
+2026-03-26 21:33:36 | INFO     | root                           | 
+--- Model A: XGBoost Baseline ---
+2026-03-26 21:33:43 | INFO     | root                           | XGBoost — MAE: 0.0391 | Direction Acc: 0.765
+2026-03-26 21:33:43 | INFO     | root                           |   Saved xgb_model.pkl
+2026-03-26 21:33:43 | INFO     | root                           | Computing SHAP values (this may take a minute)...
+2026-03-26 21:34:04 | INFO     | root                           | Top 10 SHAP features:
+          feature  mean_abs_shap
+       betavol_60       0.028047
+    betavol_trend       0.020527
+       betavol_30       0.013210
+   market_vol_60d       0.007421
+      betavol_120       0.003676
+    combined_flow       0.003577
+beta_60_30_spread       0.002753
+         beta_120       0.002332
+       vix_zscore       0.002161
+              rfr       0.001355
+2026-03-26 21:34:04 | INFO     | root                           |   Saved shap_importance.png
+2026-03-26 21:34:04 | INFO     | root                           | 
+--- Model A2: LightGBM ---
+2026-03-26 21:34:07 | INFO     | root                           | LightGBM — MAE: 0.0411 | Direction Acc: 0.762
+2026-03-26 21:34:07 | INFO     | root                           |   Saved lgbm_model.pkl
+2026-03-26 21:34:07 | INFO     | root                           | 
+Best tree model for signal threshold: xgboost (MAE=0.0391)
+2026-03-26 21:34:07 | INFO     | root                           | 
+--- Model B: Kalman Filter Betas ---
+2026-03-26 21:34:07 | INFO     | root                           | Computing Kalman betas for 49 stocks...
+2026-03-26 21:34:07 | INFO     | src.models.kalman              | Kalman filter — 1/49 RELIANCE.NS
+2026-03-26 21:34:12 | INFO     | src.models.kalman              | Kalman filter — 2/49 TCS.NS
+2026-03-26 21:34:18 | INFO     | src.models.kalman              | Kalman filter — 3/49 HDFCBANK.NS
+2026-03-26 21:34:23 | INFO     | src.models.kalman              | Kalman filter — 4/49 INFY.NS
+2026-03-26 21:34:29 | INFO     | src.models.kalman              | Kalman filter — 5/49 ICICIBANK.NS
+2026-03-26 21:34:35 | INFO     | src.models.kalman              | Kalman filter — 6/49 HINDUNILVR.NS
+2026-03-26 21:34:41 | INFO     | src.models.kalman              | Kalman filter — 7/49 ITC.NS
+2026-03-26 21:34:46 | INFO     | src.models.kalman              | Kalman filter — 8/49 SBIN.NS
+2026-03-26 21:34:52 | INFO     | src.models.kalman              | Kalman filter — 9/49 BHARTIARTL.NS
+2026-03-26 21:34:58 | INFO     | src.models.kalman              | Kalman filter — 10/49 KOTAKBANK.NS
+2026-03-26 21:35:03 | INFO     | src.models.kalman              | Kalman filter — 11/49 LT.NS
+2026-03-26 21:35:09 | INFO     | src.models.kalman              | Kalman filter — 12/49 AXISBANK.NS
+2026-03-26 21:35:14 | INFO     | src.models.kalman              | Kalman filter — 13/49 ASIANPAINT.NS
+2026-03-26 21:35:20 | INFO     | src.models.kalman              | Kalman filter — 14/49 MARUTI.NS
+2026-03-26 21:35:25 | INFO     | src.models.kalman              | Kalman filter — 15/49 BAJFINANCE.NS
+2026-03-26 21:35:31 | INFO     | src.models.kalman              | Kalman filter — 16/49 HCLTECH.NS
+2026-03-26 21:35:36 | INFO     | src.models.kalman              | Kalman filter — 17/49 SUNPHARMA.NS
+2026-03-26 21:35:42 | INFO     | src.models.kalman              | Kalman filter — 18/49 TITAN.NS
+2026-03-26 21:35:47 | INFO     | src.models.kalman              | Kalman filter — 19/49 ULTRACEMCO.NS
+2026-03-26 21:35:53 | INFO     | src.models.kalman              | Kalman filter — 20/49 NESTLEIND.NS
+2026-03-26 21:35:58 | INFO     | src.models.kalman              | Kalman filter — 21/49 WIPRO.NS
+2026-03-26 21:36:04 | INFO     | src.models.kalman              | Kalman filter — 22/49 POWERGRID.NS
+2026-03-26 21:36:10 | INFO     | src.models.kalman              | Kalman filter — 23/49 NTPC.NS
+2026-03-26 21:36:15 | INFO     | src.models.kalman              | Kalman filter — 24/49 ONGC.NS
+2026-03-26 21:36:20 | INFO     | src.models.kalman              | Kalman filter — 25/49 TECHM.NS
+2026-03-26 21:36:26 | INFO     | src.models.kalman              | Kalman filter — 26/49 JSWSTEEL.NS
+2026-03-26 21:36:31 | INFO     | src.models.kalman              | Kalman filter — 27/49 TATASTEEL.NS
+2026-03-26 21:36:36 | INFO     | src.models.kalman              | Kalman filter — 28/49 M&M.NS
+2026-03-26 21:36:42 | INFO     | src.models.kalman              | Kalman filter — 29/49 ADANIENT.NS
+2026-03-26 21:36:47 | INFO     | src.models.kalman              | Kalman filter — 30/49 ADANIPORTS.NS
+2026-03-26 21:36:53 | INFO     | src.models.kalman              | Kalman filter — 31/49 COALINDIA.NS
+2026-03-26 21:36:58 | INFO     | src.models.kalman              | Kalman filter — 32/49 BAJAJFINSV.NS
+2026-03-26 21:37:03 | INFO     | src.models.kalman              | Kalman filter — 33/49 HDFCLIFE.NS
+2026-03-26 21:37:09 | INFO     | src.models.kalman              | Kalman filter — 34/49 SBILIFE.NS
+2026-03-26 21:37:14 | INFO     | src.models.kalman              | Kalman filter — 35/49 DRREDDY.NS
+2026-03-26 21:37:19 | INFO     | src.models.kalman              | Kalman filter — 36/49 DIVISLAB.NS
+2026-03-26 21:37:25 | INFO     | src.models.kalman              | Kalman filter — 37/49 CIPLA.NS
+2026-03-26 21:37:30 | INFO     | src.models.kalman              | Kalman filter — 38/49 EICHERMOT.NS
+2026-03-26 21:37:35 | INFO     | src.models.kalman              | Kalman filter — 39/49 HEROMOTOCO.NS
+2026-03-26 21:37:41 | INFO     | src.models.kalman              | Kalman filter — 40/49 APOLLOHOSP.NS
+2026-03-26 21:37:47 | INFO     | src.models.kalman              | Kalman filter — 41/49 BAJAJ-AUTO.NS
+2026-03-26 21:37:52 | INFO     | src.models.kalman              | Kalman filter — 42/49 BRITANNIA.NS
+2026-03-26 21:37:57 | INFO     | src.models.kalman              | Kalman filter — 43/49 GRASIM.NS
+2026-03-26 21:38:03 | INFO     | src.models.kalman              | Kalman filter — 44/49 INDUSINDBK.NS
+2026-03-26 21:38:08 | INFO     | src.models.kalman              | Kalman filter — 45/49 TATACONSUM.NS
+2026-03-26 21:38:14 | INFO     | src.models.kalman              | Kalman filter — 46/49 UPL.NS
+2026-03-26 21:38:19 | INFO     | src.models.kalman              | Kalman filter — 47/49 BPCL.NS
+2026-03-26 21:38:25 | INFO     | src.models.kalman              | Kalman filter — 48/49 IOC.NS
+2026-03-26 21:38:31 | INFO     | src.models.kalman              | Kalman filter — 49/49 HINDALCO.NS
+2026-03-26 21:38:37 | INFO     | src.models.kalman              | Kalman beta panel built — shape (2743, 49)
+2026-03-26 21:38:37 | INFO     | root                           |   Saved kalman_betas.csv  (2743, 49)
+2026-03-26 21:38:37 | INFO     | root                           | Kalman — MAE: 0.0749
+2026-03-26 21:38:37 | INFO     | root                           | 
+--- Model C: LSTM (Primary Deep Model) ---
+2026-03-26 21:38:42 | INFO     | root                           | Device: mps
+2026-03-26 21:38:42 | INFO     | root                           | LSTM parameters: 230785  (hidden=128)
+2026-03-26 21:39:03 | INFO     | root                           | Logging configured — level=INFO, file=/Users/kunalajgaonkar/Desktop/AI_FinTech/results/02_train_models.log, started=2026-03-26T21:39:03
+2026-03-26 21:39:03 | INFO     | root                           | =================================================================
+2026-03-26 21:39:03 | INFO     | root                           | STEP 2 — Model Training
+2026-03-26 21:39:03 | INFO     | root                           | Device   : auto
+2026-03-26 21:39:03 | INFO     | root                           | Epochs   : 50
+2026-03-26 21:39:03 | INFO     | root                           | Fast mode: False
+2026-03-26 21:39:03 | INFO     | root                           | =================================================================
+2026-03-26 21:39:05 | INFO     | root                           | Loading stacked_features.csv ...
+2026-03-26 21:39:05 | INFO     | root                           | Train: (69523, 42)  (2016-02-15 -> 2021-12-31)
+2026-03-26 21:39:05 | INFO     | root                           | Test : (49196, 42)  (2022-01-03 -> 2026-01-23)
+2026-03-26 21:39:05 | INFO     | root                           | Saved scaler.pkl and feature_cols.txt
+2026-03-26 21:39:05 | INFO     | root                           | 
+--- Model A: XGBoost Baseline ---
+2026-03-26 21:39:09 | INFO     | root                           | XGBoost — MAE: 0.0391 | Direction Acc: 0.765
+2026-03-26 21:39:09 | INFO     | root                           |   Saved xgb_model.pkl
+2026-03-26 21:39:09 | INFO     | root                           | Computing SHAP values (this may take a minute)...
+2026-03-26 21:39:24 | INFO     | root                           | Top 10 SHAP features:
+          feature  mean_abs_shap
+       betavol_60       0.028047
+    betavol_trend       0.020527
+       betavol_30       0.013210
+   market_vol_60d       0.007421
+      betavol_120       0.003676
+    combined_flow       0.003577
+beta_60_30_spread       0.002753
+         beta_120       0.002332
+       vix_zscore       0.002161
+              rfr       0.001355
+2026-03-26 21:39:24 | INFO     | root                           |   Saved shap_importance.png
+2026-03-26 21:39:24 | INFO     | root                           | 
+--- Model A2: LightGBM ---
+2026-03-26 21:39:27 | INFO     | root                           | LightGBM — MAE: 0.0411 | Direction Acc: 0.762
+2026-03-26 21:39:27 | INFO     | root                           |   Saved lgbm_model.pkl
+2026-03-26 21:39:27 | INFO     | root                           | 
+Best tree model for signal threshold: xgboost (MAE=0.0391)
+2026-03-26 21:39:27 | INFO     | root                           | 
+--- Model B: Kalman Filter Betas ---
+2026-03-26 21:39:27 | INFO     | root                           | Computing Kalman betas for 49 stocks...
+2026-03-26 21:39:27 | INFO     | src.models.kalman              | Kalman filter — 1/49 RELIANCE.NS
+2026-03-26 21:39:33 | INFO     | src.models.kalman              | Kalman filter — 2/49 TCS.NS
+2026-03-26 21:39:38 | INFO     | src.models.kalman              | Kalman filter — 3/49 HDFCBANK.NS
+2026-03-26 21:39:43 | INFO     | src.models.kalman              | Kalman filter — 4/49 INFY.NS
+2026-03-26 21:39:49 | INFO     | src.models.kalman              | Kalman filter — 5/49 ICICIBANK.NS
+2026-03-26 21:39:54 | INFO     | src.models.kalman              | Kalman filter — 6/49 HINDUNILVR.NS
+2026-03-26 21:39:59 | INFO     | src.models.kalman              | Kalman filter — 7/49 ITC.NS
+2026-03-26 21:40:05 | INFO     | src.models.kalman              | Kalman filter — 8/49 SBIN.NS
+2026-03-26 21:40:11 | INFO     | src.models.kalman              | Kalman filter — 9/49 BHARTIARTL.NS
+2026-03-26 21:40:16 | INFO     | src.models.kalman              | Kalman filter — 10/49 KOTAKBANK.NS
+2026-03-26 21:40:22 | INFO     | src.models.kalman              | Kalman filter — 11/49 LT.NS
+2026-03-26 21:40:27 | INFO     | src.models.kalman              | Kalman filter — 12/49 AXISBANK.NS
+2026-03-26 21:40:32 | INFO     | src.models.kalman              | Kalman filter — 13/49 ASIANPAINT.NS
+2026-03-26 21:40:38 | INFO     | src.models.kalman              | Kalman filter — 14/49 MARUTI.NS
+2026-03-26 21:40:44 | INFO     | src.models.kalman              | Kalman filter — 15/49 BAJFINANCE.NS
+2026-03-26 21:40:49 | INFO     | src.models.kalman              | Kalman filter — 16/49 HCLTECH.NS
+2026-03-26 21:40:55 | INFO     | src.models.kalman              | Kalman filter — 17/49 SUNPHARMA.NS
+2026-03-26 21:41:02 | INFO     | src.models.kalman              | Kalman filter — 18/49 TITAN.NS
+2026-03-26 21:41:08 | INFO     | src.models.kalman              | Kalman filter — 19/49 ULTRACEMCO.NS
+2026-03-26 21:41:13 | INFO     | src.models.kalman              | Kalman filter — 20/49 NESTLEIND.NS
+2026-03-26 21:41:19 | INFO     | src.models.kalman              | Kalman filter — 21/49 WIPRO.NS
+2026-03-26 21:41:25 | INFO     | src.models.kalman              | Kalman filter — 22/49 POWERGRID.NS
+2026-03-26 21:41:30 | INFO     | src.models.kalman              | Kalman filter — 23/49 NTPC.NS
+2026-03-26 21:41:36 | INFO     | src.models.kalman              | Kalman filter — 24/49 ONGC.NS
+2026-03-26 21:41:41 | INFO     | src.models.kalman              | Kalman filter — 25/49 TECHM.NS
+2026-03-26 21:41:47 | INFO     | src.models.kalman              | Kalman filter — 26/49 JSWSTEEL.NS
+2026-03-26 21:41:52 | INFO     | src.models.kalman              | Kalman filter — 27/49 TATASTEEL.NS
+2026-03-26 21:41:57 | INFO     | src.models.kalman              | Kalman filter — 28/49 M&M.NS
+2026-03-26 21:42:03 | INFO     | src.models.kalman              | Kalman filter — 29/49 ADANIENT.NS
+2026-03-26 21:42:09 | INFO     | src.models.kalman              | Kalman filter — 30/49 ADANIPORTS.NS
+2026-03-26 21:42:15 | INFO     | src.models.kalman              | Kalman filter — 31/49 COALINDIA.NS
+2026-03-26 21:42:20 | INFO     | src.models.kalman              | Kalman filter — 32/49 BAJAJFINSV.NS
+2026-03-26 21:42:26 | INFO     | src.models.kalman              | Kalman filter — 33/49 HDFCLIFE.NS
+2026-03-26 21:42:31 | INFO     | src.models.kalman              | Kalman filter — 34/49 SBILIFE.NS
+2026-03-26 21:42:37 | INFO     | src.models.kalman              | Kalman filter — 35/49 DRREDDY.NS
+2026-03-26 21:42:42 | INFO     | src.models.kalman              | Kalman filter — 36/49 DIVISLAB.NS
+2026-03-26 21:42:48 | INFO     | src.models.kalman              | Kalman filter — 37/49 CIPLA.NS
+2026-03-26 21:42:53 | INFO     | src.models.kalman              | Kalman filter — 38/49 EICHERMOT.NS
+2026-03-26 21:42:59 | INFO     | src.models.kalman              | Kalman filter — 39/49 HEROMOTOCO.NS
+2026-03-26 21:43:04 | INFO     | src.models.kalman              | Kalman filter — 40/49 APOLLOHOSP.NS
+2026-03-26 21:43:10 | INFO     | src.models.kalman              | Kalman filter — 41/49 BAJAJ-AUTO.NS
+2026-03-26 21:43:15 | INFO     | src.models.kalman              | Kalman filter — 42/49 BRITANNIA.NS
+2026-03-26 21:43:22 | INFO     | src.models.kalman              | Kalman filter — 43/49 GRASIM.NS
+2026-03-26 21:43:27 | INFO     | src.models.kalman              | Kalman filter — 44/49 INDUSINDBK.NS
+2026-03-26 21:43:33 | INFO     | src.models.kalman              | Kalman filter — 45/49 TATACONSUM.NS
+2026-03-26 21:43:38 | INFO     | src.models.kalman              | Kalman filter — 46/49 UPL.NS
+2026-03-26 21:43:44 | INFO     | src.models.kalman              | Kalman filter — 47/49 BPCL.NS
+2026-03-26 21:43:49 | INFO     | src.models.kalman              | Kalman filter — 48/49 IOC.NS
+2026-03-26 21:43:55 | INFO     | src.models.kalman              | Kalman filter — 49/49 HINDALCO.NS
+2026-03-26 21:44:01 | INFO     | src.models.kalman              | Kalman beta panel built — shape (2743, 49)
+2026-03-26 21:44:01 | INFO     | root                           |   Saved kalman_betas.csv  (2743, 49)
+2026-03-26 21:44:01 | INFO     | root                           | Kalman — MAE: 0.0749
+2026-03-26 21:44:01 | INFO     | root                           | 
+--- Model C: LSTM (Primary Deep Model) ---
+2026-03-26 21:44:03 | INFO     | root                           | Device: mps
+2026-03-26 21:44:03 | INFO     | root                           | LSTM parameters: 230785  (hidden=128)
+2026-03-26 21:44:04 | INFO     | root                           | Training for up to 50 epochs (patience=10)...
+2026-03-26 21:44:15 | INFO     | root                           | Epoch   0 | Train: 0.0057 | Val: 0.0029 | LR: 1.00e-03
+2026-03-26 21:44:58 | INFO     | root                           | Epoch   5 | Train: 0.0051 | Val: 0.0041 | LR: 1.00e-03
+2026-03-26 21:45:44 | INFO     | root                           | Epoch  10 | Train: 0.0050 | Val: 0.0030 | LR: 5.00e-04
+2026-03-26 21:46:19 | INFO     | root                           | Early stopping at epoch 14  (best val_loss=0.0027)
+2026-03-26 21:46:19 | INFO     | root                           | Training complete. Best val_loss=0.0027
+2026-03-26 21:46:23 | INFO     | root                           | LSTM — MAE: 0.0639 | Direction Acc: 0.508
+2026-03-26 21:46:23 | INFO     | root                           |   Saved lstm_training_curves.png
+2026-03-26 21:46:23 | INFO     | root                           | 
+--- Model D: HMM Regime Classifier ---
+2026-03-26 21:47:38 | INFO     | root                           | Logging configured — level=INFO, file=/Users/kunalajgaonkar/Desktop/AI_FinTech/results/02_train_models.log, started=2026-03-26T21:47:38
+2026-03-26 21:47:38 | INFO     | root                           | =================================================================
+2026-03-26 21:47:38 | INFO     | root                           | STEP 2 — Model Training
+2026-03-26 21:47:38 | INFO     | root                           | Device   : auto
+2026-03-26 21:47:38 | INFO     | root                           | Epochs   : 50
+2026-03-26 21:47:38 | INFO     | root                           | Fast mode: False
+2026-03-26 21:47:38 | INFO     | root                           | =================================================================
+2026-03-26 21:47:40 | INFO     | root                           | Loading stacked_features.csv ...
+2026-03-26 21:47:41 | INFO     | root                           | Train: (69523, 42)  (2016-02-15 -> 2021-12-31)
+2026-03-26 21:47:41 | INFO     | root                           | Test : (49196, 42)  (2022-01-03 -> 2026-01-23)
+2026-03-26 21:47:41 | INFO     | root                           | Saved scaler.pkl and feature_cols.txt
+2026-03-26 21:47:41 | INFO     | root                           | 
+--- Model A: XGBoost Baseline ---
+2026-03-26 21:47:46 | INFO     | root                           | XGBoost — MAE: 0.0391 | Direction Acc: 0.765
+2026-03-26 21:47:46 | INFO     | root                           |   Saved xgb_model.pkl
+2026-03-26 21:47:46 | INFO     | root                           | Computing SHAP values (this may take a minute)...
+2026-03-26 21:48:00 | INFO     | root                           | Top 10 SHAP features:
+          feature  mean_abs_shap
+       betavol_60       0.028047
+    betavol_trend       0.020527
+       betavol_30       0.013210
+   market_vol_60d       0.007421
+      betavol_120       0.003676
+    combined_flow       0.003577
+beta_60_30_spread       0.002753
+         beta_120       0.002332
+       vix_zscore       0.002161
+              rfr       0.001355
+2026-03-26 21:48:00 | INFO     | root                           |   Saved shap_importance.png
+2026-03-26 21:48:00 | INFO     | root                           | 
+--- Model A2: LightGBM ---
+2026-03-26 21:48:03 | INFO     | root                           | LightGBM — MAE: 0.0411 | Direction Acc: 0.762
+2026-03-26 21:48:03 | INFO     | root                           |   Saved lgbm_model.pkl
+2026-03-26 21:48:03 | INFO     | root                           | 
+Best tree model for signal threshold: xgboost (MAE=0.0391)
+2026-03-26 21:48:03 | INFO     | root                           | 
+--- Model B: Kalman Filter Betas ---
+2026-03-26 21:48:03 | INFO     | root                           | Computing Kalman betas for 49 stocks...
+2026-03-26 21:48:03 | INFO     | src.models.kalman              | Kalman filter — 1/49 RELIANCE.NS
+2026-03-26 21:48:09 | INFO     | src.models.kalman              | Kalman filter — 2/49 TCS.NS
+2026-03-26 21:48:14 | INFO     | src.models.kalman              | Kalman filter — 3/49 HDFCBANK.NS
+2026-03-26 21:48:20 | INFO     | src.models.kalman              | Kalman filter — 4/49 INFY.NS
+2026-03-26 21:48:25 | INFO     | src.models.kalman              | Kalman filter — 5/49 ICICIBANK.NS
+2026-03-26 21:48:31 | INFO     | src.models.kalman              | Kalman filter — 6/49 HINDUNILVR.NS
+2026-03-26 21:48:36 | INFO     | src.models.kalman              | Kalman filter — 7/49 ITC.NS
+2026-03-26 21:48:41 | INFO     | src.models.kalman              | Kalman filter — 8/49 SBIN.NS
+2026-03-26 21:48:47 | INFO     | src.models.kalman              | Kalman filter — 9/49 BHARTIARTL.NS
+2026-03-26 21:48:52 | INFO     | src.models.kalman              | Kalman filter — 10/49 KOTAKBANK.NS
+2026-03-26 21:48:58 | INFO     | src.models.kalman              | Kalman filter — 11/49 LT.NS
+2026-03-26 21:49:03 | INFO     | src.models.kalman              | Kalman filter — 12/49 AXISBANK.NS
+2026-03-26 21:49:08 | INFO     | src.models.kalman              | Kalman filter — 13/49 ASIANPAINT.NS
+2026-03-26 21:49:13 | INFO     | src.models.kalman              | Kalman filter — 14/49 MARUTI.NS
+2026-03-26 21:49:19 | INFO     | src.models.kalman              | Kalman filter — 15/49 BAJFINANCE.NS
+2026-03-26 21:49:27 | INFO     | src.models.kalman              | Kalman filter — 16/49 HCLTECH.NS
+2026-03-26 21:49:32 | INFO     | src.models.kalman              | Kalman filter — 17/49 SUNPHARMA.NS
+2026-03-26 21:49:37 | INFO     | src.models.kalman              | Kalman filter — 18/49 TITAN.NS
+2026-03-26 21:49:43 | INFO     | src.models.kalman              | Kalman filter — 19/49 ULTRACEMCO.NS
+2026-03-26 21:49:48 | INFO     | src.models.kalman              | Kalman filter — 20/49 NESTLEIND.NS
+2026-03-26 21:49:53 | INFO     | src.models.kalman              | Kalman filter — 21/49 WIPRO.NS
+2026-03-26 21:49:59 | INFO     | src.models.kalman              | Kalman filter — 22/49 POWERGRID.NS
+2026-03-26 21:50:04 | INFO     | src.models.kalman              | Kalman filter — 23/49 NTPC.NS
+2026-03-26 21:50:10 | INFO     | src.models.kalman              | Kalman filter — 24/49 ONGC.NS
+2026-03-26 21:50:16 | INFO     | src.models.kalman              | Kalman filter — 25/49 TECHM.NS
+2026-03-26 21:50:22 | INFO     | src.models.kalman              | Kalman filter — 26/49 JSWSTEEL.NS
+2026-03-26 21:50:27 | INFO     | src.models.kalman              | Kalman filter — 27/49 TATASTEEL.NS
+2026-03-26 21:50:32 | INFO     | src.models.kalman              | Kalman filter — 28/49 M&M.NS
+2026-03-26 21:50:38 | INFO     | src.models.kalman              | Kalman filter — 29/49 ADANIENT.NS
+2026-03-26 21:50:43 | INFO     | src.models.kalman              | Kalman filter — 30/49 ADANIPORTS.NS
+2026-03-26 21:50:48 | INFO     | src.models.kalman              | Kalman filter — 31/49 COALINDIA.NS
+2026-03-26 21:50:54 | INFO     | src.models.kalman              | Kalman filter — 32/49 BAJAJFINSV.NS
+2026-03-26 21:51:00 | INFO     | src.models.kalman              | Kalman filter — 33/49 HDFCLIFE.NS
+2026-03-26 21:51:05 | INFO     | src.models.kalman              | Kalman filter — 34/49 SBILIFE.NS
+2026-03-26 21:51:11 | INFO     | src.models.kalman              | Kalman filter — 35/49 DRREDDY.NS
+2026-03-26 21:51:16 | INFO     | src.models.kalman              | Kalman filter — 36/49 DIVISLAB.NS
+2026-03-26 21:51:21 | INFO     | src.models.kalman              | Kalman filter — 37/49 CIPLA.NS
+2026-03-26 21:51:27 | INFO     | src.models.kalman              | Kalman filter — 38/49 EICHERMOT.NS
+2026-03-26 21:51:32 | INFO     | src.models.kalman              | Kalman filter — 39/49 HEROMOTOCO.NS
+2026-03-26 21:51:38 | INFO     | src.models.kalman              | Kalman filter — 40/49 APOLLOHOSP.NS
+2026-03-26 21:51:43 | INFO     | src.models.kalman              | Kalman filter — 41/49 BAJAJ-AUTO.NS
+2026-03-26 21:51:48 | INFO     | src.models.kalman              | Kalman filter — 42/49 BRITANNIA.NS
+2026-03-26 21:51:54 | INFO     | src.models.kalman              | Kalman filter — 43/49 GRASIM.NS
+2026-03-26 21:51:59 | INFO     | src.models.kalman              | Kalman filter — 44/49 INDUSINDBK.NS
+2026-03-26 21:52:05 | INFO     | src.models.kalman              | Kalman filter — 45/49 TATACONSUM.NS
+2026-03-26 21:52:10 | INFO     | src.models.kalman              | Kalman filter — 46/49 UPL.NS
+2026-03-26 21:52:15 | INFO     | src.models.kalman              | Kalman filter — 47/49 BPCL.NS
+2026-03-26 21:52:21 | INFO     | src.models.kalman              | Kalman filter — 48/49 IOC.NS
+2026-03-26 21:52:26 | INFO     | src.models.kalman              | Kalman filter — 49/49 HINDALCO.NS
+2026-03-26 21:52:32 | INFO     | src.models.kalman              | Kalman beta panel built — shape (2743, 49)
+2026-03-26 21:52:32 | INFO     | root                           |   Saved kalman_betas.csv  (2743, 49)
+2026-03-26 21:52:32 | INFO     | root                           | Kalman — MAE: 0.0749
+2026-03-26 21:52:32 | INFO     | root                           | 
+--- Model C: LSTM (Primary Deep Model) ---
+2026-03-26 21:52:34 | INFO     | root                           | Device: mps
+2026-03-26 21:52:34 | INFO     | root                           | LSTM parameters: 230785  (hidden=128)
+2026-03-26 21:52:35 | INFO     | root                           | Training for up to 50 epochs (patience=10)...
+2026-03-26 21:52:46 | INFO     | root                           | Epoch   0 | Train: 0.0057 | Val: 0.0029 | LR: 1.00e-03
+2026-03-26 21:53:30 | INFO     | root                           | Epoch   5 | Train: 0.0051 | Val: 0.0041 | LR: 1.00e-03
+2026-03-26 21:54:12 | INFO     | root                           | Epoch  10 | Train: 0.0050 | Val: 0.0030 | LR: 5.00e-04
+2026-03-26 21:54:50 | INFO     | root                           | Early stopping at epoch 14  (best val_loss=0.0027)
+2026-03-26 21:54:50 | INFO     | root                           | Training complete. Best val_loss=0.0027
+2026-03-26 21:54:54 | INFO     | root                           | LSTM — MAE: 0.0639 | Direction Acc: 0.508
+2026-03-26 21:54:54 | INFO     | root                           |   Saved lstm_training_curves.png
+2026-03-26 21:54:54 | INFO     | root                           | 
+--- Model D: HMM Regime Classifier ---
+2026-03-26 21:54:55 | INFO     | root                           | Regime distribution (raw):
+regime
+bear          1317
+transition    1162
+bull           260
+2026-03-26 21:54:55 | INFO     | root                           |   Saved hmm_regimes.csv
+2026-03-26 21:54:55 | INFO     | root                           |   Saved hmm_regimes.png
+2026-03-26 21:54:55 | INFO     | root                           | 
+--- Calibrating Rebalance Threshold ---
+2026-03-26 21:54:55 | INFO     | root                           | Threshold from xgboost predictions (Q55 of train preds): 0.1515
+2026-03-26 21:54:55 | INFO     | root                           | VIX override threshold: 25.0
+2026-03-26 21:54:55 | INFO     | root                           | 
+=== MODEL COMPARISON ===
+          Model    MAE  Direction_Acc                            Notes
+Static OLS Beta 0.0477            NaN                  60d rolling OLS
+  Kalman Filter 0.0749            NaN                   State-space EM
+        XGBoost 0.0391          0.765         Gradient boosting + SHAP
+       LightGBM 0.0411          0.762 LightGBM (often best on tabular)
+LSTM (proposed) 0.0639          0.508          Seq2One LSTM hidden=128
+2026-03-26 21:54:55 | INFO     | root                           | Saved signal_config.json: threshold=0.1515  (model=xgboost)
+2026-03-26 21:54:55 | INFO     | root                           | 
+Model training complete in 436.9 seconds.
+2026-03-26 21:54:55 | INFO     | root                           |     Next step: python scripts/03_portfolio_optimisation.py

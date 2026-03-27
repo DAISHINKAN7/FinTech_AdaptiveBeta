@@ -1,0 +1,90 @@
+/* ── Base ─────────────────────────────────────────────────── */
+:root {
+  --bg:     #040A17;
+  --card:   rgba(8,16,42,0.92);
+  --border: rgba(0,212,170,0.18);
+  --text:   #E2ECF8;
+  --muted:  #7B8BAD;
+  --accent: #00D4AA;
+  --red:    #F87171;
+  --yellow: #FBBF24;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #070E22; }
+::-webkit-scrollbar-thumb { background: #1A2B4A; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ── KPI card hover glow ────────────────────────────────── */
+.kpi-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
+}
+.kpi-card:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 32px rgba(0,212,170,0.14) !important;
+  border-color: rgba(0,212,170,0.50) !important;
+}
+
+/* ── Tabs ────────────────────────────────────────────────── */
+.nav-tabs  { border-bottom: 1px solid var(--border) !important; background: transparent !important; }
+.nav-link  { border: none !important; border-radius: 0 !important; }
+.nav-link:hover { color: var(--text) !important; background: rgba(0,212,170,0.06) !important; }
+.nav-link.active {
+  background: transparent !important;
+  color: var(--accent) !important;
+  border-bottom: 2px solid var(--accent) !important;
+  font-weight: 600 !important;
+}
+.tab-content { background: transparent !important; }
+
+/* ── Checklist / radio hover highlight ───────────────────── */
+.form-check-label:hover { background: rgba(0,212,170,0.07) !important; border-radius: 8px; }
+
+/* ── Dropdown (dark) ─────────────────────────────────────── */
+.dark-dd .Select-control,
+.dark-dd .Select-menu-outer {
+  background-color: #0A1428 !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text) !important;
+  border-radius: 8px !important;
+}
+.dark-dd .Select-value-label,
+.dark-dd .Select-placeholder { color: var(--text) !important; }
+.dark-dd .Select-option { background: #0A1428 !important; color: var(--text) !important; }
+.dark-dd .Select-option:hover,
+.dark-dd .Select-option.is-focused { background: rgba(0,212,170,0.10) !important; }
+
+/* ── DataTable ───────────────────────────────────────────── */
+.dash-table-container { background: transparent !important; }
+.dash-spreadsheet-container { background: transparent !important; }
+.dash-spreadsheet td, .dash-spreadsheet th {
+  background: transparent !important;
+}
+
+/* ── Plotly chart modebar ────────────────────────────────── */
+.modebar { background: rgba(4,10,23,0.8) !important; border-radius: 6px; }
+.modebar-btn path { fill: var(--muted) !important; }
+.modebar-btn:hover path { fill: var(--accent) !important; }
+
+/* ── Dash loading spinner ────────────────────────────────── */
+._dash-loading-callback { color: var(--accent) !important; }
+
+/* ── Sidebar checklist (hide native checkbox) ────────────── */
+input[type="checkbox"] { display: none !important; }
+input[type="radio"]    { display: none !important; }
+
+/* ── Subtle page fade-in ─────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+#tab-body { animation: fadeUp 0.25s ease; }

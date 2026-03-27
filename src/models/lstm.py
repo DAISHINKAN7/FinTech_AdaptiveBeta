@@ -165,7 +165,7 @@ def train_lstm(
     model = BetaLSTM(n_features, hidden_size, n_layers, dropout).to(device)
     optimiser = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=1e-4)
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-        optimiser, patience=5, factor=0.5, verbose=True
+        optimiser, patience=5, factor=0.5
     )
     loss_fn = nn.HuberLoss()
 
