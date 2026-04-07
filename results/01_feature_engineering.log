@@ -391,3 +391,61 @@ Feature engineering complete in 8.1 seconds.
 2026-03-26 21:25:33 | INFO     | root                           | 
 Feature engineering complete in 15.6 seconds.
 2026-03-26 21:25:33 | INFO     | root                           |     Next step: python scripts/02_train_models.py
+2026-04-07 10:11:47 | INFO     | root                           | Logging configured — level=INFO, file=/Users/kunalajgaonkar/Desktop/AI_FinTech/results/01_feature_engineering.log, started=2026-04-07T10:11:47
+2026-04-07 10:11:47 | INFO     | root                           | =================================================================
+2026-04-07 10:11:47 | INFO     | root                           | STEP 1 — Feature Engineering
+2026-04-07 10:11:47 | INFO     | root                           | Data dir  : /Users/kunalajgaonkar/Desktop/AI_FinTech/data
+2026-04-07 10:11:47 | INFO     | root                           | Output dir: /Users/kunalajgaonkar/Desktop/AI_FinTech/features
+2026-04-07 10:11:47 | INFO     | root                           | =================================================================
+2026-04-07 10:11:47 | INFO     | root                           | 
+[1/7] Loading master trading calendar (NIFTY50)...
+2026-04-07 10:11:47 | INFO     | root                           | Loaded market/nifty50.csv                             shape=(2744, 5)
+2026-04-07 10:11:47 | INFO     | root                           | Trading calendar: 2015-01-02 -> 2026-02-23  (2744 days)
+2026-04-07 10:11:47 | INFO     | root                           | 
+[2/7] Loading & aligning all data sources...
+2026-04-07 10:11:47 | INFO     | root                           | Loaded stocks/all_stocks_prices.csv                   shape=(2753, 50)
+2026-04-07 10:11:47 | INFO     | root                           | Loaded market/india_vix.csv                           shape=(2733, 5)
+2026-04-07 10:11:47 | INFO     | root                           | Loaded macro/usdinr.csv                               shape=(2900, 5)
+2026-04-07 10:11:47 | INFO     | root                           | Loaded macro/crude_oil.csv                            shape=(2801, 5)
+2026-04-07 10:11:47 | INFO     | root                           | Loaded macro/risk_free_rate_91d_daily.csv             shape=(2929, 1)
+2026-04-07 10:11:47 | INFO     | root                           | Loaded macro/repo_rate_daily.csv                      shape=(2929, 1)
+2026-04-07 10:11:47 | INFO     | root                           | Loaded flows/fii_flows.csv                            shape=(147, 1)
+2026-04-07 10:11:47 | INFO     | root                           | Loaded flows/dii_flows.csv                            shape=(147, 1)
+2026-04-07 10:11:47 | INFO     | root                           | Loaded sector/nifty_bank.csv                          shape=(2749, 5)
+2026-04-07 10:11:47 | INFO     | root                           | Loaded sector/nifty_it.csv                            shape=(2749, 5)
+2026-04-07 10:11:47 | INFO     | root                           | Loaded sector/nifty_fmcg.csv                          shape=(2733, 5)
+2026-04-07 10:11:47 | INFO     | root                           | All data loaded and aligned.
+2026-04-07 10:11:47 | INFO     | root                           | 
+[3/7] Computing log returns...
+2026-04-07 10:11:47 | INFO     | root                           |   HDFCLIFE.NS: filled 706 pre-IPO NaN returns with 0
+2026-04-07 10:11:47 | INFO     | root                           |   SBILIFE.NS: filled 674 pre-IPO NaN returns with 0
+2026-04-07 10:11:47 | INFO     | root                           | Returns — stocks: (2743, 49), market: 2743 rows (2015-01-05 -> 2026-02-23)
+2026-04-07 10:11:47 | INFO     | root                           | 
+[4/7] Computing rolling betas (3 windows x 49 stocks)...
+2026-04-07 10:11:47 | INFO     | root                           |   Beta window = 30d
+2026-04-07 10:11:47 | INFO     | root                           |   Beta window = 60d
+2026-04-07 10:11:47 | INFO     | root                           |   Beta window = 120d
+2026-04-07 10:11:47 | INFO     | root                           | Target (20d fwd betavol_60d) — non-NaN rows: 2625
+2026-04-07 10:11:47 | INFO     | root                           | 
+[5/7] Building market feature matrix...
+2026-04-07 10:11:47 | INFO     | root                           | Market features: 24 columns
+2026-04-07 10:11:47 | INFO     | root                           | 
+[6/7] Building per-stock feature matrices...
+2026-04-07 10:11:47 | INFO     | root                           |   [10/49] KOTAKBANK.NS          valid rows: 2451  (dropped 292 NaN rows)
+2026-04-07 10:11:48 | INFO     | root                           |   [20/49] NESTLEIND.NS          valid rows: 2451  (dropped 292 NaN rows)
+2026-04-07 10:11:48 | INFO     | root                           |   [30/49] ADANIPORTS.NS         valid rows: 2451  (dropped 292 NaN rows)
+2026-04-07 10:11:48 | INFO     | root                           |   [40/49] APOLLOHOSP.NS         valid rows: 2451  (dropped 292 NaN rows)
+2026-04-07 10:11:48 | INFO     | root                           |   [49/49] HINDALCO.NS           valid rows: 2451  (dropped 292 NaN rows)
+2026-04-07 10:11:48 | INFO     | root                           | Feature matrices built for 49 / 49 stocks
+2026-04-07 10:11:48 | INFO     | root                           | Stacked matrix: (118719, 44)
+2026-04-07 10:11:48 | INFO     | root                           | Momentum/quality features added: ['mom_21d', 'mom_63d', 'mom_126d', 'mom_252d', 'rsi_14', 'ma200_dist', 'rvol_20d']
+2026-04-07 10:11:48 | INFO     | root                           | 
+[7/7] Saving features to /Users/kunalajgaonkar/Desktop/AI_FinTech/features ...
+2026-04-07 10:11:54 | INFO     | root                           |   stacked_features.csv  (118719 rows x 44 cols)
+2026-04-07 10:11:55 | INFO     | root                           |   beta{30,60,120}d.csv and betavol_{30,60,120}d.csv
+2026-04-07 10:11:55 | INFO     | root                           |   target_betavol_20d_ahead.csv
+2026-04-07 10:11:55 | INFO     | root                           |   market_features.csv
+2026-04-07 10:11:56 | INFO     | root                           |   Diagnostic chart saved: /Users/kunalajgaonkar/Desktop/AI_FinTech/results/feature_overview.png
+2026-04-07 10:11:56 | INFO     | root                           | 
+Feature engineering complete in 8.4 seconds.
+2026-04-07 10:11:56 | INFO     | root                           |     Next step: python scripts/02_train_models.py

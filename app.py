@@ -21,6 +21,8 @@ from plotly.subplots import make_subplots
 import dash
 from dash import dcc, html, dash_table, Input, Output, State
 import dash_bootstrap_components as dbc
+import os
+os.environ["DASH_JUPYTER_MODE"] = "false"
 
 # ═══════════════════════════════════════════════════════════════
 # CONSTANTS & THEME
@@ -227,8 +229,8 @@ def fig_equity(rd: Dict[str, pd.Series], selected: List[str]) -> go.Figure:
         **CHART_BASE, height=430,
         yaxis_title="Portfolio Value (₹100 base)",
         xaxis=XAXIS, yaxis=YAXIS,
-        title=dict(text="Cumulative Returns — Walk-Forward Out-of-Sample",
-                   font=dict(color=TEXT, size=14, weight=600), x=0.01),
+        title=dict(text="<b>Cumulative Returns — Walk-Forward Out-of-Sample</b>",
+                   font=dict(color=TEXT, size=14), x=0.01),
     )
     return fig
 
