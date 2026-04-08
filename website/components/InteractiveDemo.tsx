@@ -392,7 +392,15 @@ export default function InteractiveDemo() {
       <div className="grid lg:grid-cols-[300px_1fr] gap-5">
 
         {/* Parameter Panel */}
-        <div className="bg-navy-800/80 border border-navy-700 rounded-xl p-5 space-y-5">
+        <div
+          className="rounded-xl p-5 space-y-5"
+          style={{
+            background: "linear-gradient(155deg, rgba(15,22,41,0.95) 0%, rgba(20,29,58,0.85) 100%)",
+            border: "1px solid rgba(29,158,117,0.22)",
+            boxShadow: "0 0 40px rgba(29,158,117,0.06), inset 0 1px 0 rgba(255,255,255,0.04)",
+            backdropFilter: "blur(20px)",
+          }}
+        >
           <div>
             <p className="text-xs font-semibold tracking-widest uppercase text-teal-400 mb-0.5">
               Parameter Controls
@@ -513,7 +521,22 @@ export default function InteractiveDemo() {
             ].map((m) => (
               <div
                 key={m.label}
-                className="bg-navy-800/60 border border-navy-700/80 rounded-xl p-3 text-center"
+                className={`rounded-xl p-3 text-center transition-all duration-300 ${
+                  m.good === true  ? "metric-glow-good" :
+                  m.good === false ? "metric-glow-bad"  : ""
+                }`}
+                style={{
+                  background: m.good === true
+                    ? "linear-gradient(135deg, rgba(29,158,117,0.1) 0%, rgba(15,22,41,0.8) 100%)"
+                    : m.good === false
+                    ? "linear-gradient(135deg, rgba(216,90,48,0.08) 0%, rgba(15,22,41,0.8) 100%)"
+                    : "rgba(15,22,41,0.6)",
+                  border: `1px solid ${
+                    m.good === true  ? "rgba(29,158,117,0.35)" :
+                    m.good === false ? "rgba(216,90,48,0.3)" :
+                                       "rgba(26,37,80,0.8)"
+                  }`,
+                }}
               >
                 <MetricTile
                   label={m.label}
@@ -529,7 +552,14 @@ export default function InteractiveDemo() {
           </div>
 
           {/* Equity Curve */}
-          <div className="bg-navy-800/60 border border-navy-700/80 rounded-xl p-4">
+          <div
+            className="rounded-xl p-4"
+            style={{
+              background: "linear-gradient(155deg, rgba(15,22,41,0.9) 0%, rgba(10,15,30,0.95) 100%)",
+              border: "1px solid rgba(29,158,117,0.15)",
+              boxShadow: "0 0 40px rgba(29,158,117,0.04)",
+            }}
+          >
             <div className="flex items-start justify-between mb-3">
               <div>
                 <p className="text-xs font-semibold text-gray-300">
@@ -643,7 +673,13 @@ export default function InteractiveDemo() {
       <div className="grid md:grid-cols-2 gap-5">
 
         {/* Signal Timeline */}
-        <div className="bg-navy-800/60 border border-navy-700/80 rounded-xl p-4">
+        <div
+          className="rounded-xl p-4"
+          style={{
+            background: "rgba(15,22,41,0.8)",
+            border: "1px solid rgba(26,37,80,0.9)",
+          }}
+        >
           <p className="text-xs font-semibold text-gray-300 mb-3">
             Signal Activity — 10-year view
           </p>
@@ -663,7 +699,13 @@ export default function InteractiveDemo() {
         </div>
 
         {/* Crisis Selector */}
-        <div className="bg-navy-800/60 border border-navy-700/80 rounded-xl p-4">
+        <div
+          className="rounded-xl p-4"
+          style={{
+            background: "rgba(15,22,41,0.8)",
+            border: "1px solid rgba(26,37,80,0.9)",
+          }}
+        >
           <p className="text-xs font-semibold text-gray-300 mb-3">
             Crisis Event Deep-Dive — click to zoom
           </p>
@@ -676,7 +718,14 @@ export default function InteractiveDemo() {
       </div>
 
       {/* ── Insight Banner ── */}
-      <div className="flex items-start gap-3 bg-teal-400/6 border border-teal-400/20 rounded-xl p-4">
+      <div
+        className="flex items-start gap-3 rounded-xl p-4"
+        style={{
+          background: "linear-gradient(135deg, rgba(29,158,117,0.07) 0%, rgba(15,22,41,0.9) 100%)",
+          border: "1px solid rgba(29,158,117,0.25)",
+          boxShadow: "0 0 30px rgba(29,158,117,0.05)",
+        }}
+      >
         <span className="text-lg flex-shrink-0 mt-0.5">💡</span>
         <div>
           <p className="text-xs font-semibold text-teal-300 mb-0.5">Strategy Insight</p>
@@ -702,7 +751,13 @@ function VixBetavolChart({
   vixThreshold: number;
 }) {
   return (
-    <div className="bg-navy-800/60 border border-navy-700/80 rounded-xl p-4">
+    <div
+      className="rounded-xl p-4"
+      style={{
+        background: "linear-gradient(155deg, rgba(15,22,41,0.9) 0%, rgba(10,15,30,0.95) 100%)",
+        border: "1px solid rgba(127,119,221,0.15)",
+      }}
+    >
       <div className="mb-3">
         <p className="text-xs font-semibold text-gray-300">Signal Inputs — VIX & Predicted BetaVol</p>
         <p className="text-xs text-gray-600 mt-0.5">

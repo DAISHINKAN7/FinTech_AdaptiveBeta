@@ -38,6 +38,24 @@ except ImportError:
 
 from src.config import MAX_WEIGHT, MIN_WEIGHT, DEFAULT_BETA_TARGET
 
+# ---------------------------------------------------------------------------
+# Sector groupings for concentration constraints
+# ---------------------------------------------------------------------------
+_SECTOR_GROUPS: dict[str, list[str]] = {
+    "financials": ["HDFCBANK.NS", "ICICIBANK.NS", "KOTAKBANK.NS", "AXISBANK.NS", "SBIN.NS",
+                   "BAJFINANCE.NS", "BAJAJFINSV.NS", "HDFCLIFE.NS", "SBILIFE.NS", "INDUSINDBK.NS"],
+    "it":         ["TCS.NS", "INFY.NS", "HCLTECH.NS", "WIPRO.NS", "TECHM.NS"],
+    "energy":     ["RELIANCE.NS", "ONGC.NS", "BPCL.NS", "IOC.NS", "COALINDIA.NS"],
+    "pharma":     ["SUNPHARMA.NS", "DRREDDY.NS", "DIVISLAB.NS", "CIPLA.NS", "APOLLOHOSP.NS"],
+    "consumer":   ["HINDUNILVR.NS", "ITC.NS", "NESTLEIND.NS", "BRITANNIA.NS", "TATACONSUM.NS",
+                   "TITAN.NS", "ASIANPAINT.NS"],
+    "auto":       ["MARUTI.NS", "EICHERMOT.NS", "HEROMOTOCO.NS", "BAJAJ-AUTO.NS", "M&M.NS"],
+    "metals":     ["JSWSTEEL.NS", "TATASTEEL.NS", "HINDALCO.NS", "UPL.NS"],
+    "infra":      ["LT.NS", "POWERGRID.NS", "NTPC.NS", "GRASIM.NS", "ULTRACEMCO.NS",
+                   "ADANIENT.NS", "ADANIPORTS.NS"],
+}
+MAX_SECTOR_WEIGHT: float = 0.35  # cap any sector at 35% of portfolio
+
 
 class PortfolioOptimiser:
     """Portfolio weight optimiser with regime-aware mode selection.
@@ -164,6 +182,12 @@ class PortfolioOptimiser:
             >= beta_target - 0.2
         )
 
+        # Sector concentration cap (prevents financials dominating MVO)
+        for sector_ticks in _SECTOR_GROUPS.values():
+            idx = [tickers.index(t) for t in sector_ticks if t in tickers]
+            if len(idx) >= 2:
+                ef.add_constraint(lambda w, ix=idx: sum(w[j] for j in ix) <= MAX_SECTOR_WEIGHT)
+
         ef.max_sharpe(risk_free_rate=self.risk_free_rate)
         raw_weights = ef.clean_weights()
         return pd.Series(raw_weights)
@@ -186,6 +210,13 @@ class PortfolioOptimiser:
         ef = EfficientFrontier(None, S)
         ef.add_constraint(lambda w: w >= 0)
         ef.add_constraint(lambda w: w <= self.max_weight)
+
+        # Sector concentration cap (prevents min-var concentrating in low-vol defensive sectors)
+        for sector_ticks in _SECTOR_GROUPS.values():
+            idx = [tickers.index(t) for t in sector_ticks if t in tickers]
+            if len(idx) >= 2:
+                ef.add_constraint(lambda w, ix=idx: sum(w[j] for j in ix) <= MAX_SECTOR_WEIGHT)
+
         ef.min_volatility()
         return pd.Series(ef.clean_weights())
 

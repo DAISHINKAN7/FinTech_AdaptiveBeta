@@ -16,7 +16,7 @@ export default function DemoPage() {
           transition={{ duration: 0.5 }}
           className="mb-10"
         >
-          <div className="flex flex-wrap items-center gap-2 mb-4">
+          <div className="flex flex-wrap items-center gap-2 mb-5">
             <span className="badge bg-teal-400/15 text-teal-300 border border-teal-400/25">
               <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse" />
               Interactive Demo
@@ -30,8 +30,9 @@ export default function DemoPage() {
             </span>
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Strategy Simulator
+          <h1 className="text-4xl md:text-6xl font-black text-white mb-4 tracking-tight">
+            Strategy{" "}
+            <span className="shimmer-text">Simulator</span>
           </h1>
           <p className="text-gray-400 max-w-3xl text-lg leading-relaxed">
             A browser-side replica of the full AdaptiveBeta algorithm running over 10 years

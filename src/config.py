@@ -96,8 +96,8 @@ BETAVOL_BASE_WINDOW: int  = 60      # 60d betavol as prediction target
 # ---------------------------------------------------------------------------
 # Threshold & regime constants
 # ---------------------------------------------------------------------------
-THRESHOLD_QUANTILE: float = 0.55    # 75th pct of training betavol
-VIX_STRESS_LEVEL:   float = 25.0    # VIX override level
+THRESHOLD_QUANTILE: float = 0.70    # 70th pct of training betavol (was 0.55 — bug: comment said 75th but value was 55th)
+VIX_STRESS_LEVEL:   float = 22.0    # VIX override level (lowered from 25: fires earlier in COVID-style events)
 
 # ---------------------------------------------------------------------------
 # Walk-forward backtest
