@@ -4,15 +4,15 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "AdaptiveBeta — AI-Powered Portfolio Optimisation",
+  title: "AdaptiveBeta — AI-Powered Dynamic Beta Portfolio",
   description:
-    "An LSTM-based system that predicts forward beta volatility and triggers adaptive portfolio rebalancing. M.Tech AI & ML thesis, Symbiosis Institute of Technology, Pune.",
-  keywords: ["portfolio optimisation", "LSTM", "beta prediction", "NIFTY50", "quantitative finance", "fintech"],
-  authors: [{ name: "Kunal", url: "https://github.com/daishinkan7" }],
+    "LSTM-based system that predicts forward beta volatility and triggers adaptive portfolio rebalancing on NIFTY50. M.Tech AI & ML thesis, Symbiosis Institute of Technology, Pune.",
+  keywords: ["portfolio optimisation", "LSTM", "beta prediction", "NIFTY50", "quantitative finance", "adaptive beta", "HMM regime"],
+  authors: [{ name: "Kunal Ajgaonkar", url: "https://github.com/daishinkan7" }],
   openGraph: {
-    title: "AdaptiveBeta — AI-Powered Portfolio Optimisation",
+    title: "AdaptiveBeta — AI-Powered Dynamic Beta Portfolio",
     description:
-      "18.4% annual return | 1.42 Sharpe | -18.2% max drawdown — beating NIFTY50 by 5.7% annually.",
+      "Walk-forward backtest 2015–2025 | 6 strategies compared | Interactive live simulator | NIFTY50 universe.",
     type: "website",
   },
 };

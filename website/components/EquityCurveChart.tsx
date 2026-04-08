@@ -8,7 +8,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
   ReferenceArea,
   ReferenceLine,
@@ -19,64 +18,67 @@ import { cn } from "@/lib/utils";
 
 type StrategyKey = keyof typeof equityCurveData;
 
-const STRATEGIES: { key: StrategyKey; label: string; color: string }[] = [
-  { key: "adaptiveBeta", label: "AdaptiveBeta (ours)", color: "#1D9E75" },
-  { key: "kalmanMvo", label: "Kalman-Beta MVO", color: "#EF9F27" },
-  { key: "staticCapmMvo", label: "Static CAPM MVO", color: "#7F77DD" },
-  { key: "equalWeight", label: "Equal Weight", color: "#888780" },
-  { key: "buyHoldNifty", label: "Buy & Hold NIFTY50", color: "#D85A30" },
+const STRATEGIES: { key: StrategyKey; label: string; color: string; dashed?: boolean }[] = [
+  { key: "adaptiveBeta",    label: "AdaptiveBeta (ours)",  color: "#1D9E75" },
+  { key: "momentumQuality", label: "Momentum-Quality",     color: "#7F77DD" },
+  { key: "equalWeight",     label: "Equal Weight",         color: "#5DCAA5" },
+  { key: "buyHoldNifty",    label: "Buy & Hold NIFTY50",   color: "#EF9F27", dashed: true },
+  { key: "staticCapmMvo",   label: "Static CAPM MVO",      color: "#D85A30", dashed: true },
+  { key: "kalmanMvo",       label: "Kalman-Beta MVO",      color: "#888780", dashed: true },
 ];
 
-function CustomTooltip({ active, payload, label }: {
+function CustomTooltip({
+  active,
+  payload,
+  label,
+}: {
   active?: boolean;
   payload?: Array<{ name: string; value: number; color: string }>;
   label?: string;
 }) {
-  if (!active || !payload || payload.length === 0) return null;
+  if (!active || !payload?.length) return null;
   return (
-    <div className="bg-navy-800 border border-navy-600 rounded-lg px-3 py-2.5 shadow-xl text-xs min-w-[160px]">
+    <div className="bg-navy-800/95 border border-navy-600 rounded-lg px-3 py-2.5 shadow-xl text-xs min-w-[175px] backdrop-blur-sm">
       <p className="text-gray-400 mb-2 font-medium">{label}</p>
-      {payload.map((entry) => (
-        <div key={entry.name} className="flex items-center justify-between gap-3 mb-1">
-          <span className="flex items-center gap-1.5" style={{ color: entry.color }}>
-            <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: entry.color }} />
-            <span className="text-gray-300 truncate max-w-[110px]">{entry.name}</span>
-          </span>
-          <span className="font-mono font-medium text-white">{entry.value?.toFixed(1)}</span>
-        </div>
-      ))}
+      {[...payload]
+        .sort((a, b) => b.value - a.value)
+        .map((entry) => (
+          <div key={entry.name} className="flex items-center justify-between gap-3 mb-1">
+            <span className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: entry.color }} />
+              <span className="text-gray-300 truncate max-w-[115px]">{entry.name}</span>
+            </span>
+            <span className="font-mono font-semibold text-white">{entry.value?.toFixed(1)}</span>
+          </div>
+        ))}
     </div>
   );
 }
 
 export default function EquityCurveChart() {
-  const [activeStrategies, setActiveStrategies] = useState<Set<StrategyKey>>(
+  const [active, setActive] = useState<Set<StrategyKey>>(
     new Set(STRATEGIES.map((s) => s.key))
   );
 
   const chartData = useMemo(() => {
-    // Merge all strategy data by date, downsample for performance
-    const mergedMap = new Map<string, Record<string, number>>();
+    const map = new Map<string, Record<string, number>>();
     for (const { key } of STRATEGIES) {
       for (const { date, value } of equityCurveData[key]) {
-        const existing = mergedMap.get(date) ?? { date: date as unknown as number };
-        mergedMap.set(date, { ...existing, [key]: Math.round(value * 10) / 10 });
+        const ex = map.get(date) ?? { date: date as unknown as number };
+        map.set(date, { ...ex, [key]: Math.round(value * 10) / 10 });
       }
     }
-    const all = Array.from(mergedMap.values()).sort((a, b) =>
+    const all = Array.from(map.values()).sort((a, b) =>
       String(a.date).localeCompare(String(b.date))
     );
     return downsample(all, 4);
   }, []);
 
-  const toggleStrategy = (key: StrategyKey) => {
-    setActiveStrategies((prev) => {
+  const toggle = (key: StrategyKey) => {
+    setActive((prev) => {
       const next = new Set(prev);
-      if (next.has(key)) {
-        if (next.size > 1) next.delete(key);
-      } else {
-        next.add(key);
-      }
+      if (next.has(key) && next.size > 1) next.delete(key);
+      else next.add(key);
       return next;
     });
   };
@@ -88,22 +90,22 @@ export default function EquityCurveChart() {
         {STRATEGIES.map(({ key, label, color }) => (
           <button
             key={key}
-            onClick={() => toggleStrategy(key)}
+            onClick={() => toggle(key)}
             className={cn(
-              "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all",
-              activeStrategies.has(key)
+              "flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-xs font-medium border transition-all",
+              active.has(key)
                 ? "border-transparent"
-                : "border-navy-700 text-gray-500 opacity-50"
+                : "border-navy-700 text-gray-500 opacity-40"
             )}
             style={
-              activeStrategies.has(key)
-                ? { background: `${color}20`, borderColor: `${color}50`, color }
+              active.has(key)
+                ? { background: `${color}18`, borderColor: `${color}45`, color }
                 : {}
             }
           >
             <span
-              className="w-2 h-2 rounded-full"
-              style={{ background: activeStrategies.has(key) ? color : "#4B5563" }}
+              className="w-2 h-2 rounded-full flex-shrink-0"
+              style={{ background: active.has(key) ? color : "#4B5563" }}
             />
             {label}
           </button>
@@ -111,8 +113,8 @@ export default function EquityCurveChart() {
       </div>
 
       {/* Chart */}
-      <ResponsiveContainer width="100%" height={380}>
-        <LineChart data={chartData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+      <ResponsiveContainer width="100%" height={400}>
+        <LineChart data={chartData} margin={{ top: 5, right: 16, bottom: 5, left: 0 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
           <XAxis
             dataKey="date"
@@ -125,37 +127,40 @@ export default function EquityCurveChart() {
             tick={{ fill: "#6B7280", fontSize: 11 }}
             tickLine={false}
             axisLine={false}
-            width={45}
+            width={46}
             tickFormatter={(v) => v.toFixed(0)}
           />
           <Tooltip content={<CustomTooltip />} />
 
-          {/* COVID Crash */}
+          {/* Crisis shading */}
           <ReferenceArea
-            x1="2020-02-03"
-            x2="2020-05-01"
-            fill="rgba(216,90,48,0.08)"
+            x1="2020-02-03" x2="2020-05-01"
+            fill="rgba(216,90,48,0.07)"
             label={{ value: "COVID", fill: "#D85A30", fontSize: 10, position: "insideTop" }}
           />
-          {/* ADANI Crisis */}
           <ReferenceArea
-            x1="2023-01-23"
-            x2="2023-03-13"
-            fill="rgba(239,159,39,0.07)"
+            x1="2023-01-23" x2="2023-03-13"
+            fill="rgba(239,159,39,0.06)"
             label={{ value: "ADANI", fill: "#EF9F27", fontSize: 10, position: "insideTop" }}
           />
+          <ReferenceArea
+            x1="2018-08-01" x2="2018-11-30"
+            fill="rgba(127,119,221,0.05)"
+            label={{ value: "IL&FS", fill: "#7F77DD", fontSize: 10, position: "insideTop" }}
+          />
 
-          <ReferenceLine y={100} stroke="rgba(255,255,255,0.12)" strokeDasharray="4 4" />
+          <ReferenceLine y={100} stroke="rgba(255,255,255,0.10)" strokeDasharray="4 4" />
 
-          {STRATEGIES.map(({ key, label, color }) =>
-            activeStrategies.has(key) ? (
+          {STRATEGIES.map(({ key, label, color, dashed }) =>
+            active.has(key) ? (
               <Line
                 key={key}
                 type="monotone"
                 dataKey={key}
                 name={label}
                 stroke={color}
-                strokeWidth={key === "adaptiveBeta" ? 2.5 : 1.5}
+                strokeWidth={key === "adaptiveBeta" || key === "momentumQuality" ? 2.5 : 1.5}
+                strokeDasharray={dashed ? "5 3" : undefined}
                 dot={false}
                 activeDot={{ r: 4, strokeWidth: 0 }}
               />
