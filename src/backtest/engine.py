@@ -288,7 +288,29 @@ class WalkForwardBacktester:
                 daily_ret.append(r)
                 continue
 
-            # --- ML strategies: check rebalance signal every 5 trading days ---
+            # --- Adaptive Beta: VIX override fires EVERY trading day (critical bug fix) ---
+            # Old code checked VIX only every 5 days. During COVID, VIX went 20→82 in 3 days —
+            # the 5-day gate caused up to 4 days of unprotected crash exposure per spike.
+            if strategy == "adaptive_beta":
+                vix_daily = self._get_vix(prev_date)
+                if vix_daily > self.signal_gen.vix_threshold:
+                    pw = prices.loc[:prev_date].tail(252)
+                    if len(pw) < 30:
+                        pw = prices.loc[:prev_date]
+                    cb = (
+                        betas_60.loc[prev_date]
+                        if not betas_60.empty and prev_date in betas_60.index
+                        else betas_60.iloc[-1] if not betas_60.empty
+                        else pd.Series({t: 1.0 for t in TICKERS})
+                    )
+                    new_weights = self.optimiser.optimise(pw, cb, "min_variance")
+                    if not new_weights.empty:
+                        cost = self.cost_model.compute(weights, new_weights)
+                        weights = new_weights
+                        daily_ret.append(-cost)
+                        continue
+
+            # --- ML strategies: check LSTM threshold signal every 5 trading days ---
             should_check = (i % 5 == 0) or (i == 1)
             if should_check:
                 price_window = prices.loc[:prev_date].tail(252)

@@ -7,9 +7,10 @@ import { cn } from "@/lib/utils";
 import { Github, Menu, X } from "lucide-react";
 
 const navLinks = [
-  { href: "/research", label: "Research" },
-  { href: "/results", label: "Results" },
+  { href: "/research",     label: "Research" },
+  { href: "/results",      label: "Results" },
   { href: "/architecture", label: "Architecture" },
+  { href: "/demo",         label: "Live Demo", highlight: true },
 ];
 
 export default function Navbar() {
@@ -45,17 +46,33 @@ export default function Navbar() {
 
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-6">
-          {navLinks.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className={cn(
-                "nav-link",
-                pathname === href && "text-white font-medium"
-              )}
-            >
-              {label}
-            </Link>
+          {navLinks.map(({ href, label, highlight }) => (
+            highlight ? (
+              <Link
+                key={href}
+                href={href}
+                className={cn(
+                  "flex items-center gap-1.5 text-sm font-medium px-3 py-1 rounded-lg transition-all",
+                  pathname === href
+                    ? "bg-teal-400 text-navy-900"
+                    : "bg-teal-400/15 text-teal-300 border border-teal-400/30 hover:bg-teal-400/25"
+                )}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse" />
+                {label}
+              </Link>
+            ) : (
+              <Link
+                key={href}
+                href={href}
+                className={cn(
+                  "nav-link",
+                  pathname === href && "text-white font-medium"
+                )}
+              >
+                {label}
+              </Link>
+            )
           ))}
         </div>
 
@@ -71,10 +88,10 @@ export default function Navbar() {
             GitHub
           </a>
           <Link
-            href="/results"
+            href="/demo"
             className="px-4 py-1.5 bg-teal-400 hover:bg-teal-300 text-navy-900 font-medium text-sm rounded-lg transition-colors"
           >
-            View Results
+            Live Demo
           </Link>
         </div>
 
@@ -91,11 +108,14 @@ export default function Navbar() {
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="md:hidden bg-navy-900/95 backdrop-blur-md border-b border-navy-700 px-4 pb-4">
-          {navLinks.map(({ href, label }) => (
+          {navLinks.map(({ href, label, highlight }) => (
             <Link
               key={href}
               href={href}
-              className="block py-2.5 text-gray-300 hover:text-white border-b border-navy-800 last:border-0"
+              className={cn(
+                "block py-2.5 border-b border-navy-800 last:border-0",
+                highlight ? "text-teal-300 font-medium" : "text-gray-300 hover:text-white"
+              )}
               onClick={() => setMobileOpen(false)}
             >
               {label}

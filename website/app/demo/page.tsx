@@ -1,0 +1,239 @@
+"use client";
+
+import { motion } from "framer-motion";
+import InteractiveDemo from "@/components/InteractiveDemo";
+import { Sliders, Zap, TrendingUp } from "lucide-react";
+
+export default function DemoPage() {
+  return (
+    <div className="min-h-screen py-24 px-4">
+      <div className="max-w-7xl mx-auto">
+
+        {/* ── Header ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mb-10"
+        >
+          <div className="flex flex-wrap items-center gap-2 mb-5">
+            <span className="badge bg-teal-400/15 text-teal-300 border border-teal-400/25">
+              <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse" />
+              Interactive Demo
+            </span>
+            <span className="badge bg-amber-400/15 text-amber-300 border border-amber-400/25">
+              <Zap className="w-3 h-3" />
+              Real-time Simulation
+            </span>
+            <span className="badge bg-purple-400/15 text-purple-300 border border-purple-400/25">
+              2015–2024 · 2,520 trading days
+            </span>
+          </div>
+
+          <h1 className="text-4xl md:text-6xl font-black text-white mb-4 tracking-tight">
+            Strategy{" "}
+            <span className="shimmer-text">Simulator</span>
+          </h1>
+          <p className="text-gray-400 max-w-3xl text-lg leading-relaxed">
+            A browser-side replica of the full AdaptiveBeta algorithm running over 10 years
+            of synthetic-but-realistic market data. Adjust any parameter and see how the
+            strategy&apos;s equity curve, risk metrics, and signal behaviour change — instantly.
+          </p>
+
+          {/* How-to */}
+          <div className="grid sm:grid-cols-3 gap-4 mt-6">
+            {[
+              {
+                icon: <Sliders className="w-4 h-4" />,
+                title: "Adjust Parameters",
+                desc: "Change VIX threshold, betavol percentile, transaction costs, and regime routing with the sliders.",
+                color: "text-teal-300",
+              },
+              {
+                icon: <Zap className="w-4 h-4" />,
+                title: "Watch Signals Change",
+                desc: "The signal timeline updates instantly — see how many HOLD / REBALANCE / MIN-VAR days result from each setting.",
+                color: "text-amber-300",
+              },
+              {
+                icon: <TrendingUp className="w-4 h-4" />,
+                title: "Deep-dive Crises",
+                desc: "Click any crisis card (COVID, ADANI, IL&FS, Rate Hike) to zoom the equity chart into that event period.",
+                color: "text-purple-300",
+              },
+            ].map((item) => (
+              <div
+                key={item.title}
+                className="flex items-start gap-3 bg-navy-800/40 border border-navy-700/60 rounded-xl p-4"
+              >
+                <div className={`mt-0.5 flex-shrink-0 ${item.color}`}>{item.icon}</div>
+                <div>
+                  <p className={`text-sm font-semibold mb-1 ${item.color}`}>{item.title}</p>
+                  <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* ── Disclaimer ── */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="mb-6 flex items-start gap-2 text-xs text-gray-500 bg-navy-800/30 border border-navy-700/40 rounded-lg px-4 py-3"
+        >
+          <span className="flex-shrink-0 mt-0.5">ℹ️</span>
+          <p>
+            This simulator uses deterministic synthetic market data designed to replicate
+            the statistical properties of the real NIFTY50 backtest (CAGR ~12%, vol ~17%, with
+            embedded COVID / ADANI / IL&amp;FS / Rate Hike crisis periods).  It demonstrates the
+            algorithm&apos;s <strong className="text-gray-400">mechanism</strong> and parameter
+            sensitivity. Actual backtest results are on the{" "}
+            <a href="/results" className="text-teal-400 hover:underline">Results page</a>.
+          </p>
+        </motion.div>
+
+        {/* ── Main Demo ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25, duration: 0.5 }}
+        >
+          <InteractiveDemo />
+        </motion.div>
+
+        {/* ── How the algorithm actually works ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mt-14"
+        >
+          <p className="text-xs font-semibold tracking-widest uppercase text-teal-400 mb-4">
+            Decision Logic
+          </p>
+          <h2 className="text-2xl font-bold text-white mb-6">
+            What Happens on Each Trading Day
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-5">
+            {[
+              {
+                step: "01",
+                signal: "MIN_VARIANCE",
+                condition: "India VIX > Threshold",
+                color: "#D85A30",
+                bg: "bg-coral-400/8",
+                border: "border-coral-400/25",
+                action: "Immediately shift to minimum-variance portfolio. Target beta drops to ~0.3. Accepts lower upside to protect capital.",
+                example: "COVID March 2020: VIX hit 82. With threshold=25 → every day in this period is MIN_VARIANCE.",
+              },
+              {
+                step: "02",
+                signal: "REBALANCE",
+                condition: "Predicted BetaVol > Percentile threshold",
+                color: "#EF9F27",
+                bg: "bg-amber-400/8",
+                border: "border-amber-400/25",
+                action: "Trigger a regime-aware rebalance. Routes to max-Sharpe (bull), min-variance (bear), or risk parity (transition).",
+                example: "Betavol at 60th pct → rebalance. With regime routing ON, bull market → target β=0.90 for higher upside.",
+              },
+              {
+                step: "03",
+                signal: "HOLD",
+                condition: "Neither condition met",
+                color: "#5DCAA5",
+                bg: "bg-teal-400/8",
+                border: "border-teal-400/25",
+                action: "Keep current portfolio weights unchanged. No transaction costs. Portfolio beta drifts slowly toward 0.82.",
+                example: "~60–75% of all trading days are HOLD. This is the key cost-saving vs monthly rebalancing.",
+              },
+            ].map((item) => (
+              <div
+                key={item.step}
+                className={`rounded-xl border p-5 ${item.bg} ${item.border}`}
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <span
+                    className="text-xs font-mono font-bold px-2 py-0.5 rounded"
+                    style={{ background: item.color + "25", color: item.color }}
+                  >
+                    {item.signal}
+                  </span>
+                </div>
+                <p className="text-sm font-semibold text-white mb-1">
+                  {item.condition}
+                </p>
+                <p className="text-xs text-gray-400 leading-relaxed mb-3">
+                  {item.action}
+                </p>
+                <div className="bg-navy-900/50 rounded-lg p-2.5">
+                  <p className="text-xs text-gray-500 italic leading-relaxed">
+                    {item.example}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Trade-off matrix */}
+          <div className="mt-8 bg-navy-800/50 border border-navy-700 rounded-xl overflow-hidden">
+            <div className="px-5 py-4 border-b border-navy-700">
+              <p className="text-sm font-semibold text-white">Parameter Trade-off Summary</p>
+              <p className="text-xs text-gray-500 mt-0.5">Use this as a guide when exploring the sliders above</p>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs">
+                <thead>
+                  <tr className="border-b border-navy-700">
+                    <th className="text-left px-5 py-3 text-gray-400">Parameter</th>
+                    <th className="text-left px-4 py-3 text-gray-400">Lower value →</th>
+                    <th className="text-left px-4 py-3 text-gray-400">Higher value →</th>
+                    <th className="text-left px-4 py-3 text-gray-400">Sweet spot</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    {
+                      param: "VIX Threshold",
+                      lower: "Triggers often → more defensive days, lower vol, lower upside",
+                      higher: "Triggers rarely → only extreme crises, higher market exposure",
+                      sweet: "22–26 (captures COVID, ADANI; ignores normal noise)",
+                    },
+                    {
+                      param: "BetaVol Percentile",
+                      lower: "More rebalances → higher tx cost drag, more adaptive",
+                      higher: "Fewer rebalances → lower cost, slower regime adaptation",
+                      sweet: "65–75 (1–2 rebalances/month average)",
+                    },
+                    {
+                      param: "Transaction Cost",
+                      lower: "Same returns but less cost drag (favourable execution)",
+                      higher: "Cost drag compounds; high-frequency rebalancing hurts more",
+                      sweet: "8 bps reflects realistic institutional brokerage + slippage",
+                    },
+                    {
+                      param: "Regime Routing",
+                      lower: "OFF → same β target always (β=0.82), simpler, less adaptive",
+                      higher: "ON → bull gets β=0.90, bear gets β=0.65, better risk-adjusted",
+                      sweet: "ON — adds alpha in strong bull markets, key differentiator",
+                    },
+                  ].map((row) => (
+                    <tr key={row.param} className="border-b border-navy-800 hover:bg-navy-800/30">
+                      <td className="px-5 py-3 font-semibold text-white">{row.param}</td>
+                      <td className="px-4 py-3 text-gray-400">{row.lower}</td>
+                      <td className="px-4 py-3 text-gray-400">{row.higher}</td>
+                      <td className="px-4 py-3 text-teal-300">{row.sweet}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
