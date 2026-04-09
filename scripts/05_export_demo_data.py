@@ -8,15 +8,19 @@ When this JSON exists, the interactive demo shows REAL equity curves,
 REAL India VIX levels, and REAL betavol predictions instead of synthetic data.
 Parameter sliders then replay the signal logic on real data.
 
-Requires:
-    results/strategy_returns.csv     (from script 04)
-    data/market/india_vix.csv        (your raw VIX file)
-    features/betavol_60d.csv         (from script 01, optional — falls back to proxy)
-    features/hmm_regimes.csv         (from script 02, optional)
+Requires (run these in order first):
+    python scripts/01_feature_engineering.py   → features/betavol_60d.csv etc.
+    python scripts/02_train_models.py           → features/hmm_regimes.csv etc.
+    python scripts/03_portfolio_optimisation.py → models/signal_config.json
+    python scripts/04_backtest.py               → results/strategy_returns.csv
 
-Run:
+Then run this script:
     python scripts/05_export_demo_data.py
     python scripts/05_export_demo_data.py --results-csv path/to/strategy_returns.csv
+
+Finally start the website:
+    cd website && npm install && npm run dev
+    # Open http://localhost:3000/demo — will automatically use real data
 """
 
 import argparse
