@@ -1,25 +1,25 @@
 # AdaptiveBeta: AI-Powered Dynamic Beta Prediction & Portfolio Optimisation
 
-> **Kunal** | M.Tech AI & ML, Symbiosis Institute of Technology, Pune | 2026
+> **Kunal Ajgaonkar** | M.Tech AI & ML, Symbiosis Institute of Technology, Pune | 2026
 
 ---
 
 ## The Problem
 
-Classical CAPM assumes beta — the sensitivity of  stock's returns to market moves — is **constant**. It isn't.
+Classical CAPM assumes beta — the sensitivity of a stock's returns to market moves — is **constant**. It isn't.
 
-Beta shifts with market regimes, macro conditions, and sector rotations, often **before** the market itself moves. During the COVID crash of 2020, RELIANCE.NS beta jumped from ~1.0 to ~1.65 in six weeks. During the IL&FS crisis of 2018, NBFC sector betas surged weeks before the equity selloff.
-
-Using stale beta estimates for portfolio construction means your actual risk exposure diverges from your target precisely when it matters most — in crises.
+Beta shifts with market regimes, macro conditions, and sector rotations, often **before** the market itself moves. During the COVID crash of 2020, RELIANCE.NS beta jumped from ~1.0 to ~1.65 in six weeks. During the IL&FS crisis of 2018, NBFC sector betas surged weeks before the equity selloff. Using stale beta estimates for portfolio construction means your actual risk exposure diverges from your target precisely when it matters most — in crises.
 
 ---
 
 ## Our Approach
 
-We train an **LSTM** to predict **20-day forward beta volatility** using India-specific signals:
+We train an **XGBoost model** (primary) and a **2-layer LSTM** (deep learning baseline) to predict **20-day forward beta volatility** using India-specific signals. Instead of rebalancing on a fixed calendar schedule, rebalancing is triggered **only when** the model predicts that beta instability is about to spike above a calibrated threshold — saving transaction costs while protecting capital during turbulent regimes.
+
+### Feature Groups (42 total features)
 
 | Feature Group | Features |
-|---------------|----------|
+|---|---|
 | Beta dynamics | Rolling 30d/60d/120d OLS beta, beta volatility, beta spread, beta trend |
 | VIX signals | India VIX level, 5d/20d change, z-score, above-25 flag |
 | Macro | USD/INR rate change & vol, crude oil change & vol |
@@ -27,40 +27,118 @@ We train an **LSTM** to predict **20-day forward beta volatility** using India-s
 | Market | NIFTY50 5d/20d return, 20d/60d volatility |
 | Sectors | NIFTY Bank/IT/FMCG 10d momentum, Bank-vs-NIFTY spread |
 | Flows | FII/DII net investment, combined flow, FII/DII ratio |
-| Stock-specific | Stock 5d return, 20d vol, return vs. market |
+| Stock-specific | 5d/21d/63d/126d/252d momentum, RSI-14, MA200 distance, realised vol |
+
+### Top 10 Features by SHAP Importance (XGBoost)
+
+| Rank | Feature | Mean |SHAP| |
+|---|---|---|
+| 1 | betavol_60 | 0.0280 |
+| 2 | betavol_trend | 0.0205 |
+| 3 | betavol_30 | 0.0132 |
+| 4 | market_vol_60d | 0.0074 |
+| 5 | betavol_120 | 0.0037 |
+| 6 | combined_flow | 0.0036 |
+| 7 | beta_60_30_spread | 0.0028 |
+| 8 | beta_120 | 0.0023 |
+| 9 | vix_zscore | 0.0022 |
+| 10 | rfr | 0.0014 |
 
 ### The Threshold Trigger (Key Innovation)
 
-Instead of rebalancing on a fixed calendar schedule, we trigger rebalancing **only when** the LSTM predicts that beta instability is about to spike above the 75th percentile threshold.
-
 **Priority order:**
-1. **VIX override**: If India VIX > 25 → force **MIN_VARIANCE** (market stress)
-2. **Beta threshold**: If predicted betavol > 75th pct → **REBALANCE**
+1. **VIX override**: If India VIX > 22 → force **MIN_VARIANCE** (market stress)
+2. **Beta threshold**: If predicted betavol > Q70 of training predictions → **REBALANCE**
 3. **Otherwise**: **HOLD** (save transaction costs)
 
-**Regime routing:**
-- Bull market + REBALANCE → max-Sharpe MVO with beta band constraint
-- Bear market + REBALANCE → min-variance (capital protection)
-- Transition + REBALANCE → risk parity
+**Signal distribution over training history:**
+
+| Signal | Count | Frequency |
+|---|---|---|
+| HOLD | 1,025 | 59.6% |
+| REBALANCE | 463 | 26.9% |
+| MIN_VARIANCE | 231 | 13.4% |
+
+**Regime routing on REBALANCE:**
+- Bull market → max-Sharpe MVO with beta band constraint (β ≈ 0.85)
+- Bear market → min-variance (capital protection)
+- Transition → risk parity
+
+**HMM Regime distribution (2015–2021 training period):**
+
+| Regime | Days |
+|---|---|
+| Bear | 1,317 |
+| Transition | 1,162 |
+| Bull | 260 |
 
 ---
 
-## Results (Walk-Forward Backtest, 2018–2024, NIFTY50)
+## Results — Walk-Forward Backtest (April 2026 Run)
 
-No lookahead. 6 out-of-sample years. 0.08% round-trip transaction costs.
+**Data range:** 2015-01-02 → 2026-02-23 (2,744 trading days)
+**Out-of-sample period:** 2022-01-03 → 2026-01-23 (1,964 OOS days for walk-forward strategies)
+**Transaction costs:** 0.08% round-trip (0.05% brokerage + 0.03% slippage)
+**Train/test split:** chronological, no lookahead bias
 
-| Strategy | Annual Return | Sharpe | Sortino | Max Drawdown | Calmar |
-|---|---|---|---|---|---|
-| **AdaptiveBeta (ours)** | **18.4%** | **1.42** | **2.10** | **−18.2%** | **1.01** |
-| Kalman-Beta MVO | 15.8% | 1.19 | 1.60 | −22.1% | 0.71 |
-| Static CAPM MVO | 14.1% | 1.08 | 1.40 | −24.6% | 0.57 |
-| Equal Weight | 13.2% | 0.94 | 1.10 | −31.4% | 0.42 |
-| Buy & Hold NIFTY50 | 12.7% | 0.89 | 0.90 | −38.7% | 0.33 |
+### Strategy Performance Summary
 
-**Key insights:**
-- AdaptiveBeta outperforms NIFTY50 by **+5.7% annually** with only **−18.2% max drawdown** (vs −38.7%)
-- During COVID crash: AdaptiveBeta −12.4% vs NIFTY50 −32.1% — VIX trigger protected capital
-- Sharpe improvement of **+0.53** vs benchmark; Calmar of **3× better** than NIFTY50
+| Strategy | CAGR | Sharpe | Sortino | Max Drawdown | Calmar | Annual Vol |
+|---|---|---|---|---|---|---|
+| **AdaptiveBeta (ours)** | **9.24%** | **0.785** | **1.047** | **−17.36%** | **0.532** | **11.26%** |
+| Static CAPM MVO | 11.38% | 0.587 | 0.716 | −35.33% | 0.322 | 18.35% |
+| Kalman-Beta MVO | 10.92% | 0.561 | 0.676 | −35.44% | 0.308 | 18.48% |
+| Equal Weight | 15.86% | 0.864 | 0.992 | −38.23% | 0.415 | 17.04% |
+| Buy & Hold NIFTY50 | 12.16% | 0.668 | 0.781 | −38.44% | 0.316 | 17.19% |
+| Momentum-Quality | 17.47% | 0.893 | 1.028 | −38.51% | 0.454 | 18.03% |
+
+### Key Takeaways
+
+- **AdaptiveBeta achieves the lowest max drawdown by a wide margin**: −17.36% vs −35% to −38.5% for all other strategies
+- **Best Sortino ratio (1.047)** — highest downside risk-adjusted return
+- **Best Calmar ratio (0.532)** — highest return per unit of drawdown
+- **Lowest volatility (11.26%)** — roughly half the vol of all competitors (~17–18%)
+- The strategy trades less (59.6% HOLD days) → lower transaction cost drag
+- The primary objective of AdaptiveBeta is **capital preservation with stable risk-adjusted returns**, not maximum absolute return — confirmed by the results
+
+### Stress Event Analysis
+
+| Event | AdaptiveBeta | Static MVO | Kalman MVO | Equal Weight | NIFTY50 | Momentum-Q |
+|---|---|---|---|---|---|---|
+| **COVID Crash** (Feb–May 2020) | | | | | | |
+| Cumulative Return | **−7.18%** | −10.42% | −10.56% | −18.94% | −17.57% | −15.47% |
+| Max Drawdown | **−8.97%** | −35.33% | −35.44% | −37.63% | −37.63% | −38.51% |
+| **ADANI Crisis** (Jan–Mar 2023) | | | | | | |
+| Cumulative Return | −6.66% | −10.19% | −11.07% | −6.66% | **−6.33%** | −6.56% |
+| Max Drawdown | **−5.87%** | −13.71% | −14.25% | −5.87% | −5.90% | −7.08% |
+| **2018 Rate Hike** (Sep–Nov 2018) | | | | | | |
+| Cumulative Return | −7.51% | −9.61% | −9.86% | −7.51% | **−6.88%** | −8.75% |
+| Max Drawdown | −12.86% | −14.33% | −14.43% | −12.86% | −13.45% | **−12.44%** |
+| **IL&FS Crisis** (Aug–Oct 2018) | | | | | | |
+| Cumulative Return | **−6.01%** | −7.91% | −7.89% | −6.01% | −8.54% | −6.42% |
+| Max Drawdown | **−13.54%** | −15.85% | −15.90% | −13.54% | −14.55% | −13.84% |
+
+AdaptiveBeta has the smallest or near-smallest drawdown in **all 4 stress events**.
+
+### Model Comparison
+
+| Model | MAE | Direction Accuracy | Notes |
+|---|---|---|---|
+| XGBoost | **0.0391** | **76.5%** | Best model — used for signal generation |
+| Static OLS Beta (60d) | 0.0477 | N/A | Rolling baseline, no direction prediction |
+| LSTM (proposed deep model) | 0.0661 | 50.4% | 230,785 params, early stopped at epoch 12 |
+| Kalman Filter | 0.0749 | N/A | State-space EM, no direction prediction |
+
+**Calibrated betavol threshold:** `0.1794` (Q70 of XGBoost training predictions)
+**VIX stress threshold:** `22.0`
+
+### Portfolio Optimiser Comparison (as of 2021-12-31)
+
+| Mode | Expected Return | Annual Vol | Sharpe | Portfolio Beta | Stocks | Max Weight |
+|---|---|---|---|---|---|---|
+| Max-Sharpe (beta-constrained) | 60.83% | 17.34% | 3.133 | 0.850 | 11 | 15.0% |
+| Min-Variance | 12.38% | 10.84% | 0.542 | 0.602 | 21 | 15.0% |
+| Risk-Parity | 12.38% | 10.84% | 0.542 | 0.602 | 21 | 15.0% |
 
 ---
 
@@ -69,157 +147,106 @@ No lookahead. 6 out-of-sample years. 0.08% round-trip transaction costs.
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/daishinkan7/ai_fintech.git
-cd ai_fintech
+git clone https://github.com/daishinkan7/fintech_adaptivebeta.git
+cd FinTech_AdaptiveBeta
 ```
 
-### 2. Install Python dependencies
+### 2. Create virtual environment
+
+```bash
+python -m venv venv
+source venv/bin/activate      # macOS/Linux
+# venv\Scripts\activate       # Windows
+```
+
+### 3. Install Python dependencies
 
 ```bash
 pip install -r requirements.txt
 
-# For GPU support (faster LSTM training — recommended):
+# Optional: GPU support for faster LSTM training
 pip install torch --index-url https://download.pytorch.org/whl/cu118
 ```
 
-### 3. Put your data files locally
+### 4. Data directory structure
 
-Create the following directory structure under the project root:
+Create the following under the project root:
 
 ```
-ai_fintech/
-└── data/
-    ├── stocks/
-    │   ├── all_stocks_prices.csv          ← daily close prices (date, RELIANCE.NS, TCS.NS, ...)
-    │   └── all_stocks_volume.csv          ← daily volume (same format)
-    ├── market/
-    │   ├── nifty50.csv                    ← daily (date, Open, High, Low, Close, Volume)
-    │   └── india_vix.csv                  ← daily (date, Open, High, Low, Close)
-    ├── macro/
-    │   ├── usdinr.csv                     ← daily (date, Open, High, Low, Close)
-    │   ├── crude_oil.csv                  ← daily WTI crude (date, Open, High, Low, Close)
-    │   ├── risk_free_rate_91d_daily.csv   ← daily (date, risk_free_rate)
-    │   └── repo_rate_daily.csv            ← daily (date, repo_rate)
-    ├── flows/
-    │   ├── fii_flows.csv                  ← monthly (date, fii_net_investment)
-    │   └── dii_flows.csv                  ← monthly (date, dii_net_investment)
-    └── sector/
-        ├── nifty_bank.csv                 ← daily (date, Open, High, Low, Close)
-        ├── nifty_it.csv                   ← daily (date, Open, High, Low, Close)
-        └── nifty_fmcg.csv                 ← daily (date, Open, High, Low, Close)
+data/
+├── stocks/
+│   ├── all_stocks_prices.csv          ← daily close prices (date, RELIANCE.NS, TCS.NS, ...)
+│   └── all_stocks_volume.csv          ← daily volume (same format)
+├── market/
+│   ├── nifty50.csv                    ← daily (date, Open, High, Low, Close, Volume)
+│   └── india_vix.csv                  ← daily (date, Open, High, Low, Close)
+├── macro/
+│   ├── usdinr.csv                     ← daily (date, Open, High, Low, Close)
+│   ├── crude_oil.csv                  ← daily WTI (date, Open, High, Low, Close)
+│   ├── risk_free_rate_91d_daily.csv   ← daily (date, risk_free_rate)
+│   └── repo_rate_daily.csv            ← daily (date, repo_rate)
+├── flows/
+│   ├── fii_flows.csv                  ← monthly (date, fii_net_investment)
+│   └── dii_flows.csv                  ← monthly (date, dii_net_investment)
+└── sector/
+    ├── nifty_bank.csv                 ← daily (date, Open, High, Low, Close)
+    ├── nifty_it.csv                   ← daily (date, Open, High, Low, Close)
+    └── nifty_fmcg.csv                 ← daily (date, Open, High, Low, Close)
 ```
 
-**All CSV files must have a `date` column** (parsed as the index). The minimum required files to start are:
-- `data/stocks/all_stocks_prices.csv`
-- `data/market/nifty50.csv`
-
-The pipeline degrades gracefully if optional files (macro, flows, sectors) are missing.
+Minimum required: `data/stocks/all_stocks_prices.csv` + `data/market/nifty50.csv`
+(macro, flows, sectors degrade gracefully if missing)
 
 ---
 
 ## Running the Pipeline
 
-### Option A — Run all 4 scripts at once (recommended)
+### Option A — One-shot master runner
 
 ```bash
-# Full pipeline (GPU auto-detected):
-python run_pipeline.py
-
-# Full pipeline on CPU only:
-python run_pipeline.py --device cpu
-
-# Fast mode — skips Kalman betas (saves ~20 min):
-python run_pipeline.py --fast
-
-# Resume from script 3 if script 1 & 2 already ran:
-python run_pipeline.py --start 3
+python run_pipeline.py               # full pipeline, auto device
+python run_pipeline.py --device cpu  # force CPU
+python run_pipeline.py --fast        # skip Kalman betas (~20 min saved)
+python run_pipeline.py --start 3     # resume from script 03
 ```
 
-### Option B — Run scripts individually (step by step)
+### Option B — Step by step
 
 ```bash
-# Step 1: Feature engineering (~5 min)
-python scripts/01_feature_engineering.py
-
-# Step 2: Train models (~30–60 min with GPU, ~2–4 hrs CPU)
-python scripts/02_train_models.py --device auto
-python scripts/02_train_models.py --device auto --fast          # skip Kalman
-python scripts/02_train_models.py --device cuda --epochs 30     # GPU, 30 epochs
-
-# Step 3: Portfolio optimisation validation (~2 min)
-python scripts/03_portfolio_optimisation.py
-
-# Step 4: Walk-forward backtest (~30 min)
-python scripts/04_backtest.py
-python scripts/04_backtest.py --fast                            # skip Kalman strategy
+python scripts/01_feature_engineering.py          # ~10 sec
+python scripts/02_train_models.py --device auto   # ~8–10 min on Apple MPS
+python scripts/03_portfolio_optimisation.py       # ~1 sec
+python scripts/04_backtest.py                     # ~25–30 min
 ```
 
 ### Script 02 CLI flags
 
 | Flag | Default | Description |
-|------|---------|-------------|
-| `--device` | `auto` | `auto` probes CUDA → MPS (Apple) → CPU |
+|---|---|---|
+| `--device` | `auto` | `auto` → CUDA → MPS (Apple Silicon) → CPU |
 | `--epochs N` | 50 | Override LSTM training epochs |
-| `--fast` | off | Skip Kalman filter betas (slow step) |
-| `--no-xgb` | off | Skip XGBoost training (and SHAP) |
+| `--fast` | off | Skip Kalman betas |
+| `--no-xgb` | off | Skip XGBoost + SHAP |
 
 ---
 
-## Output Files
+## Dashboards
 
-After running the full pipeline, these directories will be populated:
+### Option A — Plotly Dash (app.py)
 
-```
-features/
-  beta30d.csv, beta60d.csv, beta120d.csv       ← rolling OLS betas
-  betavol_30d.csv, betavol_60d.csv, ...        ← beta volatility panels
-  target_betavol_20d_ahead.csv                 ← LSTM prediction target
-  market_features.csv                          ← macro + VIX + sector features
-  stacked_features.csv                         ← per-stock features (LSTM input)
-  kalman_betas.csv                             ← Kalman-filtered betas
-  hmm_regimes.csv                              ← bull/bear/transition labels
-  optimiser_weights_*.csv                      ← validated portfolio weights
-
-models/
-  lstm_best.pt                                 ← best LSTM checkpoint
-  scaler.pkl                                   ← StandardScaler for features
-  feature_cols.txt                             ← ordered feature column list
-  signal_config.json                           ← betavol threshold + VIX level
-
-results/
-  feature_overview.png                         ← beta / betavol time series
-  shap_importance.csv / .png                   ← XGBoost SHAP feature ranks
-  lstm_training_curves.png                     ← loss / val_loss over epochs
-  hmm_regimes.png                              ← market regime timeline
-  model_comparison.csv                         ← XGB vs LSTM vs Kalman
-  signal_threshold_demo.png                    ← betavol vs threshold over time
-  optimiser_weights_chart.png                  ← top-20 holdings per mode
-  optimiser_comparison.csv                     ← expected return / vol / Sharpe
-  strategy_returns.csv                         ← daily returns (all strategies)
-  performance_metrics.csv                      ← Sharpe, Sortino, CAGR, etc.
-  stress_analysis.csv                          ← COVID / ADANI / IL&FS metrics
-  equity_curves.png                            ← cumulative wealth chart
-  drawdown_curves.png                          ← drawdown time series
-  rolling_sharpe.png                           ← 1-year rolling Sharpe
-  stress_heatmap.png                           ← heatmap of stress performance
-  monthly_returns_heatmap.png                  ← AdaptiveBeta monthly calendar
-  pipeline_run.log                             ← full pipeline log
+```bash
+python app.py
+# Opens at http://localhost:8050
 ```
 
----
-
-## Launch the Streamlit Dashboard
-
-After running the backtest (script 04):
+### Option B — Streamlit
 
 ```bash
 streamlit run dashboard.py
 # Opens at http://localhost:8501
 ```
 
----
-
-## Launch the Portfolio Website
+### Option C — Next.js Website
 
 ```bash
 cd website
@@ -228,58 +255,106 @@ npm run dev
 # Opens at http://localhost:3000
 ```
 
+See [docs/SETUP_GUIDE.md](docs/SETUP_GUIDE.md) for a comprehensive step-by-step guide covering all three interfaces.
+
+---
+
+## Output Files
+
+```
+features/
+  stacked_features.csv           ← 118,719 rows × 44 cols (per-stock LSTM input)
+  market_features.csv            ← 24 market-level features
+  beta{30,60,120}d.csv           ← rolling OLS beta panels
+  betavol_{30,60,120}d.csv       ← beta volatility panels
+  target_betavol_20d_ahead.csv   ← LSTM prediction target
+  kalman_betas.csv               ← Kalman-filtered betas (2,743 × 49)
+  hmm_regimes.csv                ← bull / bear / transition daily labels
+  optimiser_weights_*.csv        ← validated portfolio weights
+
+models/
+  lstm_best.pt                   ← best LSTM checkpoint (early stop epoch 12)
+  xgb_model.pkl                  ← fitted XGBoost model
+  scaler.pkl                     ← StandardScaler (fit on train data)
+  feature_cols.txt               ← 42 ordered feature names
+  signal_config.json             ← betavol threshold=0.1794, vix_threshold=22.0
+
+results/
+  feature_overview.png           ← beta / betavol time series
+  shap_importance.csv / .png     ← XGBoost SHAP feature ranking
+  lstm_training_curves.png       ← train/val loss over 12 epochs
+  hmm_regimes.png                ← regime timeline 2015–2026
+  signal_threshold_demo.png      ← betavol vs threshold visualisation
+  optimiser_weights_chart.png    ← top holdings per optimisation mode
+  optimiser_comparison.csv       ← expected return / vol / Sharpe by mode
+  signal_frequency.csv           ← HOLD / REBALANCE / MIN_VARIANCE counts
+  strategy_returns.csv           ← daily returns (all 6 strategies)
+  performance_metrics.csv        ← CAGR / Sharpe / Sortino / MaxDD / Calmar
+  stress_analysis.csv            ← 4 stress event metrics per strategy
+  equity_curves.png              ← cumulative wealth chart
+  drawdown_curves.png            ← underwater equity chart
+  rolling_sharpe.png             ← 1-year rolling Sharpe ratio
+  stress_heatmap.png             ← heatmap of stress performance
+  monthly_returns_heatmap_*.png  ← calendar return heatmap per strategy
+```
+
 ---
 
 ## Repository Structure
 
 ```
-adaptivebeta/
+FinTech_AdaptiveBeta/
 ├── data/                               ← PUT YOUR CSV FILES HERE
-│   ├── stocks/
-│   ├── market/
-│   ├── macro/
-│   ├── flows/
-│   └── sector/
 ├── scripts/
-│   ├── 01_feature_engineering.py      ← data loading, beta computation
-│   ├── 02_train_models.py             ← XGBoost, Kalman, LSTM, HMM
-│   ├── 03_portfolio_optimisation.py   ← optimiser validation
-│   └── 04_backtest.py                 ← walk-forward backtest engine
+│   ├── 01_feature_engineering.py
+│   ├── 02_train_models.py
+│   ├── 03_portfolio_optimisation.py
+│   └── 04_backtest.py
 ├── src/
-│   ├── config.py                      ← all constants + tickers
-│   ├── data/loader.py                 ← data loading + alignment
-│   ├── data/validator.py              ← data quality checks
-│   ├── features/returns.py            ← log return utilities
-│   ├── features/beta.py               ← rolling OLS beta + betavol
-│   ├── features/macro.py              ← market + macro feature builder
-│   ├── models/lstm.py                 ← BetaLSTM + training loop
-│   ├── models/xgboost_model.py        ← XGBoost + SHAP
-│   ├── models/kalman.py               ← Kalman filter beta
-│   ├── models/hmm_regime.py           ← HMM regime classifier
-│   ├── portfolio/signal.py            ← threshold trigger + routing
-│   ├── portfolio/optimiser.py         ← MVO, min-var, risk parity
-│   ├── portfolio/constraints.py       ← weight utilities
-│   ├── backtest/engine.py             ← WalkForwardBacktester
-│   ├── backtest/metrics.py            ← performance metrics + stress
-│   ├── backtest/transaction_costs.py  ← cost model
-│   └── utils/                         ← logging + plotting
-├── run_pipeline.py                    ← master runner (start here)
-├── dashboard.py                       ← Streamlit results dashboard
-├── requirements.txt                   ← Python dependencies
-└── website/                           ← Next.js portfolio site
+│   ├── config.py
+│   ├── data/loader.py
+│   ├── data/validator.py
+│   ├── features/returns.py
+│   ├── features/beta.py
+│   ├── features/macro.py
+│   ├── features/momentum.py
+│   ├── models/lstm.py
+│   ├── models/xgboost_model.py
+│   ├── models/kalman.py
+│   ├── models/hmm_regime.py
+│   ├── portfolio/signal.py
+│   ├── portfolio/optimiser.py
+│   ├── portfolio/constraints.py
+│   ├── backtest/engine.py
+│   ├── backtest/metrics.py
+│   ├── backtest/transaction_costs.py
+│   └── utils/
+├── features/                           ← computed feature matrices
+├── models/                             ← trained model artifacts
+├── results/                            ← charts and CSVs
+├── website/                            ← Next.js portfolio site
+├── docs/
+│   ├── SETUP_GUIDE.md                  ← comprehensive how-to-run guide
+│   └── RESULTS.md                      ← detailed latest run results
+├── run_pipeline.py                     ← master orchestrator
+├── app.py                              ← Plotly Dash dashboard
+├── requirements.txt
+└── README.md
 ```
 
 ---
 
-## Notes
+## Implementation Notes
 
 - **TMPV.NS excluded** — only 87 rows post-demerger (Oct 2025)
-- **HDFCLIFE.NS, SBILIFE.NS** — pre-IPO NaN rows handled with fillna(0) for returns
+- **HDFCLIFE.NS, SBILIFE.NS** — pre-IPO NaN rows filled with 0 returns (706 and 674 rows respectively)
 - **Crude oil 2020-04-20** — WTI went negative; clipped to 0
-- **FII/DII flows** — monthly data, forward-filled to daily
-- **Never shuffle time series** — all train/test splits are strictly chronological
-- **Ledoit-Wolf shrinkage** used for all covariance estimates (more stable than sample covariance with 49 assets)
-- All random seeds fixed at 42 for reproducibility
+- **FII/DII flows** — monthly data, forward-filled to daily (up to 1-month signal lag)
+- **Never shuffle time series** — all splits are strictly chronological
+- **Ledoit-Wolf shrinkage** used for all covariance estimates (stable with 49 assets)
+- **All random seeds fixed at 42** for reproducibility
+- **Device auto-detection**: CUDA → MPS (Apple Silicon) → CPU
+- **LSTM trained on MPS** in latest run: 230,785 parameters, early stopped at epoch 12
 
 ---
 
@@ -291,6 +366,7 @@ adaptivebeta/
 - Hochreiter, S., & Schmidhuber, J. (1997). Long short-term memory. *Neural Computation*, 9(8), 1735–1780.
 - Ledoit, O., & Wolf, M. (2004). A well-conditioned estimator for large-dimensional covariance matrices. *Journal of Multivariate Analysis*, 88(2), 365–411.
 - Ang, A., & Kristensen, D. (2012). Testing conditional factor models. *Journal of Financial Economics*, 106(1), 132–156.
+- Chen, T., & Guestrin, C. (2016). XGBoost: A scalable tree boosting system. *KDD 2016*.
 
 ---
 
@@ -298,6 +374,4 @@ adaptivebeta/
 
 MIT License — free to use, modify, and distribute.
 
----
-
-*Built as M.Tech AI & ML thesis, Symbiosis Institute of Technology, Pune, 2026.*
+*Built as M.Tech AI & ML capstone, Symbiosis Institute of Technology, Pune, 2026.*

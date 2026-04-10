@@ -2,43 +2,45 @@
 # Install: pip install -r requirements.txt
 # Or in Colab: !pip install -r requirements.txt
 
-# ── Core scientific stack ──────────────────────────────────────────────────
+# -- Core scientific stack --------------------------------------------------------
 numpy>=1.24.0
 pandas>=2.0.0
 scipy>=1.11.0
 scikit-learn>=1.3.0
 
-# ── Deep learning ──────────────────────────────────────────────────────────
+# -- Deep learning ----------------------------------------------------------------
 torch>=2.1.0
 # For GPU: pip install torch --index-url https://download.pytorch.org/whl/cu118
 
-# ── Gradient boosting + explainability ────────────────────────────────────
+# -- Gradient boosting + explainability ------------------------------------------
 xgboost>=2.0.0
 shap>=0.44.0
 
-# ── Portfolio optimisation ─────────────────────────────────────────────────
+# -- Portfolio optimisation -------------------------------------------------------
 PyPortfolioOpt>=1.5.5
 riskfolio-lib>=6.0.0
 cvxpy>=1.4.0
 
-# ── State-space & regime models ────────────────────────────────────────────
+# -- State-space & regime models --------------------------------------------------
 pykalman>=0.9.7
 hmmlearn>=0.3.0
 
-# ── Backtesting & performance ──────────────────────────────────────────────
+# -- Backtesting & performance ----------------------------------------------------
 quantstats>=0.0.62
 
-# ── Visualisation ─────────────────────────────────────────────────────────
+# -- Visualisation ----------------------------------------------------------------
 matplotlib>=3.7.0
 seaborn>=0.13.0
 plotly>=5.18.0
 
-# ── Dashboard ─────────────────────────────────────────────────────────────
+# -- Dashboards -------------------------------------------------------------------
 streamlit>=1.31.0
+dash>=2.17.0
+dash-bootstrap-components>=1.6.0
 
-# ── Data I/O ──────────────────────────────────────────────────────────────
+# -- Data I/O ---------------------------------------------------------------------
 openpyxl>=3.1.0
 
-# ── Utilities ─────────────────────────────────────────────────────────────
+# -- Utilities --------------------------------------------------------------------
 tqdm>=4.66.0
 python-dateutil>=2.8.0
