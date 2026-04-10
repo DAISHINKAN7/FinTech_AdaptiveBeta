@@ -1,6 +1,6 @@
 Model,MAE,Direction_Acc,Notes
-Static OLS Beta,0.0477,,60d rolling OLS
-Kalman Filter,0.0749,,State-space EM
+Static OLS Beta,0.0477,N/A,60d rolling OLS (no direction pred)
+Kalman Filter,0.0749,N/A,State-space EM (no direction pred)
 XGBoost,0.0391,0.765,Gradient boosting + SHAP
-LightGBM,0.0411,0.762,LightGBM (often best on tabular)
-LSTM (proposed),0.0639,0.508,Seq2One LSTM hidden=128
+LightGBM,N/A,N/A (not applicable),LightGBM (often best on tabular)
+LSTM (proposed),0.0661,0.504,Seq2One LSTM hidden=128 + direction loss
