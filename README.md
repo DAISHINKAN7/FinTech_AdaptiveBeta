@@ -6,7 +6,7 @@
 
 ## The Problem
 
-Classical CAPM assumes beta — the sensitivity of a stock's returns to market moves — is **constant**. It isn't.
+Classical CAPM assumes beta — the sensitivity of  stock's returns to market moves — is **constant**. It isn't.
 
 Beta shifts with market regimes, macro conditions, and sector rotations, often **before** the market itself moves. During the COVID crash of 2020, RELIANCE.NS beta jumped from ~1.0 to ~1.65 in six weeks. During the IL&FS crisis of 2018, NBFC sector betas surged weeks before the equity selloff.
 
