@@ -1,6 +1,7 @@
 # AdaptiveBeta: AI-Powered Dynamic Beta Prediction & Portfolio Optimisation
  
 > **Kunal Ajgaonkar** | 25070149010 | M.Tech AI & ML, Symbiosis Institute of Technology, Pune | 2026
+
 > **Krish Patel** | 25070149009 | M.Tech AI & ML, Symbiosis Institute of Technology, Pune | 2026
  
 ---
