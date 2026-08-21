@@ -18,79 +18,16 @@
 [![Next.js](https://img.shields.io/badge/Next.js-14-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org)
 [![MIT](https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge)](#-license)
 
-</div>
-
-<div align="center">
-
-<table>
-<tr>
-<td align="center" width="16.6%">
-<img src="https://img.shields.io/badge/-🛡️-0f172a?style=for-the-badge&labelColor=0f172a"/><br/>
-<h2>−17.4%</h2>
-<b>MAX DRAWDOWN</b><br/>
-<img src="https://img.shields.io/badge/rank-%231_of_6-22c55e?style=flat-square&labelColor=0f172a"/><br/>
-<sub><i>index: −38.4%</i></sub>
-</td>
-<td align="center" width="16.6%">
-<img src="https://img.shields.io/badge/-📉-0f172a?style=for-the-badge&labelColor=0f172a"/><br/>
-<h2>11.26%</h2>
-<b>ANNUAL VOL</b><br/>
-<img src="https://img.shields.io/badge/rank-%231_of_6-22c55e?style=flat-square&labelColor=0f172a"/><br/>
-<sub><i>index: 17.19%</i></sub>
-</td>
-<td align="center" width="16.6%">
-<img src="https://img.shields.io/badge/-⚖️-0f172a?style=for-the-badge&labelColor=0f172a"/><br/>
-<h2>1.047</h2>
-<b>SORTINO</b><br/>
-<img src="https://img.shields.io/badge/rank-%231_of_6-22c55e?style=flat-square&labelColor=0f172a"/><br/>
-<sub><i>index: 0.781</i></sub>
-</td>
-<td align="center" width="16.6%">
-<img src="https://img.shields.io/badge/-🎯-0f172a?style=for-the-badge&labelColor=0f172a"/><br/>
-<h2>0.532</h2>
-<b>CALMAR</b><br/>
-<img src="https://img.shields.io/badge/rank-%231_of_6-22c55e?style=flat-square&labelColor=0f172a"/><br/>
-<sub><i>index: 0.316</i></sub>
-</td>
-<td align="center" width="16.6%">
-<img src="https://img.shields.io/badge/-🧠-0f172a?style=for-the-badge&labelColor=0f172a"/><br/>
-<h2>76.5%</h2>
-<b>DIRECTIONAL ACC</b><br/>
-<img src="https://img.shields.io/badge/MAE-0.0391-8b5cf6?style=flat-square&labelColor=0f172a"/><br/>
-<sub><i>XGBoost, OOS</i></sub>
-</td>
-<td align="center" width="16.6%">
-<img src="https://img.shields.io/badge/-💰-0f172a?style=for-the-badge&labelColor=0f172a"/><br/>
-<h2>+4.24%</h2>
-<b>ALPHA</b><br/>
-<img src="https://img.shields.io/badge/β-0.40-0ea5e9?style=flat-square&labelColor=0f172a"/><br/>
-<sub><i>at 40% exposure</i></sub>
-</td>
-</tr>
-</table>
-
 <br/>
 
-### ⟶ &nbsp; [📊 Results](#-results--walk-forward-out-of-sample) &nbsp;·&nbsp; [🏗 Architecture](#-system-architecture) &nbsp;·&nbsp; [🧪 Models](#-the-model-zoo--four-families-one-benchmark) &nbsp;·&nbsp; [🔬 Rigour](#-methodological-rigour) &nbsp;·&nbsp; [⚡ Quickstart](#-quickstart) &nbsp;·&nbsp; [🖥 Demos](#-three-ways-to-explore) &nbsp; ⟵
+### ⟶ &nbsp; [📊 Results](#-results--walk-forward-out-of-sample) &nbsp;·&nbsp; [🏗 Architecture](#-system-architecture) &nbsp;·&nbsp; [🧪 Models](#-the-model-zoo--four-families-one-task) &nbsp;·&nbsp; [🔬 Rigour](#-methodological-rigour) &nbsp;·&nbsp; [⚡ Quickstart](#-quickstart) &nbsp;·&nbsp; [🖥 Demos](#-three-ways-to-explore) &nbsp; ⟵
 
 </div>
 
 ---
 
 <div align="center">
-
-```
-╔═══════════════════════════════════════════════════════════════════════════╗
-║                                                                           ║
-║     Classical CAPM assumes beta is CONSTANT.  It isn't.                    ║
-║                                                                           ║
-║     We forecast WHEN beta becomes unstable — and rebalance only then.      ║
-║                                                                           ║
-║     ⟹  half the volatility   ·   half the drawdown   ·   #1 Sortino        ║
-║                                                                           ║
-╚═══════════════════════════════════════════════════════════════════════════╝
-```
-
+<img src="assets/thesis.svg" width="100%" alt="The thesis: classical CAPM assumes beta is constant. It isn't — and we can forecast when it breaks."/>
 </div>
 
 ---
@@ -99,77 +36,43 @@
 
 **Beta** — a stock's sensitivity to the market — is the single most-used number in portfolio construction. Every mean-variance optimiser, every risk model, every hedge ratio depends on it. And nearly everyone treats it as a **constant**.
 
-It isn't. Beta drifts with regimes, macro shocks and sector rotation — and it frequently moves **before** the market does.
+**It isn't.** Here is every chart below computed directly from the price data in this repository — not illustrations, not stylised examples.
+
+<div align="center">
+<img src="assets/beta-is-not-constant.svg" width="100%" alt="Range travelled by each stock's rolling 60-day beta, 2015-2026"/>
+</div>
+
+> Every bar is one stock's rolling 60-day beta, sweeping from its minimum to its maximum over eleven years. **CAPM assumes each of those bars is a single point.** ITC travels from **−0.04 to 2.48**. SBIN from **0.57 to 2.91**. Not one name in the universe stays still.
 
 <table>
 <tr>
-<td width="33%" valign="top" align="center">
+<td width="50%" valign="top">
 
-### 📉
-**COVID CRASH · 2020**
+<img src="assets/crisis-covid-beta.svg" width="100%" alt="RELIANCE.NS rolling 60-day beta through the COVID crash"/>
 
-```
-RELIANCE.NS beta
-
-1.65 ┤              ╭────
-     │            ╭─╯
-1.40 ┤         ╭──╯
-     │      ╭──╯
-1.15 ┤   ╭──╯
-     │ ╭─╯
-1.00 ┼─╯
-     └────────────────────
-      Feb   Mar   Apr
-```
-**+65% in six weeks.**
-Your risk model was wrong the whole way down.
+**RELIANCE.NS through COVID.** Its 60-day beta ran from **0.28 to 1.68** in a matter of weeks. Any portfolio built on the January estimate was carrying roughly **six times** the intended exposure by April — and had no way of knowing.
 
 </td>
-<td width="33%" valign="top" align="center">
+<td width="50%" valign="top">
 
-### 🏦
-**IL&FS CRISIS · 2018**
+<img src="assets/res-signals.svg" width="100%" alt="Signal mix"/>
 
-```
-  NBFC sector beta
-        ▲
-        │   ╭──╮
-   β ───┼──╯   ╰──  ← beta spikes
-        │
-  ──────┼──────────
-        │    ╲
- price  │     ╲___  ← price falls
-        ▼      LATER
-```
-Beta led price by **weeks**.
-The signal was there first.
-
-</td>
-<td width="33%" valign="top" align="center">
-
-### ⚠️
-**THE CONSEQUENCE**
-
-```
-  target β  ────────────  0.85
-                ╱
-  actual β  ───╯          1.40
-            ▲
-            └─ you are here,
-               in the crisis,
-               60% more exposed
-               than you believe
-```
-Stale beta ⟹ real exposure diverges **exactly when it matters**.
+**And yet most days are quiet.** The strategy's own signal mix shows 59.6% of days need no trade at all. The problem isn't constant turbulence — it's *knowing which days are the turbulent ones*, in advance.
 
 </td>
 </tr>
 </table>
 
+<div align="center">
+<img src="assets/crisis-beta-drift.svg" width="100%" alt="Equal-weight portfolio rolling beta vs 0.85 target, 2015-2026"/>
+</div>
+
+> **This is the consequence.** An equal-weight book of the 49 constituents, targeting β = 0.85, actually drifts between **0.74 and 1.12** — up to **32% more market exposure than intended**, and the excess arrives precisely during dislocations. You believe you are running one risk profile; you are running another.
+
 > ### 💡 The core insight
-> You don't actually need to predict **beta**. You need to predict **beta *volatility*** — the instability of the exposure itself.
+> You don't need to predict **beta**. You need to predict **beta *volatility*** — the instability of the exposure itself.
 >
-> That's the quantity that tells you *when your risk model is about to be wrong* — and unlike returns, **it is genuinely forecastable**, because instability clusters. Our SHAP analysis confirms it: the top three predictors of future beta-vol are all past beta-vol.
+> That's the quantity that tells you *when your risk model is about to be wrong* — and unlike returns, **it is genuinely forecastable, because instability clusters.** The SHAP analysis further down confirms it: the three strongest predictors of future beta-vol are all *past* beta-vol.
 
 ---
 
@@ -233,42 +136,11 @@ A **VIX > 22 override** short-circuits the model in genuine panic. ML owns the a
 <td width="33%" valign="top">
 
 ### 3️⃣ Do nothing, mostly
-**59.6% HOLD days.** Transaction costs are paid only when the risk case justifies them — the structural edge over calendar rebalancing.
+**59.6% HOLD days.** Costs are paid only when the risk case justifies them — the structural edge over calendar rebalancing.
 
 </td>
 </tr>
 </table>
-
-<div align="center">
-
-<table><tr>
-<td valign="top" width="50%" align="center">
-
-**⚡ Signal distribution**
-
-```mermaid
-pie showData
-    "😴 HOLD — no trade" : 1025
-    "⚖️ REBALANCE" : 463
-    "🛡️ MIN_VARIANCE" : 231
-```
-
-</td>
-<td valign="top" width="50%" align="center">
-
-**🌀 HMM regime distribution**
-
-```mermaid
-pie showData
-    "🐻 Bear" : 1317
-    "🔄 Transition" : 1162
-    "🐂 Bull" : 260
-```
-
-</td>
-</tr></table>
-
-</div>
 
 ---
 
@@ -400,52 +272,28 @@ sequenceDiagram
 
 ---
 
-## 🧪 The Model Zoo — Four Families, One Benchmark
+## 🧪 The Model Zoo — Four Families, One Task
 
 Four model families, implemented and benchmarked on the **identical forward-looking task**: predict 20-day-ahead beta volatility.
 
 <div align="center">
-
-| | Model | MAE ⬇ | Error profile *(lower = better)* | Directional |
-|:--:|:---|:---:|:---|:---:|
-| 🏆 | **XGBoost + SHAP** | **0.0391** | `████████████░░░░░░░░░░░░░░░░░░` | **76.5%** |
-| 🥈 | Static 60d rolling OLS | 0.0477 | `███████████████░░░░░░░░░░░░░░░` | — |
-| 🥉 | LSTM · 2×128 · 230,785p | 0.0661 | `██████████████████████░░░░░░░░` | 50.4% ⚠️ |
-| 4 | Kalman filter · state-space EM | 0.0749 | `██████████████████████████████` | — |
-
+<img src="assets/res-models.svg" width="82%" alt="Model comparison: MAE and directional accuracy"/>
 </div>
 
 > ### 🔍 Honest negative result: the deep model lost.
 > The LSTM early-stopped at epoch 12 with **50.4% directional accuracy — a coin flip.**
 >
-> **Diagnosis:** with a Huber objective on a small, noisy, low-SNR financial panel, the network converged to predicting the *conditional mean* rather than learning the dynamics. Gradient boosting on well-engineered features beat it decisively — **69% lower error.**
+> **Diagnosis:** with a Huber objective on a small, noisy, low-SNR financial panel, the network converged to predicting the *conditional mean* rather than learning the dynamics. Gradient boosting on well-engineered features beat it decisively — **41% lower error.**
 >
 > This is reported, not buried. Choosing the *right* model matters more than choosing the *fanciest* one, and proving that with a controlled comparison is the point of the experiment.
 
-### 🎨 What the Model Actually Learned — SHAP Attribution
+### 🎨 What the Model Actually Learned
 
 <div align="center">
-
-| # | Feature | mean \|SHAP\| | Contribution | What it means |
-|:--:|:---|:---:|:---|:---|
-| 🥇 | `betavol_60` | **0.0280** | `██████████████████████████████` | Beta instability is **strongly autocorrelated** |
-| 🥈 | `betavol_trend` | **0.0205** | `██████████████████████` | The **direction** of instability carries signal |
-| 🥉 | `betavol_30` | **0.0132** | `██████████████` | Short-horizon confirmation |
-| 4 | `market_vol_60d` | 0.0074 | `████████` | Market-wide vol leaks into beta stability |
-| 5 | `betavol_120` | 0.0037 | `████` | Long-horizon regime anchor |
-| 6 | `combined_flow` 🇮🇳 | 0.0036 | `████` | **FII + DII flows — India-specific alpha** |
-| 7 | `beta_60_30_spread` | 0.0028 | `███` | Term structure of beta |
-| 8 | `beta_120` | 0.0023 | `██` | Structural exposure level |
-| 9 | `vix_zscore` | 0.0022 | `██` | *Normalised* fear, not raw fear |
-| 10 | `rfr` | 0.0014 | `█` | Risk-free rate backdrop |
-
+<img src="assets/res-shap.svg" width="88%" alt="SHAP feature importance, top 12 of 42"/>
 </div>
 
-> **The top three predictors are all beta-volatility measures.** Beta instability *clusters*, exactly the way return volatility clusters — that's the empirical foundation the entire strategy rests on, and SHAP confirms the model **discovered** it rather than being told.
-
-<div align="center">
-<img src="results/shap_importance.png" width="82%" alt="SHAP feature importance"/>
-</div>
+> **The top three predictors are all beta-volatility measures.** Beta instability *clusters*, exactly the way return volatility clusters — the empirical foundation the entire strategy rests on. SHAP confirms the model **discovered** it rather than being told. The one non-beta feature to crack the top six is `combined_flow` — **FII + DII activity, a genuinely India-specific signal.**
 
 <details>
 <summary><b>🧬 &nbsp;Expand: the full 42-feature universe (mindmap)</b></summary>
@@ -508,30 +356,34 @@ mindmap
 
 </div>
 
-### 🗺 Where Every Strategy Sits on the Risk/Return Map
-
-```mermaid
-quadrantChart
-    title Risk vs Return — 1,964 out-of-sample days, costs included
-    x-axis "Low Risk (11% vol)" --> "High Risk (19% vol)"
-    y-axis "Low Return (8% CAGR)" --> "High Return (18% CAGR)"
-    quadrant-1 "High risk, high return"
-    quadrant-2 "★ EFFICIENT ★"
-    quadrant-3 "Low risk, low return"
-    quadrant-4 "Inefficient"
-    "AdaptiveBeta": [0.13, 0.12]
-    "Static CAPM MVO": [0.84, 0.34]
-    "Kalman MVO": [0.85, 0.29]
-    "Equal Weight": [0.70, 0.79]
-    "Buy & Hold NIFTY": [0.72, 0.42]
-    "Momentum-Quality": [0.80, 0.95]
-```
-
-> AdaptiveBeta sits **alone on the far-left risk axis** — every other strategy is clustered at 17–18.5% volatility. It is not competing for the top-right corner; it is occupying a **risk bucket nobody else reaches**, which is exactly what a beta-targeted overlay is supposed to do.
-
-### 🏁 The Scoreboard
+### 🗺 Where Every Strategy Lands
 
 <div align="center">
+<img src="assets/res-risk-return.svg" width="100%" alt="Risk vs return scatter for all six strategies"/>
+</div>
+
+> AdaptiveBeta sits **alone on the low-risk axis.** Every other strategy clusters at 17–18.5% volatility. It is not competing for the top-right corner — it occupies a **risk bucket nobody else reaches**, which is exactly what a beta-targeted overlay is supposed to do.
+
+### 📉 The Headline: Maximum Drawdown
+
+<div align="center">
+<img src="assets/res-drawdown.svg" width="78%" alt="Maximum drawdown by strategy"/>
+</div>
+
+<table>
+<tr>
+<td width="50%"><img src="assets/res-vol.svg" width="100%" alt="Annualised volatility"/></td>
+<td width="50%"><img src="assets/res-sortino.svg" width="100%" alt="Sortino ratio"/></td>
+</tr>
+<tr>
+<td width="50%"><img src="assets/res-calmar.svg" width="100%" alt="Calmar ratio"/></td>
+<td width="50%"><img src="assets/res-cagr.svg" width="100%" alt="CAGR"/></td>
+</tr>
+</table>
+
+<div align="center">
+
+### 🏁 Full Scoreboard
 
 | Strategy | CAGR | Sharpe | Sortino | Max DD | Calmar | Ann. Vol | α | β |
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -546,82 +398,6 @@ quadrantChart
 
 </div>
 
-### 📉 Max Drawdown — The Headline Chart
-
-```
-                     ← smaller is better
-
-🛡️ AdaptiveBeta      ██████████████                          −17.36%   🥇
-   Static CAPM MVO   ████████████████████████████            −35.33%
-   Kalman-β MVO      ████████████████████████████            −35.44%
-   Equal Weight      ██████████████████████████████          −38.23%
-   Buy & Hold NIFTY  ██████████████████████████████          −38.44%
-   Momentum-Quality  ██████████████████████████████          −38.51%
-                     └────┴────┴────┴────┴────┴────┴────┘
-                     0   -8  -16  -24  -32  -40 %
-
-                     ⟹ 2.2× shallower than the index
-```
-
-<table>
-<tr>
-<td width="50%" valign="top">
-
-**📊 Annual volatility** *(lower better)*
-```
-AdaptiveBeta   ███████████████         11.26% 🥇
-Equal Weight   ███████████████████████ 17.04%
-NIFTY-50       ███████████████████████ 17.19%
-Momentum-Q     ████████████████████████ 18.03%
-Static MVO     █████████████████████████ 18.35%
-Kalman MVO     █████████████████████████ 18.48%
-```
-
-</td>
-<td width="50%" valign="top">
-
-**📈 CAGR** *(higher better)*
-```
-Momentum-Q     █████████████████████████ 17.47%
-Equal Weight   ███████████████████████  15.86%
-NIFTY-50       █████████████████        12.16%
-Static MVO     ████████████████         11.38%
-Kalman MVO     ████████████████         10.92%
-AdaptiveBeta   █████████████             9.24%
-```
-
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
-
-**⚖️ Sortino** *(higher better)*
-```
-AdaptiveBeta   █████████████████████████ 1.047 🥇
-Momentum-Q     ████████████████████████  1.028
-Equal Weight   ████████████████████████  0.992
-NIFTY-50       ███████████████████       0.781
-Static MVO     █████████████████         0.716
-Kalman MVO     ████████████████          0.676
-```
-
-</td>
-<td width="50%" valign="top">
-
-**🎯 Calmar** *(higher better)*
-```
-AdaptiveBeta   █████████████████████████ 0.532 🥇
-Momentum-Q     █████████████████████     0.454
-Equal Weight   ████████████████████      0.415
-Static MVO     ███████████████           0.322
-NIFTY-50       ███████████████           0.316
-Kalman MVO     ██████████████            0.308
-```
-
-</td>
-</tr>
-</table>
-
 <div align="center">
 <img src="results/equity_curves.png" width="49%" alt="Equity curves"/>
 <img src="results/drawdown_curves.png" width="49%" alt="Drawdown curves"/>
@@ -631,63 +407,27 @@ Kalman MVO     ██████████████            0.308
 
 ### 🧭 Reading These Results Honestly
 
-<div align="center">
+**AdaptiveBeta does not have the highest CAGR — and was never designed to.** It runs at a market beta of **0.40**, structurally ~60% less exposed than every benchmark in the table. Across a 2022–2026 window in which Indian equities generally rose, *any* defensive strategy trails a long-only book on raw return. **That is arithmetic, not underperformance.**
 
-> ## AdaptiveBeta does **not** have the highest CAGR.
-> ## It was never designed to.
-
-</div>
-
-It runs at a market beta of **0.40** — structurally **~60% less exposed** to the index than every benchmark in the table. Across a 2022–2026 window in which Indian equities generally rose, *any* defensive strategy trails a long-only book on raw return. **That is arithmetic, not underperformance.**
-
-The question that actually matters is **what you got in exchange**:
+The question that matters is what you got in exchange:
 
 <div align="center">
-
-| vs Buy & Hold NIFTY-50 | Δ | Visual |
-|:---|:---:|:---|
-| CAGR given up | −2.9 pts | `███` 🔻 |
-| **Max drawdown avoided** | **−21.1 pts** | `██████████████████████` 🟢 |
-| **Volatility removed** | **−5.9 pts** | `██████` 🟢 |
-| **Sortino gained** | **+34%** | `█████████` 🟢 |
-| **Calmar gained** | **+68%** | `██████████████████` 🟢 |
-| **Alpha generated** | **+4.24%** *at β = 0.40* | `█████` 🟢 |
-
+<img src="assets/tradeoff.svg" width="100%" alt="What AdaptiveBeta gives up versus what it gains"/>
 </div>
 
-> **Give up 2.9 points of return. Remove 21 points of drawdown.**
->
-> On a leverage-adjusted basis this is the strongest risk-adjusted book in the comparison set: an 11.26%-vol strategy *can* be levered toward benchmark volatility — a −38% drawdown **cannot be un-levered after the fact.**
+> On a leverage-adjusted basis this is the strongest risk-adjusted book in the comparison set: an 11.26%-vol strategy **can** be levered toward benchmark volatility — a −38% drawdown **cannot be un-levered after the fact.**
 
 ### 🔥 Stress Testing — The Real Test
 
-Four genuine Indian-market dislocations, all inside the walk-forward out-of-sample window.
-
-```mermaid
-timeline
-    title Stress events survived — AdaptiveBeta drawdown vs Static MVO
-    2018 Aug–Oct : IL&FS Crisis : 🛡️ −13.54% vs −15.85%
-    2018 Sep–Nov : Rate Hike Cycle : 🛡️ −12.86% vs −14.33%
-    2020 Feb–May : COVID Crash : 🛡️ −8.97% vs −35.33% ⭐
-    2023 Jan–Mar : ADANI Crisis : 🛡️ −5.87% vs −13.71%
-```
+<div align="center">
+<img src="assets/res-stress.svg" width="100%" alt="Maximum drawdown across four stress events"/>
+</div>
 
 <div align="center">
 
-### 💥 COVID Crash — max drawdown, Feb–May 2020
-
-```
-🛡️ AdaptiveBeta      ███████                                −8.97%   ⭐
-   Static CAPM MVO   ████████████████████████████          −35.33%
-   Kalman-β MVO      ████████████████████████████          −35.44%
-   Equal Weight      █████████████████████████████         −37.63%
-   Buy & Hold NIFTY  █████████████████████████████         −37.63%
-   Momentum-Quality  ██████████████████████████████        −38.51%
-
-   ⟹ a 26-POINT drawdown differential in the worst equity event of the decade
-```
-
-**The VIX override fired, min-variance engaged, and the book de-risked *while the crash was happening* — not after.**
+> ### 💥 The COVID number is the headline.
+> **−8.97%** drawdown versus **−35.33%** for standard mean-variance optimisation.
+> The VIX override fired, min-variance engaged, and the book de-risked *while the crash was happening* — not after.
 
 </div>
 
@@ -715,10 +455,6 @@ timeline
 
 </details>
 
-<div align="center">
-<img src="results/stress_heatmap.png" width="78%" alt="Stress event heatmap"/>
-</div>
-
 ### 🌀 Regime Detection & Signal Behaviour
 
 <div align="center">
@@ -728,18 +464,10 @@ timeline
 <sub><i>Left: unsupervised HMM regime timeline, 2015–2026. Right: predicted β-vol against the frozen Q70 trigger.</i></sub>
 </div>
 
-```
-   TRADING ACTIVITY — 1,719 signal days
-
-   😴 HOLD          ████████████████████████████████████  59.6%   1,025 days   ₹0 cost
-   ⚖️ REBALANCE     ████████████████                      26.9%     463 days   8 bps
-   🛡️ MIN_VARIANCE  ████████                              13.4%     231 days   8 bps
-
-   ⟹ nearly 60% of days need no trade at all — the source of the cost edge
-```
+**HMM regime distribution over the 2015–2021 training period:** 🐻 Bear 1,317 days (47.9%) · 🔄 Transition 1,162 (42.3%) · 🐂 Bull 260 (9.5%).
 
 <details>
-<summary><b>📐 &nbsp;Expand: optimiser-mode diagnostic snapshot (and why one number needs a caveat)</b></summary>
+<summary><b>📐 &nbsp;Expand: optimiser-mode diagnostic (and why one number needs a caveat)</b></summary>
 
 <br/>
 
@@ -751,7 +479,7 @@ Cross-sectional comparison of the three optimiser modes on the same covariance e
 | Min-Variance | 12.38% | 10.84% | 0.542 | 0.602 | 21 | 15.0% |
 | Risk-Parity | 12.38% | 10.84% | 0.542 | 0.602 | 21 | 15.0% |
 
-> ⚠️ **Read with care.** These are *in-sample optimiser objective values* at a single date, derived from historical mean returns — the classic Markowitz estimation-error inflation, **not realised performance**. They are included purely as an optimiser diagnostic. The realised, cost-inclusive, out-of-sample numbers are in [the scoreboard](#-the-scoreboard).
+> ⚠️ **Read with care.** These are *in-sample optimiser objective values* at a single date, derived from historical mean returns — the classic Markowitz estimation-error inflation, **not realised performance**. They are included purely as an optimiser diagnostic. The realised, cost-inclusive, out-of-sample numbers are in [the scoreboard](#-full-scoreboard).
 >
 > Risk-Parity fell back to Min-Variance weights at this date (CVXPY found no feasible risk-parity solution for that covariance conditioning) — **logged, not silently swallowed.**
 
@@ -796,6 +524,7 @@ A backtest that claims no weaknesses is a backtest nobody examined.
 - **Close-price execution** assumed; no intraday microstructure or partial-fill modelling.
 - **Fixed 8 bps cost model** does not scale with order size or liquidity conditions.
 - **Regime labels are unsupervised** — HMM states interpreted post-hoc by sorted mean return, not validated against an external regime taxonomy.
+- **Beta instability is contemporaneous, not leading.** Rolling beta in this dataset tends to peak *after* prices turn, so the strategy is best understood as a fast-reacting risk overlay rather than a crisis predictor. The COVID result comes from the VIX override firing early, not from beta forecasting the crash.
 
 </details>
 
@@ -927,6 +656,7 @@ FinTech_AdaptiveBeta/
 ├── 📂 features/        computed panels: β, β-vol, Kalman β, HMM regimes, targets
 ├── 📂 models/          xgb_model.pkl · lstm_best.pt · scaler.pkl · signal_config.json
 ├── 📂 results/         metrics CSVs + 12 publication-grade charts
+├── 📂 assets/          README chart SVGs (generated from repo data)
 ├── 📂 website/         Next.js 14 research site + interactive demo
 ├── 📂 docs/            SETUP_GUIDE.md · RESULTS.md (full run log)
 │
